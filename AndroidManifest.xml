@@ -1,0 +1,369 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+Copyright (c) 2010, University of Memphis, Carnegie Mellon University
+All rights reserved. 
+
+Redistribution and use in source and binary forms, with or without modification, are permitted provided 
+that the following conditions are met:
+ 
+    * Redistributions of source code must retain the above copyright notice, this list of conditions and 
+      the following disclaimer.
+    * Redistributions in binary form must reproduce the above copyright notice, this list of conditions 
+      and the following disclaimer in the documentation and/or other materials provided with the 
+      distribution.
+    * Neither the names of the University of Memphis and Carnegie Mellon University nor the names of its 
+      contributors may be used to endorse or promote products derived from this software without specific 
+      prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED 
+WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A 
+PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR 
+ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED 
+TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) 
+HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING 
+NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
+POSSIBILITY OF SUCH DAMAGE.
+
+Authors: Syed Monowar Hossain, Mishfaq Ahmed, Patrick Blitz, Brian French, Somnath Mitra, Mahbub Rahman, Andrew Raij
+-->
+
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="org.fieldstream"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <application
+        android:debuggable="true"
+        android:icon="@drawable/icon"
+        android:label="@string/app_name" >
+        <activity
+            android:name=".Minnesota_SmokingStudyActivity"
+            android:icon="@drawable/field"
+            android:label="Study_MN"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+			android:theme="@style/customTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.HOME" />
+                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <!--
+	    <activity android:name=".Memphis_FieldStudyActivity"  android:icon="@drawable/field" android:label="Study_Field"   android:screenOrientation="portrait" android:theme="@style/customTheme">
+<intent-filter>
+        <action android:name="android.intent.action.MAIN" />
+        <category android:name="android.intent.category.LAUNCHER" />
+           
+            <category android:name="android.intent.category.DEFAULT" />
+    </intent-filter>		</activity>
+        -->
+        <activity
+            android:name=".Minnesota_SalivaCollectionActivity"
+            android:icon="@drawable/field"
+            android:label="Set Wakeup/Sleep Time"
+            android:screenOrientation="portrait" 
+            >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".Minnesota_SilentActivity"
+            android:icon="@drawable/field"
+            android:label="Turn Off EMA"
+            android:screenOrientation="portrait" 
+            >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <!--
+  	<activity android:name=".Memphis_LabStudyActivity" android:icon="@drawable/lab" android:label="Study_Lab"  android:screenOrientation="landscape" android:theme="@style/customTheme" android:configChanges="keyboardHidden|orientation">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.DEFAULT" />
+				<category android:name="android.intent.category.LAUNCHER" />
+			</intent-filter>
+		</activity>
+		
+	  
+	  
+ <activity android:name=".DataLabelingActivity" android:label="DataLabelingWithFramework"   android:screenOrientation="portrait" android:theme="@style/customTheme">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.DEFAULT" />
+				<category android:name="android.intent.category.LAUNCHER" />
+			</intent-filter>
+	</activity>
+        -->
+        <!--
+   <activity android:name=".NIDA_FieldStudyActivity"  android:icon="@drawable/field" android:label="Study_Field"   android:screenOrientation="portrait" android:theme="@style/customTheme">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.DEFAULT" />
+				<category android:name="android.intent.category.LAUNCHER" />
+			</intent-filter>
+		</activity>
+		<activity android:name=".LabStudyActivity" android:icon="@drawable/lab" android:label="Study_Lab"  android:screenOrientation="portrait"  android:theme="@style/customTheme">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.DEFAULT" />
+				<category android:name="android.intent.category.LAUNCHER" />
+			</intent-filter>
+		</activity>	
+        -->
+
+
+        <!--
+    	<activity android:name=".JH_LabStudyActivity"  android:icon="@drawable/field" android:label="Study_JH"   android:screenOrientation="portrait"  android:theme="@style/customTheme">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.DEFAULT" />
+				<category android:name="android.intent.category.LAUNCHER" />
+			</intent-filter>
+		</activity>
+        -->
+        <activity
+            android:name=".FieldReportActivity"
+            android:label="Field Report Page"
+            android:screenOrientation="portrait" 
+            >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".SelfReportEventActivity"
+            android:label="User self Report page"
+            android:screenOrientation="portrait" 
+            >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".ChoiceActivity"
+            android:label="Intensity of the Selected Event"
+            android:screenOrientation="portrait" 
+            >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <!--
+	<activity android:name=".ContextLabeler" android:icon="@drawable/labeling" android:label="ContextLabeler"   android:screenOrientation="portrait" android:theme="@style/customTheme">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.DEFAULT" />
+				<category android:name="android.intent.category.LAUNCHER" />
+			</intent-filter>
+	</activity>
+	
+	<activity android:name=".Main" android:icon="@drawable/labeling" android:label="Alarm"   android:screenOrientation="portrait" android:theme="@style/customTheme">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.DEFAULT" />
+				<category android:name="android.intent.category.LAUNCHER" />
+			</intent-filter>
+	</activity>
+        -->
+        <activity
+            android:name=".JH_SelfReportEventActivity"
+            android:label="User self Report page"
+            android:screenOrientation="portrait"
+            android:theme="@style/customTheme" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".NIDA_SelfReportEventActivity"
+            android:label="User self Report page"
+            android:screenOrientation="portrait" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".Memphis_SelfReportEventActivity"
+            android:label="User self Report page"
+            android:screenOrientation="portrait" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".FixBandProblemActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".StressInferenceSetup"
+            android:icon="@drawable/setup"
+            android:label="Study Setup"
+            android:screenOrientation="portrait" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <!--
+        activity android:name=".stressInference" android:label="@string/app_name">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.LAUNCHER" />
+			</intent-filter>
+		</activity
+        -->
+        <activity
+            android:name=".gui.ema.Interview"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <!--
+        activity android:name=".gui.ema.SetTime" android:label="@string/app_name">
+			<intent-filter>
+				<action android:name="android.intent.action.VIEW" />
+				<category android:name="android.intent.category.DEFAULT" />
+			</intent-filter>
+		</activity
+        -->
+
+        <activity
+            android:name=".oscilloscope.OscilloscopeActivity"
+            android:label="Oscilloscope"
+            android:screenOrientation="portrait" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".oscilloscope.ECGRIPOscilloscopeActivity"
+            android:label="ECGRIPOscilloscope"
+            android:screenOrientation="portrait" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <!-- <activity android:name=".gui.ema.InterviewScheduler" -->
+        <!-- android:label="@string/app_name"> -->
+        <!-- <intent-filter> -->
+<!-- 			<action android:name="android.intent.action.VIEW" /> -->
+<!-- 			<category android:name="android.intent.category.DEFAULT" /> -->
+        <!-- </intent-filter> -->
+        <!-- </activity> -->
+        <activity
+            android:name=".gui.ema.test.InterviewScheduler_TEST"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+<!-- 			<activity android:name=".monitor.test.MonitorService_TEST" -->
+        <!-- android:label="@string/app_name"> -->
+        <!-- <intent-filter> -->
+<!-- 			<action android:name="android.intent.action.VIEW" /> -->
+<!-- 			<category android:name="android.intent.category.DEFAULT" /> -->
+        <!-- </intent-filter> -->
+        <!-- </activity> -->
+
+        <service android:name=".service.InferrenceService" />
+        <!-- <service android:name=".monitor.MonitorService"/> -->
+        <service android:name=".gui.ema.InterviewScheduler" />
+        <service android:name=".gui.ema.test.TestService" />
+
+        <activity
+            android:name="NetworkSetup"
+            android:label="Set Sensor ID"            
+            android:screenOrientation="portrait" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="DeadPeriodSetup"
+            android:screenOrientation="portrait" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="Minnesota_DeadPeriodSetup"
+            android:screenOrientation="portrait" 
+            android:label="Set Study Start Time and Sleep Time"
+            >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        
+    </application>
+
+    <uses-sdk android:minSdkVersion="7" android:targetSdkVersion="7" />
+
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_OWNER_DATA" />
+    <uses-permission android:name="android.permission.READ_OWNER_DATA" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
+    <uses-permission android:name="com.dsi.ant.permission.ANT" />
+    <uses-permission android:name="com.dsi.ant.permission.ANT_ADMIN" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+	<uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
+	<uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE"/>
+	
+	<uses-permission android:name="android.permission.BLUETOOTH"/>
+	<uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
+	
+</manifest>

@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+Copyright (c) 2010, University of Memphis
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without modification, are permitted provided 
+that the following conditions are met:
+
+    * Redistributions of source code must retain the above copyright notice, this list of conditions and 
+      the following disclaimer.
+    * Redistributions in binary form must reproduce the above copyright notice, this list of conditions 
+      and the following disclaimer in the documentation and/or other materials provided with the 
+      distribution.
+    * Neither the name of the University of Memphis nor the names of its contributors may be used to 
+      endorse or promote products derived from this software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED 
+WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A 
+PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR 
+ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED 
+TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) 
+HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING 
+NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
+POSSIBILITY OF SUCH DAMAGE.
+
+Authors: Somnath Mitra, Andrew Raij
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:baselineAligned="false"
+    android:orientation="vertical" >
+    <TableLayout
+        android:id="@+id/TableLayoutANT"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.50"
+        android:stretchColumns="1" >
+
+        <TableRow
+            android:id="@+id/TableRowANTRIPECG"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/textANTRIPECG"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+		        android:textSize="20dip"                
+                android:text="ID (RIPECG): " >
+            </TextView>
+        <EditText
+            android:id="@+id/edittextRIPECG"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+	        android:textSize="20dip"            
+            android:inputType="text">
+
+            <requestFocus />
+        </EditText>
+
+        </TableRow>
+        <TableRow
+            android:id="@+id/TableRowANT9LEFT"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/textANTWL"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+		        android:textSize="20dip"                
+                android:text="ID (Wrist Left): " >
+            </TextView>
+        <EditText
+            android:id="@+id/edittextNineAxisLeft"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+	        android:textSize="20dip"            
+            android:inputType="text">
+
+            <requestFocus />
+        </EditText>
+
+        </TableRow>
+        <TableRow
+            android:id="@+id/TableRowANT9RIGHT"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/textANTWR"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+		        android:textSize="20dip"                
+                android:text="ID (Wrist Right): " >
+            </TextView>
+        <EditText
+            android:id="@+id/edittextNineAxisRight"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+	        android:textSize="20dip"            
+            android:inputType="text">
+
+            <requestFocus />
+        </EditText>
+
+        </TableRow>
+        
+    </TableLayout>
+    
+<!--  
+    <TextView
+        android:paddingTop="15sp"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/text1name"        
+        android:textSize="20dip"
+        android:text="Enter ANT ID (Alcohol Sensor)" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+        
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.21"
+            android:gravity="center"
+            android:text="0x"
+	        android:textSize="20dip"
+            android:id="@+id/text10x"            
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+        
+	    <EditText
+	        android:id="@+id/edittext2"
+	        android:layout_width="173dp"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="1"
+	        android:textSize="20dip"
+	        android:inputType="text" />
+    </LinearLayout>
+    
+    <TextView
+        android:paddingTop="15sp"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/text2name"        
+        android:textSize="20dip"
+        android:text="Enter ANT ID (Alcohol ACCL Right Hand)" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+	    
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.21"
+            android:gravity="center"
+            android:text="0x"
+	        android:textSize="20dip"
+            android:id="@+id/text20x"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+        
+	    <EditText
+	        android:id="@+id/edittextAlcoholAcclRight"
+	        android:layout_width="173dp"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="1"
+	        android:inputType="text" />
+    </LinearLayout>
+    
+    <TextView
+        android:paddingTop="15sp"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/text3name"        
+        android:textSize="20dip"
+        android:text="Enter ANT ID (Alcohol ACCL Left Hand)" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+	    
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.21"
+            android:gravity="center"
+            android:text="0x"
+	        android:textSize="20dip"
+            android:id="@+id/text30x"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+        
+	    <EditText
+	        android:id="@+id/edittextAlcoholAcclLeft"
+	        android:layout_width="173dp"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="1"
+	        android:textSize="20dip"
+	        android:inputType="text" />
+    </LinearLayout>
+    
+    
+    
+    
+    
+    
+    
+    <TextView
+        android:paddingTop="15sp"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/text4name"
+        android:textSize="20dip"
+        android:text="Enter ANT ID (9-Axis Right Hand)" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+	    
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.21"
+            android:gravity="center"
+            android:text="0x"
+	        android:textSize="20dip"
+            android:id="@+id/text40x"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+        
+	    <EditText
+	        android:id="@+id/edittextNineAxisRight"
+	        android:layout_width="173dp"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="1"
+	        android:textSize="20dip"
+	        android:inputType="text" />
+    </LinearLayout>
+    
+    <TextView
+        android:paddingTop="15sp"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/text5name"
+        android:textSize="20dip"
+        android:text="Enter ANT ID (9-Axis Left Hand)" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+	    
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.21"
+            android:gravity="center"
+            android:text="0x"
+	        android:textSize="20dip"
+            android:id="@+id/text50x"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+        
+	    <EditText
+	        android:id="@+id/edittextNineAxisLeft"
+	        android:layout_width="173dp"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="1"
+	        android:textSize="20dip"
+	        android:inputType="text" />
+    </LinearLayout>
+    -->
+    <TableLayout
+        android:id="@+id/SleepingTableLayout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:stretchColumns="0,1" >
+
+        <TableRow
+            android:id="@+id/TableRow05"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" >
+
+            <Button
+                android:id="@+id/BackDeadPeriod"
+                android:background="@drawable/button_red"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+		        style="@style/button_text"                
+                android:text="Back" >
+            </Button>
+
+            <Button
+                android:id="@+id/SaveDeadPeriod"
+                android:background="@drawable/button_red"                
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+		        style="@style/button_text"                
+                android:text="Save" >
+            </Button>
+        </TableRow>
+    </TableLayout>
+</LinearLayout>

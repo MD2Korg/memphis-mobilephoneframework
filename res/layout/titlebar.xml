@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="horizontal" >
+<!--
+<TextView
+    android:id="@+id/myTitle"
+    android:layout_width="wrap_content"
+    android:layout_height="fill_parent"
+    android:padding="3px"
+    android:text="Study Name"
+    android:textStyle="bold" android:width="170dp"/>
+
+<TextView android:id="@+id/status"
+    android:layout_width="wrap_content" android:layout_height="fill_parent"
+    android:text="Connection Status:"  android:textStyle="bold"
+    android:padding="3px" android:width="150dp" android:gravity="right"/>
+-->
+<TextView
+    android:id="@+id/txtLeftMoteTitle"
+    android:layout_width="wrap_content"
+    android:layout_height="fill_parent"
+    android:padding="3dp"
+    android:layout_marginRight="3dp"
+    android:text="L-Hand"
+    android:background="#FFFF00"
+    android:textColor="#000000"
+    android:gravity="center"
+    android:textStyle="bold"
+    android:width="80dp"/>
+
+<TextView
+    android:id="@+id/txtRipTitle"
+    android:layout_width="wrap_content"
+    android:layout_height="fill_parent"
+    android:padding="3dp"
+    android:layout_marginRight="3dp"
+    android:text="RIP"
+    android:background="#FFFF00"
+    android:textColor="#000000"
+    android:gravity="center"
+    android:textStyle="bold"
+    android:width="80dp"/>
+
+<TextView
+    android:id="@+id/txtEcgTitle"
+    android:layout_width="wrap_content"
+    android:layout_height="fill_parent"
+    android:padding="3dp"
+    android:layout_marginRight="3dp"
+    android:text="ECG"
+    android:background="#FFFF00"
+    android:textColor="#000000"
+    android:gravity="center"
+    android:textStyle="bold"
+    android:width="80dp"/>
+
+<TextView
+    android:id="@+id/txtRightMoteTitle"
+    android:layout_width="wrap_content"
+    android:layout_height="fill_parent"
+    android:padding="3px"
+    android:text="R-Hand"
+    android:background="#FFFF00"
+    android:textColor="#000000"
+    android:gravity="center"
+    android:textStyle="bold"
+    android:width="80dp"/>
+
+</LinearLayout>
+<!-- 
+<?xml version="1.0" encoding="utf-8"?> 
+<TextView 
+  xmlns:android="http://schemas.android.com/apk/res/android" 
+  android:id="@+id/myTitle" 
+  android:text="This is my new title" 
+  android:layout_width="fill_parent" 
+  android:layout_height="fill_parent" 
+  android:layout_marginLeft="25px"
+  android:paddingTop="3px" 
+/> 
+ -->
+ 

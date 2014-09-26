@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<fieldstream>
+	<alarmduration>60</alarmduration>
+	<repeatalarm>2</repeatalarm>
+	<diffbetweenalarms>300</diffbetweenalarms>
+	<alarm><time>wakeup</time><ema>1</ema><emaquestions>saliva_ema_questions.xml</emaquestions></alarm>
+	<alarm><time>wakeup,30</time><ema>1</ema><emaquestions>saliva_questions.xml</emaquestions></alarm>
+	<alarm><time>wakeup,60</time><ema>1</ema><emaquestions>saliva_ema_questions.xml</emaquestions></alarm>
+	<alarm><time>wakeup,120</time><ema>1</ema><emaquestions>saliva_questions.xml</emaquestions></alarm>
+	<alarm><time>wakeup,180</time><ema>1</ema><emaquestions>saliva_questions.xml</emaquestions></alarm>
+	<alarm><time>14:00</time><ema>1</ema><emaquestions>saliva_ema_questions.xml</emaquestions></alarm>
+	<alarm><time>20:00</time><ema>1</ema><emaquestions>saliva_questions.xml</emaquestions></alarm>
+	<alarm><time>sleep</time><ema>1</ema><emaquestions>saliva_ema_questions.xml</emaquestions></alarm>
+</fieldstream>

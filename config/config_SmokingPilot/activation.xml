@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<fieldstream>
+	<activation>
+		<startup>
+			<mote>MOTE_RIPECG</mote>
+			<mote>MOTE_9_AXIS_RIGHT</mote>
+			<mote>MOTE_9_AXIS_LEFT</mote>
+			<model>MODEL_SELF_CRAVING</model>
+			<model>MODEL_SELF_SMOKING</model>
+			<sensor>SENSOR_ACCELCHESTX</sensor>
+			<sensor>SENSOR_ACCELCHESTY</sensor>
+			<sensor>SENSOR_ACCELCHESTZ</sensor>
+			<sensor>SENSOR_ACCELPHONEX</sensor>									
+			<sensor>SENSOR_ACCELPHONEY</sensor>									
+			<sensor>SENSOR_ACCELPHONEZ</sensor>									
+			<sensor>SENSOR_BODY_TEMP</sensor>
+			<sensor>SENSOR_AMBIENT_TEMP</sensor>
+			<sensor>SENSOR_GSR</sensor>
+			<sensor>SENSOR_RIP</sensor>			
+			<sensor>SENSOR_ECK</sensor>						
+			<sensor>SENSOR_ACCELPHONEMAG</sensor>
+			<sensor>SENSOR_COMPASSPHONEX</sensor>
+			<sensor>SENSOR_COMPASSPHONEY</sensor>		
+			<sensor>SENSOR_COMPASSPHONEZ</sensor>
+			<sensor>SENSOR_BATTERY_LEVEL</sensor>
+			
+			<sensor>SENSOR_NINE_AXIS_RIGHT_ACCL_X</sensor>
+			<sensor>SENSOR_NINE_AXIS_RIGHT_ACCL_Y</sensor>
+			<sensor>SENSOR_NINE_AXIS_RIGHT_ACCL_Z</sensor>
+			<sensor>SENSOR_NINE_AXIS_RIGHT_GYRO_X</sensor>
+			<sensor>SENSOR_NINE_AXIS_RIGHT_GYRO_Y</sensor>
+			<sensor>SENSOR_NINE_AXIS_RIGHT_GYRO_Z</sensor>
+			<sensor>SENSOR_NINE_AXIS_LEFT_ACCL_X</sensor>
+			<sensor>SENSOR_NINE_AXIS_LEFT_ACCL_Y</sensor>
+			<sensor>SENSOR_NINE_AXIS_LEFT_ACCL_Z</sensor>
+			<sensor>SENSOR_NINE_AXIS_LEFT_GYRO_X</sensor>
+			<sensor>SENSOR_NINE_AXIS_LEFT_GYRO_Y</sensor>
+			<sensor>SENSOR_NINE_AXIS_LEFT_GYRO_Z</sensor>
+		</startup>
+						
+		<runtime>
+		</runtime>
+	</activation>
+</fieldstream>

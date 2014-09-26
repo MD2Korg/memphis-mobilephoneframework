@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--AbsoluteLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="fill_parent" android:layout_height="fill_parent"-->
+<LinearLayout android:id="@+id/LinearLayout01" android:layout_width="fill_parent" android:layout_height="fill_parent" xmlns:android="http://schemas.android.com/apk/res/android" android:orientation="vertical">    
+<TextView android:text="Press the appropirate button according to the context" android:id="@+id/MessageTextView" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textSize="20dip"></TextView>
+<View android:layout_width="fill_parent" android:layout_height="12dip" android:background="#00FFFFFF" /> 
+
+<TableLayout android:id="@+id/MarkingTableLayout" android:stretchColumns="1,2" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_weight="2">
+
+		<TableRow android:id="@+id/TableRow02" android:layout_width="fill_parent" android:layout_height="wrap_content">
+			<Button android:layout_height="wrap_content" android:layout_width="wrap_content" android:layout_y="142dip" android:id="@+id/SmokingStart" android:text="Smoking Start " android:layout_x="100dip"></Button>
+			<View android:layout_width="fill_parent" android:layout_height="12dip" android:background="#00FFFFFF" /> 
+			<View android:layout_width="fill_parent" android:layout_height="12dip" android:background="#00FFFFFF" />
+			<Button android:layout_height="wrap_content" android:layout_width="wrap_content" android:layout_y="242dip" android:id="@+id/SmokingEnd" android:text="Smoking End" android:layout_x="100dip"></Button>
+		</TableRow>
+		
+		<TableRow android:id="@+id/TableRow02" android:layout_width="fill_parent" android:layout_height="wrap_content">
+			<Button android:layout_height="wrap_content" android:layout_width="wrap_content" android:layout_y="142dip" android:id="@+id/FastWalking" android:text="Fast Walking " android:layout_x="100dip"></Button>
+			<View android:layout_width="fill_parent" android:layout_height="12dip" android:background="#00FFFFFF" /> 
+			<View android:layout_width="fill_parent" android:layout_height="12dip" android:background="#00FFFFFF" />
+			<Button android:layout_height="wrap_content" android:layout_width="wrap_content" android:layout_y="242dip" android:id="@+id/SlowWalking" android:text="Slow Walking" android:layout_x="100dip"></Button>
+		</TableRow>
+
+		<TableRow android:id="@+id/TableRow02" android:layout_width="fill_parent" android:layout_height="wrap_content">
+			<Button android:layout_height="wrap_content" android:layout_width="wrap_content" android:layout_y="142dip" android:id="@+id/Sitting" android:text="Sitting " android:layout_x="100dip"></Button>
+			<View android:layout_width="fill_parent" android:layout_height="12dip" android:background="#00FFFFFF" /> 
+			<View android:layout_width="fill_parent" android:layout_height="12dip" android:background="#00FFFFFF" />
+			<Button android:layout_height="wrap_content" android:layout_width="wrap_content" android:layout_y="242dip" android:id="@+id/Standing" android:text="Standing" android:layout_x="100dip"></Button>
+		</TableRow>
+<!--  					
+		<TableRow android:id="@+id/TableRow01" android:layout_width="fill_parent" android:layout_height="wrap_content">
+			
+			<View android:layout_width="fill_parent" android:layout_height="12dip" android:background="#00FFFFFF" />
+			<View android:layout_width="fill_parent" android:layout_height="12dip" android:background="#00FFFFFF" /> 
+		
+		</TableRow>
+-->		
+
+		<TableRow android:id="@+id/TableRow02" android:layout_width="fill_parent" android:layout_height="wrap_content">
+			<Button android:layout_height="wrap_content" android:layout_width="wrap_content" android:layout_y="142dip" android:id="@+id/Lying" android:text="Lying " android:layout_x="100dip"></Button>
+			<View android:layout_width="fill_parent" android:layout_height="12dip" android:background="#00FFFFFF" /> 
+			<View android:layout_width="fill_parent" android:layout_height="12dip" android:background="#00FFFFFF" />
+			<Button android:layout_height="wrap_content" android:layout_width="wrap_content" android:layout_y="242dip" android:id="@+id/Running" android:text="Running" android:layout_x="100dip"></Button>
+		</TableRow>
+
+		<TableRow android:id="@+id/TableRow02" android:layout_width="fill_parent" android:layout_height="wrap_content">
+			<Button android:layout_height="wrap_content" android:layout_width="wrap_content" android:layout_y="142dip" android:id="@+id/Eating" android:text="Eating " android:layout_x="100dip"></Button>
+			<View android:layout_width="fill_parent" android:layout_height="12dip" android:background="#00FFFFFF" /> 
+			<View android:layout_width="fill_parent" android:layout_height="12dip" android:background="#00FFFFFF" />
+			<Button android:layout_height="wrap_content" android:layout_width="wrap_content" android:layout_y="242dip" android:id="@+id/Drinking" android:text="Drinking" android:layout_x="100dip"></Button>
+		</TableRow>
+				
+		<TableRow android:id="@+id/TableRow02" android:layout_width="fill_parent" android:layout_height="wrap_content">
+			<Button android:layout_height="wrap_content" android:layout_width="wrap_content" android:layout_y="42dip" android:id="@+id/Stair" android:text="    Stair    " android:layout_x="100dip"></Button>
+		    <View android:layout_width="fill_parent" android:layout_height="12dip" android:background="#00FFFFFF" />
+			<View android:layout_width="fill_parent" android:layout_height="12dip" android:background="#00FFFFFF" />
+			<Button android:layout_height="wrap_content" android:layout_width="wrap_content" android:layout_y="42dip" android:id="@+id/PuffStart" android:text="    Puff Start    " android:layout_x="100dip"></Button> 
+		</TableRow>
+		
+		<TableRow android:id="@+id/TableRow02" android:layout_width="fill_parent" android:layout_height="wrap_content">
+			<Button android:layout_height="wrap_content" android:layout_width="wrap_content" android:layout_y="42dip" android:id="@+id/DrivingStart" android:text=" Driving Start " android:layout_x="100dip"></Button>
+		    <View android:layout_width="fill_parent" android:layout_height="12dip" android:background="#00FFFFFF" />
+			<View android:layout_width="fill_parent" android:layout_height="12dip" android:background="#00FFFFFF" />
+			<Button android:layout_height="wrap_content" android:layout_width="wrap_content" android:layout_y="42dip" android:id="@+id/DrivingEnd" android:text=" Driving End " android:layout_x="100dip"></Button> 
+		</TableRow>
+		
+<!--  	
+		<TableRow android:id="@+id/TableRow01" android:layout_width="fill_parent" android:layout_height="wrap_content">
+			<TextView android:id="@+id/TextView01" 	android:layout_x="50px"	android:layout_y="350px" android:text="Any Comments?" android:layout_width="wrap_content"	android:layout_height="wrap_content" />
+			<View android:layout_width="fill_parent" android:layout_height="12dip" android:background="#00FFFFFF" />
+			<EditText android:id="@+id/editText1" android:layout_width="wrap_content" android:layout_height="wrap_content" >  <requestFocus /> </EditText>
+		</TableRow>
+-->			
+		<TableRow android:id="@+id/TableRow02" android:layout_width="fill_parent" android:layout_height="wrap_content">
+			<!-- Button android:layout_height="wrap_content" android:layout_width="wrap_content" android:layout_y="42dip" android:id="@+id/PacingStart" android:text="    Pacing Start    " android:layout_x="100dip"></Button-->
+			<View android:layout_width="fill_parent" android:layout_height="12dip" android:background="#00FFFFFF" />
+			<Button android:layout_height="wrap_content" android:layout_width="wrap_content" android:layout_y="42dip" android:id="@+id/Cancel" android:text="    Cancel    " android:layout_x="100dip"></Button>
+			<View android:layout_width="fill_parent" android:layout_height="12dip" android:background="#00FFFFFF" /> 
+			<!-- Button android:layout_height="wrap_content" android:layout_width="wrap_content" android:layout_y="42dip" android:id="@+id/PacingEnd" android:text="    Pacing End    " android:layout_x="100dip"></Button-->
+		</TableRow>
+		
+		<TableRow android:id="@+id/TableRow01" android:layout_width="fill_parent" android:layout_height="wrap_content">
+			<View android:layout_width="fill_parent" android:layout_height="12dip" android:background="#00FFFFFF" />
+			<View android:layout_width="fill_parent" android:layout_height="12dip" android:background="#00FFFFFF" /> 
+		</TableRow>
+		
+		<!-- TableRow android:id="@+id/TableRow01" android:layout_width="fill_parent" android:layout_height="wrap_content">
+			
+			<Button android:text="SpeakingStart" android:layout_y="41dip" android:layout_x="338dip" android:id="@+id/SpeakingStart" android:layout_height="wrap_content" android:layout_width="wrap_content"></Button>
+			<View android:layout_width="fill_parent" android:layout_height="12dip" android:background="#00FFFFFF" />
+			<View android:layout_width="fill_parent" android:layout_height="12dip" android:background="#00FFFFFF" /> 
+			<Button android:text="Speaking End" android:layout_y="145dip" android:layout_x="329dip" android:id="@+id/ListeningStart" android:layout_height="wrap_content" android:layout_width="wrap_content"></Button>
+		
+		</TableRow-->
+		
+		
+		<TableRow android:id="@+id/TableRow01" android:layout_width="fill_parent" android:layout_height="wrap_content">
+			
+			<View android:layout_width="fill_parent" android:layout_height="12dip" android:background="#00FFFFFF" />
+			<View android:layout_width="fill_parent" android:layout_height="12dip" android:background="#00FFFFFF" /> 
+		
+		</TableRow>
+		
+		<!-- TableRow android:id="@+id/TableRow01" android:layout_width="fill_parent" android:layout_height="wrap_content">
+			
+			<View android:layout_width="fill_parent" android:layout_height="12dip" android:background="#00FFFFFF" />
+			<Button android:text="Qeuit" android:layout_y="41dip" android:layout_x="338dip" android:id="@+id/QuietStart" android:layout_height="wrap_content" android:layout_width="wrap_content"></Button>
+			<View android:layout_width="fill_parent" android:layout_height="12dip" android:background="#00FFFFFF" /> 
+		
+		</TableRow-->
+
+<TextView android:id="@+id/TextView01" 	android:layout_x="50px"	android:layout_y="350px" android:text="Time of the current context" android:layout_width="wrap_content"	android:layout_height="wrap_content" />
+
+
+</TableLayout>
+</LinearLayout>
+<!--/AbsoluteLayout-->

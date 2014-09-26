@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<fieldstream>
+	<emaconfig>
+		<min_time_between_ema>15</min_time_between_ema>
+		<max_number_emas>20</max_number_emas>
+		<periodic_ema_interval>35</periodic_ema_interval>
+		<event_triggered_ema>			
+			<event>
+				<model>MODEL_SELF_SMOKING</model>
+				<budget>10</budget>
+				<expected_number>10</expected_number>
+			</event>
+		</event_triggered_ema>
+	</emaconfig>
+</fieldstream>

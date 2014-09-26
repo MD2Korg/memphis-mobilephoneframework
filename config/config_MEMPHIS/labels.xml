@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<fieldstream>
+	<DataLabeling>
+		<button>BriskWalkStart</button>
+		<button>DeepBreathStart</button>
+		<button>DeepLongBreathstart</button>
+		<button>QuickBreathStart</button>
+		<button>BreathOutAndHoldstart</button>
+		<button>breathoutandholdStart</button>
+		<button>LongBreathOutStart</button>
+		<button>RemoveLstLabel</button>
+	</DataLabeling>
+</fieldstream>

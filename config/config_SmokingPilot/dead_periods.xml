@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<fieldstream>
+	<deadperiods>
+		<period type="quiet" start="1390074136853" end="1390074256853" />
+		<period type="off" start="1390107629554" end="1390147229554" />
+	</deadperiods>
+</fieldstream>
