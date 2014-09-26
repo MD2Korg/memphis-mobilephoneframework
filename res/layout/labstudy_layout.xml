@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+android:id="@+id/LL1"
+android:layout_width="fill_parent"
+android:layout_height="fill_parent"
+android:orientation="vertical"
+xmlns:android="http://schemas.android.com/apk/res/android"
+android:layout_gravity="center_vertical|fill_vertical|center_horizontal|fill_horizontal" android:gravity="center_vertical|fill_vertical|center_horizontal|fill_horizontal">
+<TableLayout
+android:id="@+id/TL11"
+android:layout_width="fill_parent"
+android:layout_height="68px"
+android:background="#ff000f16"
+android:orientation="vertical"
+>
+<TableRow
+android:id="@+id/TR111"
+android:layout_width="fill_parent"
+android:layout_height="wrap_content"
+android:orientation="horizontal"
+>
+<TextView
+android:id="@+id/TV_studytext"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:text="Study Name:" android:textColor="#ff6699ff">
+</TextView>
+<TextView
+android:id="@+id/TV_studyname"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:text="studyname"
+android:textStyle="bold"
+>
+</TextView>
+</TableRow>
+<TableRow
+android:id="@+id/TR112"
+android:layout_width="fill_parent"
+android:layout_height="wrap_content"
+android:orientation="horizontal"
+>
+<TextView
+android:id="@+id/TV_sessiontext"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:text="Session Name:"
+android:textColor="#ff1d9624">
+</TextView>
+<TextView
+android:id="@+id/TV_sessionname"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:text="sessionname"
+android:textStyle="bold"
+>
+</TextView>
+</TableRow>
+<TableRow
+android:id="@+id/TR113"
+android:layout_width="fill_parent"
+android:layout_height="wrap_content"
+android:orientation="horizontal"
+>
+<TextView
+android:id="@+id/eventordertext"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:text="Event Order:"
+android:textColor="#ffffff99">
+</TextView>
+<TextView
+android:id="@+id/TV_eventorder"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:text="eventorder"
+android:textStyle="bold"
+>
+</TextView>
+</TableRow>
+</TableLayout>
+<LinearLayout
+android:id="@+id/LL12"
+android:layout_width="fill_parent"
+android:layout_height="2px"
+android:background="#ffcccccc"
+android:orientation="vertical"
+>
+</LinearLayout>
+<LinearLayout
+android:id="@+id/LL13"
+android:layout_width="fill_parent"
+android:layout_height="260px"
+android:orientation="vertical"
+android:background="#ff101f25"
+>
+<TextView
+android:id="@+id/TV_temp"
+android:layout_width="fill_parent"
+android:layout_height="40px"
+android:text=""
+android:gravity="center"
+>
+</TextView>
+<RelativeLayout
+android:id="@+id/RL1234"
+android:layout_width="fill_parent"
+android:layout_height="48px"
+>
+
+<TextView
+android:id="@+id/TV_taskname"
+android:layout_width="fill_parent"
+android:layout_height="wrap_content"
+android:textSize="20sp"
+android:text="taskname"
+android:gravity="center" android:textStyle="bold">
+</TextView>
+<Spinner
+android:id="@+id/S_list_unorderd_event"
+android:layout_width="fill_parent"
+android:layout_height="42px"
+android:layout_alignParentTop="true"
+android:layout_alignParentLeft="true"
+>
+</Spinner>
+</RelativeLayout>
+<TextView
+android:id="@+id/TV_taskstatus"
+android:layout_width="fill_parent"
+android:layout_height="wrap_content"
+android:text="taskstatus"
+android:gravity="center"
+android:textSize="16sp"
+android:textColor="#fff90606"
+>
+</TextView>
+<TextView
+android:id="@+id/TV_taskinfo"
+android:layout_width="fill_parent"
+android:layout_height="wrap_content"
+android:text=""
+android:textStyle="italic"
+android:gravity="center"
+>
+</TextView>
+<RelativeLayout
+android:id="@+id/RL134"
+android:layout_width="fill_parent"
+android:layout_height="48px"
+>
+<Button
+android:id="@+id/B_event"
+android:layout_width="fill_parent"
+android:layout_height="wrap_content"
+android:text="Button"
+android:layout_alignParentTop="true"
+android:layout_alignParentLeft="true"
+>
+</Button>
+<Spinner
+android:id="@+id/S_list_session_event"
+android:layout_width="fill_parent"
+android:layout_height="42px"
+android:layout_alignParentTop="true"
+android:layout_alignParentLeft="true"
+>
+</Spinner>
+</RelativeLayout>
+<TextView
+android:id="@+id/TV_instruction"
+android:layout_width="fill_parent"
+android:layout_height="wrap_content"
+android:text=""
+android:textStyle="italic"
+android:gravity="center"
+>
+</TextView>
+<RelativeLayout
+android:id="@+id/RL141"
+android:layout_width="fill_parent"
+android:layout_height="40px"
+android:layout_weight=".1"
+android:layout_gravity="bottom"
+>
+<Button
+android:id="@+id/B_left"
+android:layout_width="120px"
+android:layout_height="wrap_content"
+android:text="Button"
+android:layout_alignParentBottom="true"
+android:layout_alignParentLeft="true"
+>
+</Button>
+<Button
+android:id="@+id/B_right"
+android:layout_width="120px"
+android:layout_height="wrap_content"
+android:text="Button"
+android:layout_alignParentBottom="true"
+android:layout_alignParentRight="true"
+>
+</Button>
+</RelativeLayout>
+
+</LinearLayout>
+<LinearLayout
+android:id="@+id/LL14"
+android:layout_width="fill_parent"
+android:layout_height="2px"
+android:background="#ffcccccc"
+android:orientation="vertical"
+>
+</LinearLayout>
+
+<RelativeLayout
+android:id="@+id/RL14"
+android:layout_width="fill_parent"
+android:layout_height="160px"
+>
+
+<TextView
+    android:id="@+id/widget619"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="Add Comments (if Required)" >
+
+</TextView>
+
+<EditText
+android:id="@+id/E_comment"
+android:layout_width="fill_parent"
+android:layout_height="60px"
+android:text=""
+android:textSize="18sp"
+android:layout_alignLeft="@+id/widget619"
+android:layout_below="@+id/widget619"
+android:layout_centerHorizontal="true"
+>
+</EditText>
+<Button
+        android:id="@+id/B_savecomment"
+        android:layout_width="80px"
+        android:layout_height="wrap_content"
+        android:text="Save"
+        android:layout_below="@+id/E_comment"
+        android:layout_alignRight="@+id/E_comment"
+        />
+    <Button
+        android:id="@+id/B_cancelcomment"
+        android:layout_width="80px"
+        android:layout_height="wrap_content"
+        android:text="Cancel"
+        android:layout_below="@+id/E_comment"
+        android:layout_alignLeft="@+id/E_comment"
+        />
+</RelativeLayout>
+</LinearLayout>

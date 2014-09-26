@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/relativeLayout_fieldreport"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+
+    <Button
+        android:id="@+id/fieldreport_BackButton"
+        style="@style/button_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:background="@drawable/button_red"
+        android:minWidth="100px"
+        android:text="Back"
+        android:textSize="20sp" >
+    </Button>
+
+    <!--
+    <Button
+        android:id="@+id/fieldreport_SaveButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="false"
+        android:layout_alignParentRight="true"
+        android:gravity="bottom|right"
+        android:minWidth="100px"
+        android:text="Save"
+        android:textSize="20sp" >
+    </Button>
+    -->
+    
+    <TableLayout
+        android:id="@+id/tablelayout_fieldreport"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:stretchColumns="*" >
+
+        <TableRow
+            android:id="@+id/tableRow1"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent" >
+
+            <TextView
+                android:id="@+id/TextView04"
+                android:layout_margin="1dp"
+                android:layout_weight="1"
+                android:background="#333333"
+                android:gravity="center_horizontal"
+                android:text="  Day  \n "
+                android:textStyle="bold" >
+            </TextView>
+
+            <TextView
+                android:id="@+id/TextView04"
+                android:layout_margin="1dp"
+                android:layout_weight="1"
+                android:background="#333333"
+                android:gravity="center_horizontal"
+                android:text="Data\nR,E,WL,WR(T)"
+                android:textStyle="bold"
+                android:typeface="serif" >
+            </TextView>
+
+            <TextView
+                android:id="@+id/TextView04"
+                android:layout_margin="1dp"
+                android:layout_weight="1"
+                android:background="#333333"
+                android:gravity="center_horizontal"
+                android:text="EMA\nT/A/7"
+                android:textStyle="bold"
+                android:typeface="serif" >
+            </TextView>
+           
+            <TextView
+                android:id="@+id/TextView05"
+                android:layout_margin="1dp"
+                android:layout_weight="1"
+                android:background="#333333"
+                android:gravity="center_horizontal"
+                android:text="Saliva\nconfm"
+                android:textStyle="bold"
+                android:typeface="serif" >
+            </TextView>
+            
+        </TableRow>
+    </TableLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout_fieldreport"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/fieldreport_BackButton"
+        android:layout_alignParentLeft="true"
+        android:layout_marginBottom="48dp"
+        android:orientation="vertical" >
+    </LinearLayout>
+
+</RelativeLayout>

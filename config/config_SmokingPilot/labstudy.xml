@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<fieldstream>
+<labstudy>
+<studyname>NIDA Study</studyname>
+<session>
+	<sessionname>A: PASAT-C (Math Test)</sessionname>
+	<globaloptions>
+	  	<eventorder>unordered</eventorder>
+	</globaloptions>
+<event type="mark2">NEO-FFI Questionnaire</event>
+<event type="mark2">The COPE Questionnaire</event>
+<event type="mark2">Smoking Break</event>
+<event type="mark2">F-M Color Test</event>
+<event type="mark1">Cravings and Symptoms Questionnaire</event>
+<event type="mark1">PASAT-C (-30)</event>
+<event type="mark1">PASAT-C (-15)</event>
+<event type="mark1">PASAT-C (-5)</event>
+<event type="mark2">PASAT-C (Practice/Level 1/Level 2)</event>
+<event type="mark2">PASAT-C (Level 3)</event>
+<event type="mark1">PASAT-C (zero)</event>
+<event type="mark1">PASAT-C (+15)</event>
+<event type="mark1">PASAT-C (+30)</event>
+<event type="mark1">PASAT-C (+60)</event>
+<event type="mark1">PASAT-C (+90)</event>
+<event type="mark1">PASAT-C (+120)</event>
+<event type="mark2">Relaxation audio</event>	
+</session>
+<session>
+	<sessionname>B: oCRH Injection</sessionname>
+	<globaloptions>
+		<eventorder>unordered</eventorder>
+	</globaloptions>
+<event type="mark1">Allostatic load</event>
+<event type="mark2">Smoking Break</event>
+<event type="mark1">Cravings and Symptoms Questionnaire</event>
+<event type="mark1">oCRH (-30)</event>
+<event type="mark1">oCRH (-15)</event>
+<event type="mark1">oCRH (-5)</event>
+<event type="mark1">oCRH Injection</event>
+<event type="mark1">oCRH (zero)</event>
+<event type="mark1">oCRH (+15)</event>
+<event type="mark1">oCRH (+30)</event>
+<event type="mark1">oCRH (+60)</event>
+<event type="mark1">oCRH (+90)</event>
+<event type="mark1">oCRH (+120)</event>
+<event type="mark2">Relaxation audio</event>
+</session>
+<session>
+	<sessionname>C: Cold Pressor</sessionname>
+	<globaloptions>
+		<eventorder>unordered</eventorder>
+	</globaloptions>
+<event type="mark2">Smoking Break</event>
+<event type="mark2">Life Events Questionnaire</event>
+<event type="mark2">Life Events Checklist</event>
+<event type="mark2">F-M Color Test</event>
+<event type="mark1">Cravings and Symptoms Questionnaire</event>
+<event type="mark1">Cold Pressor Test (-30)</event>
+<event type="mark1">Cold Pressor Test (-15)</event>
+<event type="mark1">Cold Pressor Test (-5)</event>
+<event type="mark2">Cold Pressor Test</event>
+<event type="mark1">Cold Pressor Test (zero)</event>
+<event type="mark1">Cold Pressor Test (+15)</event>
+<event type="mark1">Cold Pressor Test (+30)</event>
+<event type="mark1">Cold Pressor Test (+60)</event>
+<event type="mark1">Cold Pressor Test (+90)</event>
+<event type="mark1">Cold Pressor Test (+120)</event>
+<event type="mark2">Relaxation audio</event>
+</session>
+<session>
+	<sessionname>D: Cue Exposure</sessionname>
+	<globaloptions>
+		<eventorder>unordered</eventorder>
+	</globaloptions>
+<event type="mark2">Smoking Break</event>
+<event type="mark1">Current Cocaine Craving</event>
+<event type="mark2">Baseline measurements</event>
+<event type="mark1">Neutral cue slides</event>
+<event type="mark2">Neutral cue audio and visualization</event>
+<event type="mark1">Vitals</event>
+<event type="mark2">Questionnaires (post-neutral cue)</event>
+<event type="mark2">Drug cue - Paraphernalia</event>
+<event type="mark1">Drug cue slides</event>
+<event type="mark2">Drug cue audio and visualization</event>
+<event type="mark1">Vitals</event>
+<event type="mark2">Questionnaires (post-drug cue)</event>
+<event type="mark2">Relaxation audio</event>
+</session>
+</labstudy>
+</fieldstream>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<fieldstream>
+	<DataLabeling>
+		<button>standing_Start</button>
+		<button>walking_Start</button>
+		<button>sitting_Start</button>
+		<button>eating_Start</button>
+		<button>bite</button>
+		<button>smoking_Start</button>
+		<button>puff</button>
+		<button>RemoveLastLabel</button>
+	</DataLabeling>
+</fieldstream>

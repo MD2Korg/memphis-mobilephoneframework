@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+Copyright (c) 2010, University of Memphis, Carnegie Mellon University
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without modification, are permitted provided 
+that the following conditions are met:
+
+    * Redistributions of source code must retain the above copyright notice, this list of conditions and 
+      the following disclaimer.
+    * Redistributions in binary form must reproduce the above copyright notice, this list of conditions 
+      and the following disclaimer in the documentation and/or other materials provided with the 
+      distribution.
+    * Neither the names of the University of Memphis and Carnegie Mellon University nor the names of its 
+      contributors may be used to endorse or promote products derived from this software without specific 
+      prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED 
+WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A 
+PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR 
+ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED 
+TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) 
+HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING 
+NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
+POSSIBILITY OF SUCH DAMAGE.
+
+
+Authors: Patrick Blitz, Andrew Raij
+-->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/LinearLayout01"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/SleepingTextView"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Study Starts (Day 1): (Set only once)"
+        android:background="#ff0067e7"
+        android:textColor= "#ffffffff"
+		android:textStyle="bold"        
+        android:textSize="18dip" >
+    </TextView>
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="12dip"
+        android:background="#00FFFFFF" />
+
+    <TableLayout
+        android:id="@+id/SleepingTableLayout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.50"
+        android:stretchColumns="1,2" >
+
+        <TableRow
+            android:id="@+id/TableRow03"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/TextView01"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+		        android:textSize="20dip"                
+                android:text="Start: " >
+            </TextView>
+
+            <Button
+                android:id="@+id/DayStartDateButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+		        android:textSize="20dip"                
+                android:text="Date" >
+            </Button>
+
+            <Button
+                android:id="@+id/DayStartTimeButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+		        android:textSize="20dip"                
+                android:text="Time" >
+            </Button>
+        </TableRow>
+
+    </TableLayout>
+    
+
+    <TextView
+        android:id="@+id/SleepingTextView"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Sleep Time:"
+        android:background="#ffffff00"
+        android:textColor= "#ff000000"
+        android:textStyle="bold"
+        android:textSize="20dip" >
+    </TextView>
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="12dip"
+        android:background="#00FFFFFF" />
+
+    <TableLayout
+        android:id="@+id/SleepingTableLayout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.61"
+        android:stretchColumns="1,2" >
+
+        <TableRow
+            android:id="@+id/TableRow03"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/TextView01"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+		        android:textSize="20dip"                
+                android:text="Start: " >
+            </TextView>
+
+            <Button
+                android:id="@+id/SleepingStartDateButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+		        android:textSize="20dip"                
+                android:text="Date" >
+            </Button>
+
+            <Button
+                android:id="@+id/SleepingStartTimeButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+		        android:textSize="20dip"                
+                android:text="Time" >
+            </Button>
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/TableRow04"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/TextView01"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+		        android:textSize="20dip"                
+                android:text="End: " >
+            </TextView>
+
+            <Button
+                android:id="@+id/SleepingEndDateButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+		        android:textSize="20dip"                
+                android:text="Date" >
+            </Button>
+
+            <Button
+                android:id="@+id/SleepingEndTimeButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+		        android:textSize="20dip"                
+                android:text="Time" >
+            </Button>
+        </TableRow>
+    </TableLayout>
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="12dip"
+        android:background="#00FFFFFF" />
+
+    <TableLayout
+        android:id="@+id/NoInterviewsTableLayout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.56"
+        android:stretchColumns="1,2" >
+    </TableLayout>
+    
+    <TableLayout
+        android:id="@+id/SleepingTableLayout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:stretchColumns="0,1" >
+
+        <TableRow
+            android:id="@+id/TableRow05"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" >
+
+            <Button
+                android:id="@+id/BackDeadPeriod"
+                android:background="@drawable/button_red"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+		        style="@style/button_text"                
+                android:text="Back" >
+            </Button>
+
+            <Button
+                android:id="@+id/SaveDeadPeriod"
+                android:background="@drawable/button_red"                
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+		        style="@style/button_text"                
+                android:text="Save" >
+            </Button>
+        </TableRow>
+    </TableLayout>
+</LinearLayout>

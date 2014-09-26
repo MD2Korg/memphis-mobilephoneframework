@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<fieldstream>
+	<activation>
+		<startup>
+			<mote>MOTE_RIPECG</mote>
+			<mote>MOTE_ALCOHOL</mote>		
+			<mote>MOTE_ALCOHOL_ACCL_RIGHT</mote>
+			<mote>MOTE_ALCOHOL_ACCL_LEFT</mote>
+			
+			<model>MODEL_SELF_DRINKING</model>
+			<model>MODEL_SELF_SMOKING</model>
+
+			<sensor>SENSOR_ACCELCHESTX</sensor>
+			<sensor>SENSOR_ACCELCHESTY</sensor>
+			<sensor>SENSOR_ACCELCHESTZ</sensor>
+			<sensor>SENSOR_ACCELPHONEX</sensor>									
+			<sensor>SENSOR_ACCELPHONEY</sensor>									
+			<sensor>SENSOR_ACCELPHONEZ</sensor>									
+			<sensor>SENSOR_BODY_TEMP</sensor>
+			<sensor>SENSOR_AMBIENT_TEMP</sensor>
+			<sensor>SENSOR_GSR</sensor>
+			<sensor>SENSOR_RIP</sensor>			
+			<sensor>SENSOR_ECK</sensor>
+			<sensor>SENSOR_ALCOHOL</sensor>
+			<sensor>SENSOR_GSRWRIST</sensor>			
+			<sensor>SENSOR_TEMPWRIST</sensor>	
+			<sensor>SENSOR_ACCELPHONEMAG</sensor>
+			<sensor>SENSOR_LOCATIONSPEED</sensor>
+			<sensor>SENSOR_LOCATIONLATITUDE</sensor>			
+			<sensor>SENSOR_LOCATIONLONGITUDE</sensor>						
+			
+		</startup>
+						
+		<runtime>
+		</runtime>
+	</activation>
+</fieldstream>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--AbsoluteLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="fill_parent" android:layout_height="fill_parent"-->
+<LinearLayout android:id="@+id/LinearLayout01" android:layout_width="fill_parent" android:layout_height="fill_parent" xmlns:android="http://schemas.android.com/apk/res/android" android:orientation="vertical">    
+<TextView android:text="Press the appropirate button according to the context" android:id="@+id/MessageTextView" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textSize="20dip"></TextView>
+<View android:layout_width="fill_parent" android:layout_height="12dip" android:background="#00FFFFFF" /> 
+
+<TableLayout android:id="@+id/MarkingTableLayout" android:stretchColumns="1,2" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_weight="2">
+
+</TableLayout>
+<TextView android:id="@+id/TextView01" 	android:layout_x="50px"	android:layout_y="350px" android:text="Status Message" android:layout_width="wrap_content"	android:layout_height="wrap_content" />
+</LinearLayout>
+<!--/AbsoluteLayout-->

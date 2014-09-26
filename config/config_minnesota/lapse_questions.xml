@@ -1,0 +1,649 @@
+<?xml version="1.0" encoding="utf-8"?>
+<fieldstream>
+	<questionnaire>
+		<questions>
+			<question>
+				<question_id>0</question_id>
+				<question_string>How many cigarettes have you had since last prompt?</question_string>
+				<responseID>12</responseID>	
+				<conditionalOnQuestionID>-1</conditionalOnQuestionID>
+				<conditionalResponseChoice>-1</conditionalResponseChoice>
+				<multipleChoice>false</multipleChoice>		
+			</question>
+			
+			<question>
+			<question_id>1</question_id>
+			<question_string>What triggered smoking event? (Select all that apply)</question_string> 
+			<responseID>17</responseID>	
+			<conditionalOnQuestionID>-1</conditionalOnQuestionID>
+			<conditionalResponseChoice>-1</conditionalResponseChoice> 
+			<multipleChoice>true</multipleChoice>
+			</question>		
+			
+			<question>
+			<question_id>2</question_id>
+			<question_string>What triggered smoking event? (Please type your reason below)</question_string>
+			<responseID>16</responseID>	
+			<conditionalOnQuestionID>1</conditionalOnQuestionID>
+			<conditionalResponseChoice>2048</conditionalResponseChoice>
+			<multipleChoice>false</multipleChoice>
+			</question>		
+			
+			<question>
+			<question_id>3</question_id>
+			<question_string>When you think about it, what was the single most important trigger that made you smoke?</question_string> 
+			<responseID>17</responseID>	
+			<conditionalOnQuestionID>-1</conditionalOnQuestionID>
+			<conditionalResponseChoice>-1</conditionalResponseChoice> 
+			<multipleChoice>false</multipleChoice>
+			</question>		
+			
+			<question>
+			<question_id>4</question_id>
+			<question_string>When you think about it, what was the single most important trigger that made you smoke?(Please type your reason below)</question_string>
+			<responseID>16</responseID>	
+			<conditionalOnQuestionID>1</conditionalOnQuestionID>
+			<conditionalResponseChoice>2048</conditionalResponseChoice>
+			<multipleChoice>false</multipleChoice>
+			</question>		
+			
+			<question>
+			<question_id>5</question_id>
+			<question_string>Did you plan your smoking beforehand?</question_string>
+			<responseID>1</responseID>	
+			<conditionalOnQuestionID>-1</conditionalOnQuestionID>
+			<conditionalResponseChoice>-1</conditionalResponseChoice>
+			<multipleChoice>false</multipleChoice>
+			</question>		
+			
+			<question>
+			<question_id>6</question_id>
+			<question_string>Did you make any attempts to cope with the temptation to smoke?</question_string>
+			<responseID>1</responseID>	
+			<conditionalOnQuestionID>-1</conditionalOnQuestionID>
+			<conditionalResponseChoice>-1</conditionalResponseChoice>
+			<multipleChoice>false</multipleChoice>
+			</question>		
+				
+			<question>
+				<question_id>7</question_id>
+				<question_string>If yes, what did you do? (Select all that apply)</question_string>
+				<responseID>18</responseID>	
+				<conditionalOnQuestionID>-1</conditionalOnQuestionID>
+				<conditionalResponseChoice>-1</conditionalResponseChoice>
+				<multipleChoice>false</multipleChoice>
+			</question>
+			<question>	
+				<question_id>8</question_id>
+				<question_string>Cheerful?(In the last 10 minutes)</question_string>
+				<responseID>0</responseID>	
+				<conditionalOnQuestionID>-1</conditionalOnQuestionID>
+				<conditionalResponseChoice>-1</conditionalResponseChoice>
+				<multipleChoice>false</multipleChoice>					
+			</question>
+			
+			
+			<question>	
+				<question_id>9</question_id>
+				<question_string>Irritable?(In the last 10 minutes)</question_string>
+				<responseID>0</responseID>	
+				<conditionalOnQuestionID>-1</conditionalOnQuestionID>
+				<conditionalResponseChoice>-1</conditionalResponseChoice>
+				<multipleChoice>false</multipleChoice>					
+			</question>
+			
+			<question>	
+				<question_id>10</question_id>
+				<question_string>Content?(In the last 10 minutes)</question_string>
+				<responseID>0</responseID>	
+				<conditionalOnQuestionID>-1</conditionalOnQuestionID>
+				<conditionalResponseChoice>-1</conditionalResponseChoice>
+				<multipleChoice>false</multipleChoice>					
+			</question>
+			
+			<question>	
+				<question_id>11</question_id>
+				<question_string>Anxious/Tense?(In the last 10 minutes)</question_string>
+				<responseID>0</responseID>	
+				<conditionalOnQuestionID>-1</conditionalOnQuestionID>
+				<conditionalResponseChoice>-1</conditionalResponseChoice>
+				<multipleChoice>false</multipleChoice>					
+			</question>
+			
+			<question>	
+				<question_id>12</question_id>
+				<question_string>Sad/Depressed?(In the last 10 minutes)</question_string>
+				<responseID>0</responseID>	
+				<conditionalOnQuestionID>-1</conditionalOnQuestionID>
+				<conditionalResponseChoice>-1</conditionalResponseChoice>
+				<multipleChoice>false</multipleChoice>					
+			</question>
+			
+			<question>	
+				<question_id>13</question_id>
+				<question_string>Calm/Relaxed?(In the last 10 minutes)</question_string>
+				<responseID>0</responseID>	
+				<conditionalOnQuestionID>-1</conditionalOnQuestionID>
+				<conditionalResponseChoice>-1</conditionalResponseChoice>
+				<multipleChoice>false</multipleChoice>					
+			</question>
+			
+			
+			<question>	
+				<question_id>14</question_id>
+				<question_string>Angry?(In the last 10 minutes)</question_string>
+				<responseID>0</responseID>	
+				<conditionalOnQuestionID>-1</conditionalOnQuestionID>
+				<conditionalResponseChoice>-1</conditionalResponseChoice>
+				<multipleChoice>false</multipleChoice>					
+			</question>
+			
+			<question>	
+				<question_id>15</question_id>
+				<question_string>Impatient?(In the last 10 minutes)</question_string>
+				<responseID>0</responseID>	
+				<conditionalOnQuestionID>-1</conditionalOnQuestionID>
+				<conditionalResponseChoice>-1</conditionalResponseChoice>
+				<multipleChoice>false</multipleChoice>					
+			</question>
+
+			<question>	
+				<question_id>16</question_id>
+				<question_string>Happy?(In the last 10 minutes)</question_string>
+				<responseID>0</responseID>	
+				<conditionalOnQuestionID>-1</conditionalOnQuestionID>
+				<conditionalResponseChoice>-1</conditionalResponseChoice>
+				<multipleChoice>false</multipleChoice>					
+			</question>
+			<question>	
+				<question_id>17</question_id>
+				<question_string>In control?(In the last 10 minutes)</question_string>
+				<responseID>0</responseID>	
+				<conditionalOnQuestionID>-1</conditionalOnQuestionID>
+				<conditionalResponseChoice>-1</conditionalResponseChoice>
+				<multipleChoice>false</multipleChoice>					
+			</question>
+			<question>	
+				<question_id>18</question_id>
+				<question_string>Interested?(In the last 10 minutes)</question_string>
+				<responseID>0</responseID>	
+				<conditionalOnQuestionID>-1</conditionalOnQuestionID>
+				<conditionalResponseChoice>-1</conditionalResponseChoice>
+				<multipleChoice>false</multipleChoice>					
+			</question>
+			<question>	
+				<question_id>19</question_id>
+				<question_string>Confused?(In the last 10 minutes)</question_string>
+				<responseID>0</responseID>	
+				<conditionalOnQuestionID>-1</conditionalOnQuestionID>
+				<conditionalResponseChoice>-1</conditionalResponseChoice>
+				<multipleChoice>false</multipleChoice>					
+			</question>
+			<question>	
+				<question_id>20</question_id>
+				<question_string>Bored?(In the last 10 minutes)</question_string>
+				<responseID>0</responseID>	
+				<conditionalOnQuestionID>-1</conditionalOnQuestionID>
+				<conditionalResponseChoice>-1</conditionalResponseChoice>
+				<multipleChoice>false</multipleChoice>					
+			</question>
+			<question>	
+				<question_id>21</question_id>
+				<question_string>Having headache?(In the last 10 minutes)</question_string>
+				<responseID>0</responseID>	
+				<conditionalOnQuestionID>-1</conditionalOnQuestionID>
+				<conditionalResponseChoice>-1</conditionalResponseChoice>
+				<multipleChoice>false</multipleChoice>					
+			</question>
+			<question>	
+				<question_id>22</question_id>
+				<question_string>Coughing?(In the last 10 minutes)</question_string>
+				<responseID>0</responseID>	
+				<conditionalOnQuestionID>-1</conditionalOnQuestionID>
+				<conditionalResponseChoice>-1</conditionalResponseChoice>
+				<multipleChoice>false</multipleChoice>					
+			</question>
+			<question>	
+				<question_id>23</question_id>
+				<question_string>Stomach/bowel problems?(In the last 10 minutes)</question_string>
+				<responseID>0</responseID>	
+				<conditionalOnQuestionID>-1</conditionalOnQuestionID>
+				<conditionalResponseChoice>-1</conditionalResponseChoice>
+				<multipleChoice>false</multipleChoice>					
+			</question>
+			<question>	
+				<question_id>24</question_id>
+				<question_string>Drowsiness?(In the last 10 minutes)</question_string>
+				<responseID>0</responseID>	
+				<conditionalOnQuestionID>-1</conditionalOnQuestionID>
+				<conditionalResponseChoice>-1</conditionalResponseChoice>
+				<multipleChoice>false</multipleChoice>					
+			</question>
+			<question>	
+				<question_id>25</question_id>
+				<question_string>Restlessness?(In the last 10 minutes)</question_string>
+				<responseID>0</responseID>	
+				<conditionalOnQuestionID>-1</conditionalOnQuestionID>
+				<conditionalResponseChoice>-1</conditionalResponseChoice>
+				<multipleChoice>false</multipleChoice>					
+			</question>
+			<question>	
+				<question_id>26</question_id>
+				<question_string>Tired/Fatigue?(In the last 10 minutes)</question_string>
+				<responseID>0</responseID>	
+				<conditionalOnQuestionID>-1</conditionalOnQuestionID>
+				<conditionalResponseChoice>-1</conditionalResponseChoice>
+				<multipleChoice>false</multipleChoice>					
+			</question>
+			<question>	
+				<question_id>27</question_id>
+				<question_string>Tremor?(In the last 10 minutes)</question_string>
+				<responseID>0</responseID>	
+				<conditionalOnQuestionID>-1</conditionalOnQuestionID>
+				<conditionalResponseChoice>-1</conditionalResponseChoice>
+				<multipleChoice>false</multipleChoice>					
+			</question>
+			<question>	
+				<question_id>28</question_id>
+				<question_string>Hungry?(In the last 10 minutes)</question_string>
+				<responseID>0</responseID>	
+				<conditionalOnQuestionID>-1</conditionalOnQuestionID>
+				<conditionalResponseChoice>-1</conditionalResponseChoice>
+				<multipleChoice>false</multipleChoice>					
+			</question>
+			<question>	
+				<question_id>29</question_id>
+				<question_string>Difficulty concentrating?(In the last 10 minutes)</question_string>
+				<responseID>0</responseID>	
+				<conditionalOnQuestionID>-1</conditionalOnQuestionID>
+				<conditionalResponseChoice>-1</conditionalResponseChoice>
+				<multipleChoice>false</multipleChoice>					
+			</question>
+			<question>	
+				<question_id>30</question_id>
+				<question_string>Desire to smoke?(In the last 10 minutes)</question_string>
+				<responseID>0</responseID>	
+				<conditionalOnQuestionID>-1</conditionalOnQuestionID>
+				<conditionalResponseChoice>-1</conditionalResponseChoice>
+				<multipleChoice>false</multipleChoice>					
+			</question>
+..
+			<question>	
+				<question_id>31</question_id>
+				<question_string>What is your current location?</question_string>
+				<responseID>3</responseID>	
+				<conditionalOnQuestionID>-1</conditionalOnQuestionID>
+				<conditionalResponseChoice>-1</conditionalResponseChoice>
+				<multipleChoice>false</multipleChoice>					
+			</question>
+			
+			<question>	
+				<question_id>32</question_id>
+				<question_string>Are you indoors?</question_string>
+				<responseID>2</responseID>	
+				<conditionalOnQuestionID>-1</conditionalOnQuestionID>
+				<conditionalResponseChoice>-1</conditionalResponseChoice>
+				<multipleChoice>false</multipleChoice>					
+			</question>
+			
+			<question>	
+				<question_id>33</question_id>
+				<question_string>How would you describe your current activity?</question_string>
+				<responseID>4</responseID>	
+				<conditionalOnQuestionID>-1</conditionalOnQuestionID>
+				<conditionalResponseChoice>-1</conditionalResponseChoice>
+				<multipleChoice>false</multipleChoice>					
+			</question>
+			
+			<question>	
+				<question_id>34</question_id>
+				<question_string>If you commuted since the last interview, what type?</question_string>
+				<responseID>5</responseID>	
+				<conditionalOnQuestionID>-1</conditionalOnQuestionID>
+				<conditionalResponseChoice>-1</conditionalResponseChoice>
+				<multipleChoice>false</multipleChoice>					
+			</question>
+			<question>	
+				<question_id>35</question_id>
+				<question_string>Describe physical movement</question_string>
+				<responseID>6</responseID>	
+				<conditionalOnQuestionID>-1</conditionalOnQuestionID>
+				<conditionalResponseChoice>-1</conditionalResponseChoice>
+				<multipleChoice>false</multipleChoice>					
+			</question>
+			
+			<question>	
+				<question_id>36</question_id>
+				<question_string>Temperature comfort?</question_string>
+				<responseID>7</responseID>	
+				<conditionalOnQuestionID>-1</conditionalOnQuestionID>
+				<conditionalResponseChoice>-1</conditionalResponseChoice>
+				<multipleChoice>false</multipleChoice>					
+			</question>
+			
+			<question>	
+				<question_id>37</question_id>
+				<question_string>Your posture?</question_string>
+				<responseID>8</responseID>	
+				<conditionalOnQuestionID>-1</conditionalOnQuestionID>
+				<conditionalResponseChoice>-1</conditionalResponseChoice>
+				<multipleChoice>false</multipleChoice>					
+			</question>
+			
+			<question>	
+				<question_id>38</question_id>
+				<question_string>Have you consumed any of the following since the last prompt (please select all that apply from your most recent consumption)?</question_string>
+				<responseID>9</responseID>	
+				<conditionalOnQuestionID>-1</conditionalOnQuestionID>
+				<conditionalResponseChoice>-1</conditionalResponseChoice>
+				<multipleChoice>true</multipleChoice>					
+			</question>
+			
+			<question>	
+				<question_id>39</question_id>
+				<question_string>Are you alone?</question_string>
+				<responseID>2</responseID>	
+				<conditionalOnQuestionID>-1</conditionalOnQuestionID>
+				<conditionalResponseChoice>-1</conditionalResponseChoice>
+				<multipleChoice>false</multipleChoice>					
+			</question>
+
+			<question>	
+				<question_id>40</question_id>
+				<question_string>In the last 10 minutes were you engaged in social interaction?</question_string>
+				<responseID>2</responseID>	
+				<conditionalOnQuestionID>-1</conditionalOnQuestionID>
+				<conditionalResponseChoice>-1</conditionalResponseChoice>
+				<multipleChoice>false</multipleChoice>					
+			</question>
+			
+			<question>	
+				<question_id>41</question_id>
+				<question_string>If talking, on the phone?</question_string>
+				<responseID>2</responseID>	
+				<conditionalOnQuestionID>40</conditionalOnQuestionID>
+				<conditionalResponseChoice>2</conditionalResponseChoice>
+				<multipleChoice>false</multipleChoice>					
+			</question>
+			
+			<question>	
+				<question_id>42</question_id>
+				<question_string>If talking, with whom? (select all that apply)</question_string>
+				<responseID>10</responseID>	
+				<conditionalOnQuestionID>40</conditionalOnQuestionID>
+				<conditionalResponseChoice>2</conditionalResponseChoice>
+				<multipleChoice>true</multipleChoice>					
+			</question>
+			
+			
+			<question>	
+				<question_id>43</question_id>
+				<question_string>If talking, with whom? (scroll down - select all that apply)</question_string>
+				<responseID>11</responseID>	
+				<conditionalOnQuestionID>40</conditionalOnQuestionID>
+				<conditionalResponseChoice>2</conditionalResponseChoice>
+				<multipleChoice>true</multipleChoice>					
+			</question>
+...
+			<question>	
+				<question_id>44</question_id>
+				<question_string>In the last ten minutes, have you seen any of the following people smoke? (select all that apply)</question_string>
+				<responseID>14</responseID>	
+				<conditionalOnQuestionID>-1</conditionalOnQuestionID>
+				<conditionalResponseChoice>-1</conditionalResponseChoice>
+				<multipleChoice>true</multipleChoice>					
+			</question>
+			
+			<question>	
+				<question_id>45</question_id>
+				<question_string>In the last ten minutes, have you smelled smoke?</question_string>
+				<responseID>2</responseID>	
+				<conditionalOnQuestionID>-1</conditionalOnQuestionID>
+				<conditionalResponseChoice>-1</conditionalResponseChoice>
+				<multipleChoice>false</multipleChoice>					
+			</question>
+			
+			<question>	
+				<question_id>46</question_id>
+				<question_string>In the last ten minutes, have you seen (select all that apply)</question_string>
+				<responseID>15</responseID>	
+				<conditionalOnQuestionID>-1</conditionalOnQuestionID>
+				<conditionalResponseChoice>-1</conditionalResponseChoice>
+				<multipleChoice>true</multipleChoice>					
+			</question>
+			
+			<question>	
+				<question_id>47</question_id>
+				<question_string>Are you in a place where smoking is permitted?</question_string>
+				<responseID>1</responseID>	
+				<conditionalOnQuestionID>-1</conditionalOnQuestionID>
+				<conditionalResponseChoice>-1</conditionalResponseChoice>
+				<multipleChoice>false</multipleChoice>					
+			</question>
+			
+			<question>	
+				<question_id>48</question_id>
+				<question_string>Did you change location to smoke a cigarette?</question_string>
+				<responseID>1</responseID>	
+				<conditionalOnQuestionID>-1</conditionalOnQuestionID>
+				<conditionalResponseChoice>-1</conditionalResponseChoice>
+				<multipleChoice>false</multipleChoice>					
+			</question>
+		
+			<question>	
+				<question_id>49</question_id>
+				<question_string>Did you step outdoors to smoke a cigarette?</question_string>
+				<responseID>2</responseID>	
+				<conditionalOnQuestionID>-1</conditionalOnQuestionID>
+				<conditionalResponseChoice>-1</conditionalResponseChoice>
+				<multipleChoice>false</multipleChoice>	
+			</question>
+		
+			<question>	
+				<question_id>50</question_id>
+				<question_string>Is there any other information you would like us to know about what you are doing or what is happening around you?</question_string>
+				<responseID>2</responseID>	
+				<conditionalOnQuestionID>-1</conditionalOnQuestionID>
+				<conditionalResponseChoice>-1</conditionalResponseChoice>
+				<multipleChoice>false</multipleChoice>					
+			</question>
+			
+			<question>	
+				<question_id>51</question_id>
+				<question_string>If yes, please type this information below. Note that you do not have to type every detail here. Just type in a few words that will help you remember what you want to tell us. We’ll ask for more details when you come back to the lab.</question_string>
+				<responseID>16</responseID>	
+				<conditionalOnQuestionID>50</conditionalOnQuestionID>
+				<conditionalResponseChoice>2</conditionalResponseChoice>
+				<multipleChoice>false</multipleChoice>					
+			</question>
+			
+			
+		</questions>
+
+		
+
+		<responses>
+			
+			<response>
+				<response_id>0</response_id>
+				<response_string>NO!!! (Not at all)</response_string>
+				<response_string>NO</response_string>
+				<response_string>no</response_string>
+				<response_string>yes (Moderate)</response_string>
+				<response_string>YES</response_string>
+				<response_string>YES!!! (Very Strong)</response_string>
+			</response>
+			<response>
+				<response_id>1</response_id>
+				<response_string>YES</response_string>
+				<response_string>NO</response_string>	
+			</response>
+			<response>
+				<response_id>2</response_id>
+				<response_string>NO</response_string>
+				<response_string>YES</response_string>	
+			</response>
+
+
+			<response>
+				<response_id>3</response_id>
+				<response_string> Own home</response_string>
+				<response_string>Family/ friend's home</response_string>
+				<response_string>Work</response_string>
+				<response_string>Store</response_string>
+				<response_string>Restaurant</response_string>
+				<response_string>Vehicle</response_string>
+				<response_string>Other</response_string>
+			</response>
+
+			<response>
+				<response_id>4</response_id>
+				<response_string>On the phone</response_string>
+				<response_string>Waiting</response_string>
+				<response_string>Between activities</response_string>
+				<response_string>Leisure/Recreation</response_string>
+				<response_string>Work/Task/Errand</response_string>
+				<response_string>Other</response_string>
+			</response>
+
+			<response>
+				<response_id>5</response_id>
+				<response_string>Driving</response_string>
+				<response_string>Biking</response_string>
+				<response_string>Walking</response_string>
+				<response_string>Riding as a passenger</response_string>
+				<response_string>Riding public transportation</response_string>
+				<response_string>Did not commute</response_string>
+			</response>			
+			<response>
+				<response_id>6</response_id>
+				<response_string>Limited (ex: writing)</response_string>
+				<response_string>Light (ex: walking)</response_string>
+				<response_string>Moderate(ex: jogging)</response_string>
+				<response_string>Heavy (ex: running)</response_string>
+			</response>
+
+			<response>
+				<response_id>7</response_id>
+				<response_string>Too Cold</response_string>
+				<response_string>Comfortable</response_string>
+				<response_string>Too hot</response_string>	 						
+			</response>
+
+			<response>
+				<response_id>8</response_id>
+				<response_string>On your feet</response_string>
+				<response_string>Sitting</response_string>
+				<response_string>Lying Down</response_string>
+			</response>
+
+
+			<response>
+				<response_id>9</response_id>
+				<response_string>Meal</response_string>
+				<response_string>Snack</response_string>
+				<response_string>Caffeinated drink</response_string>
+				<response_string>Alcoholic drink</response_string>
+				<response_string>Drug(prescriptive or non-prescriptive)</response_string>
+				<response_string>Other</response_string>
+				<response_string>None</response_string>
+			</response>
+			
+			
+			
+			<response>
+				<response_id>10</response_id>
+				<response_string>Men</response_string>
+				<response_string>Women</response_string>
+			</response>
+
+		
+			<response>
+				<response_id>11</response_id>
+				<response_string>Spouse/Significant Other</response_string>
+				<response_string>Other Family Member</response_string>
+				<response_string>Friends</response_string>
+				<response_string>Co-workers</response_string>
+				<response_string>Clients/Customers</response_string>
+				<response_string>Boss</response_string>
+				<response_string>Subordinates</response_string>
+				
+			</response>
+
+			
+
+			<response>
+				<response_id>12</response_id>
+				<response_string>0</response_string>
+				<response_string>1</response_string>
+				<response_string>2</response_string>
+				<response_string>3</response_string>
+				<response_string>4</response_string>
+				<response_string>5 or more</response_string>
+			</response>
+
+			<response>
+				<response_id>13</response_id>
+				<response_string>Good Tasting</response_string>
+				<response_string>A Rush/Buzz</response_string>
+				<response_string>Relaxing</response_string>
+				<response_string>Reduced the Urge</response_string>
+				<response_string>Pleasant</response_string>
+				<response_string>Bad Tasting</response_string>
+				<response_string>Made Me Feel Dizzy/Nauseated</response_string>
+				<response_string>Unpleasant</response_string>
+			</response>
+
+			<response>
+				<response_id>14</response_id>
+				<response_string>No One</response_string>
+				<response_string>Spouse Partner</response_string>
+				<response_string>Other Family Member</response_string>
+				<response_string>Other Person You Know</response_string>
+				<response_string>Stranger</response_string>
+			</response>
+
+
+			<response>
+				<response_id>15</response_id>
+				<response_string>Cigarette Butts</response_string>
+				<response_string>Ashtrays</response_string>
+				<response_string>Cigarette Disposal Containers</response_string>
+				<response_string>Cigarette Packs</response_string>
+				<response_string>None of the Above</response_string>
+			</response>
+			<response>
+				<response_id>16</response_id>
+			</response>
+			<response>
+				<response_id>17</response_id>
+				<response_string>Being in bad mood</response_string>
+				<response_string>Was stressed out</response_string>
+				<response_string>Being in good mood</response_string>
+				<response_string>Saw smoking related things</response_string>
+				<response_string>Was with smokers</response_string>
+				<response_string>Eating</response_string>
+				<response_string>Drinking caffeine (coffee, soda, energy drink, etc.)</response_string>
+				<response_string>Drinking alcohol</response_string>
+				<response_string>Wanted to relax</response_string>
+				<response_string>Being bored</response_string>
+				<response_string>Was travelling in a car</response_string>
+				<response_string>Others</response_string>				
+			</response>
+			<response>
+				<response_id>18</response_id>
+				<response_string>Consuming food and drink</response_string>
+				<response_string>Exercising or doing any other physical activity</response_string>
+				<response_string>Deep breathing</response_string>
+				<response_string>Distracting activity</response_string>
+				<response_string>Thinking about the health and financial consequences of smoking</response_string>
+				<response_string>Thinking about positive, self-encouraging thoughts</response_string>
+				<response_string>Thinking distracting thoughts</response_string>
+				<response_string>Thinking of myself as a nonsmoker</response_string>
+			</response>
+	</responses>
+
+
+	
+	</questionnaire>
+</fieldstream>                                             

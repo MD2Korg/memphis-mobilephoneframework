@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<fieldstream>
+	<selfreport>
+		<model>MODEL_SELF_CRAVING</model>
+		<type>radiobutton</type>
+		<text>URGE/CRAVING</text>
+	</selfreport>    
+    	<selfreport>
+		<model>MODEL_SELF_SMOKING</model>
+		<type>button</type>
+		<text>SMOKING</text>
+	</selfreport>
+	<selfreport>
+		<model>MODEL_SELF_CONVERSATION</model>
+		<type>button</type>
+		<text>CONVERSATION</text>
+	</selfreport>
+	<selfreport>
+		<model>MODEL_SELF_STRESS</model>
+		<type>button</type>	
+		<text>STRESS</text>
+	</selfreport>
+</fieldstream>

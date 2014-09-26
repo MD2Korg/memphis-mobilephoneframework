@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<fieldstream>
+<labstudy>
+<studyname>Johns Hopkins Study</studyname>
+<session>
+	<sessionname>A: Safety</sessionname>
+	<globaloptions>
+	  	<eventorder>unordered</eventorder>
+	</globaloptions>
+<event type="mark1">Dose 1</event>
+<event type="mark1">Dose 2</event>
+<event type="mark1">Dose 3</event>
+<event type="mark1">Dose 4</event>
+</session>
+<session>
+	<sessionname>B: Dose Response</sessionname>
+	<globaloptions>
+		<eventorder>unordered</eventorder>
+	</globaloptions>
+<event type="mark1">Dose 1</event>
+<event type="mark1">Dose 2</event>
+<event type="mark1">Dose 3</event>
+</session>
+<session>
+	<sessionname>C: Choice Session</sessionname>
+	<globaloptions>
+		<eventorder>unordered</eventorder>
+	</globaloptions>
+<event type="mark1">Sample Injection</event>
+<event type="mark1">Choice 1: $19</event>
+<event type="mark1">Choice 1: Cocaine</event>
+<event type="mark1">Choice 2: $16</event>
+<event type="mark1">Choice 2: Cocaine</event>
+<event type="mark1">Choice 3: $13</event>
+<event type="mark1">Choice 3: Cocaine</event>
+<event type="mark1">Choice 4: $10</event>
+<event type="mark1">Choice 4: Cocaine</event>
+<event type="mark1">Choice 5: $7</event>
+<event type="mark1">Choice 5: Cocaine</event>
+<event type="mark1">Choice 6: $4</event>
+<event type="mark1">Choice 6: Cocaine</event>
+<event type="mark1">Choice 7: $1</event>
+<event type="mark1">Choice 7: Cocaine</event>
+</session>
+</labstudy>
+</fieldstream>

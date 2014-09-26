@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<fieldstream>
+	<questionnaire>
+		<questions>
+			<question>
+				<question_id>0</question_id>
+				<question_string>Where are you?</question_string>
+				<responseID>1</responseID>	
+				<conditionalOnQuestionID>-1</conditionalOnQuestionID>
+				<conditionalResponseChoice>-1</conditionalResponseChoice>
+				<multipleChoice>false</multipleChoice>	
+				
+				
+			</question>
+			
+			<question>
+			<question_id>1</question_id>
+			<question_string>Are there any people around you?</question_string> 
+			<responseID>0</responseID>	
+			<conditionalOnQuestionID>-1</conditionalOnQuestionID>
+			<conditionalResponseChoice>-1</conditionalResponseChoice> 
+			<multipleChoice>false</multipleChoice>
+			</question>		
+			
+			<question>
+			<question_id>2</question_id>
+			<question_string>If yes, how many?</question_string>
+			<responseID>1</responseID>	
+			<conditionalOnQuestionID>1</conditionalOnQuestionID>
+			<conditionalResponseChoice>1</conditionalResponseChoice>
+			<multipleChoice>false</multipleChoice>
+			</question>		
+			
+			
+			<question>
+			<question_id>3</question_id>
+			<question_string>Has anything significant happened (In the last 30 minutes)?</question_string>
+			<responseID>0</responseID>	
+			<conditionalOnQuestionID>-1</conditionalOnQuestionID>
+			<conditionalResponseChoice>-1</conditionalResponseChoice>
+			<multipleChoice>false</multipleChoice>
+			</question>		
+			
+			<question>
+			<question_id>4</question_id>
+			<question_string>If yes, briefly describe the event.</question_string>
+			<responseID>1</responseID>	
+			<conditionalOnQuestionID>3</conditionalOnQuestionID>
+			<conditionalResponseChoice>1</conditionalResponseChoice>
+			<multipleChoice>false</multipleChoice>
+			</question>		
+				
+			<question>
+				<question_id>5</question_id>
+				<question_string>How stressful was this event?</question_string>
+				<responseID>2</responseID>	
+				<conditionalOnQuestionID>-1</conditionalOnQuestionID>
+				<conditionalResponseChoice>-1</conditionalResponseChoice>
+				<multipleChoice>false</multipleChoice>
+			</question>
+			
+			<question>
+				<question_id>6</question_id>
+				<question_string>Did you smoke? (In the last 30 minutes)</question_string>
+				<responseID>0</responseID>	
+				<conditionalOnQuestionID>-1</conditionalOnQuestionID>
+				<conditionalResponseChoice>-1</conditionalResponseChoice>
+				<multipleChoice>false</multipleChoice>
+			</question>
+			
+			<question>	
+				<question_id>7</question_id>
+				<question_string>Did you consume caffeinated drink? (In the last 30 minutes)</question_string>
+				<responseID>0</responseID>	
+				<conditionalOnQuestionID>-1</conditionalOnQuestionID>
+				<conditionalResponseChoice>-1</conditionalResponseChoice>
+				<multipleChoice>false</multipleChoice>					
+			</question>
+			
+			<question>	
+				<question_id>8</question_id>
+				<question_string>Did you consume alcohol? (In the last 30 minutes)</question_string>
+				<responseID>0</responseID>	
+				<conditionalOnQuestionID>-1</conditionalOnQuestionID>
+				<conditionalResponseChoice>-1</conditionalResponseChoice>
+				<multipleChoice>false</multipleChoice>					
+			</question>
+			
+			
+			<question>	
+				<question_id>9</question_id>
+				<question_string>Did you eat any food item?(In the last 30 minutes)</question_string>
+				<responseID>0</responseID>	
+				<conditionalOnQuestionID>-1</conditionalOnQuestionID>
+				<conditionalResponseChoice>-1</conditionalResponseChoice>
+				<multipleChoice>false</multipleChoice>					
+			</question>
+			
+			<question>	
+				<question_id>10</question_id>
+				<question_string>Did you perform physical exercise? (In the last 30 minutes)</question_string>
+				<responseID>0</responseID>	
+				<conditionalOnQuestionID>-1</conditionalOnQuestionID>
+				<conditionalResponseChoice>-1</conditionalResponseChoice>
+				<multipleChoice>false</multipleChoice>					
+			</question>
+			
+			
+			
+			
+			
+		
+		</questions>
+
+		
+
+		<responses>
+			
+			
+			
+			<response>
+				<response_id>0</response_id>
+				<response_string>YES</response_string>
+				<response_string>NO</response_string>	
+			</response>
+
+
+		
+			
+			<response>
+				<response_id>1</response_id>
+			</response>			
+			
+			<response>
+				<response_id>2</response_id>
+				<response_string>Not at all</response_string>
+				<response_string>Moderately</response_string>
+				<response_string>Severely</response_string>
+			</response>
+			
+	</responses>
+
+
+	
+	</questionnaire>
+</fieldstream>                                             
