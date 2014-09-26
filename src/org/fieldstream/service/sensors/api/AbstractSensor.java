@@ -1,25 +1,25 @@
 ﻿//Copyright (c) 2010, University of Memphis, Carnegie Mellon University
 //All rights reserved.
 //
-//Redistribution and use in source and binary forms, with or without modification, are permitted provided 
+//Redistribution and use in source and binary forms, with or without modification, are permitted provided
 //that the following conditions are met:
 //
-//    * Redistributions of source code must retain the above copyright notice, this list of conditions and 
+//    * Redistributions of source code must retain the above copyright notice, this list of conditions and
 //      the following disclaimer.
-//    * Redistributions in binary form must reproduce the above copyright notice, this list of conditions 
-//      and the following disclaimer in the documentation and/or other materials provided with the 
+//    * Redistributions in binary form must reproduce the above copyright notice, this list of conditions
+//      and the following disclaimer in the documentation and/or other materials provided with the
 //      distribution.
-//    * Neither the names of the University of Memphis and Carnegie Mellon University nor the names of its 
-//      contributors may be used to endorse or promote products derived from this software without specific 
+//    * Neither the names of the University of Memphis and Carnegie Mellon University nor the names of its
+//      contributors may be used to endorse or promote products derived from this software without specific
 //      prior written permission.
 //
-//THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED 
-//WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A 
-//PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR 
-//ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED 
-//TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) 
-//HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING 
-//NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
+//THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED
+//WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+//PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR
+//ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
+//TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+//HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+//NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 //POSSIBILITY OF SUCH DAMAGE.
 //
 
@@ -90,7 +90,7 @@ public abstract class AbstractSensor {
 
 	protected boolean active = false;
 
-	private AbstractSensor INSTANCE;  
+	private AbstractSensor INSTANCE;
 
 
 	private Thread thread = new Thread() {
@@ -105,7 +105,7 @@ public abstract class AbstractSensor {
 				Log.ema_alarm("", "abstract sensor 1");
 				Looper.prepare();
 				Log.ema_alarm("", "abstract sensor 2");
-				
+
 				// now, the handler will automatically bind to the
 				// Looper that is attached to the current thread
 				// You don't need to specify the Looper explicitly
@@ -185,7 +185,7 @@ public abstract class AbstractSensor {
 
 	/**
 	 * this can be called if the other parameters are not yet known!
-	 * 
+	 *
 	 * @param SensorID
 	 */
 	public AbstractSensor(int SensorID) {
@@ -197,7 +197,7 @@ public abstract class AbstractSensor {
 
 	/**
 	 * Constructor - should not be used anymore, as a call to in
-	 * 
+	 *
 	 * @param SensorID
 	 *            The ID of this Sensor, defined in
 	 *            {@link org.fieldstream.Constants}
@@ -233,7 +233,7 @@ public abstract class AbstractSensor {
 		} else {
 			buffer = new int[windowLength];
 			timestamps = new long[windowLength];
-			windowSize = windowLength;			
+			windowSize = windowLength;
 		}
 		if (this.scheduler) {
 			if(Log.DEBUG_MONOWAR) Log.m("Monowar_ALL","OK\t: (AbstractSensor_"+ID+"_initialize()_scheduler="+this.scheduler+".........");
@@ -246,10 +246,10 @@ public abstract class AbstractSensor {
 	}
 
 	/**
-	 * forwards a window of data to the FeatureCalculation class and also logs the new window. 
+	 * forwards a window of data to the FeatureCalculation class and also logs the new window.
 	 * @param toSendSamples window of samples to be processed as new samples
 	 * @param toSendTimestamps timestamps for the samples to be processed
-	 * @param startNewData startindex of the new samples in this window in the case of overlapping windows. For nonoverlaping windows, this will always be 0 
+	 * @param startNewData startindex of the new samples in this window in the case of overlapping windows. For nonoverlaping windows, this will always be 0
 	 * @param endNewData stopindex of new samples in this window in the case of overlapping windows. For non-overlapping windows, this will always be the window size.
 	 */
 	protected void sendBuffer(int[] toSendSamples, long[] toSendTimestamps,int startNewData, int endNewData) {
@@ -260,14 +260,14 @@ public abstract class AbstractSensor {
 		//				+ " and current " + currentTime);
 		setLastTime(currentTime);
 
-		// send it for feature calculation 
+		// send it for feature calculation
 		// TODO reimplement FeatureCalculation as SensorBusSubscriber
 		// FeatureCalculation.INSTANCE.receiveBuffer(ID, toSendSamples,toSendTimestamps);
 		//		long middletime = SystemClock.uptimeMillis();
 
 		// send it for any subscribers
 		//		if(ID==12 || ID==21 || ID==27)
-		//			if(Log.MONOWAR) Log.d("Monowar_ALL","OK    : (ABS_SENSOR)ID="+ID+" DLength="+toSendSamples.length+"   STime="+toSendTimestamps[0]);			
+		//			if(Log.MONOWAR) Log.d("Monowar_ALL","OK    : (ABS_SENSOR)ID="+ID+" DLength="+toSendSamples.length+"   STime="+toSendTimestamps[0]);
 
 		SensorBus.getInstance().receiveBuffer(ID, toSendSamples, toSendTimestamps, startNewData, endNewData);
 
@@ -292,7 +292,7 @@ public abstract class AbstractSensor {
 	/**
 	 * new raw sensors values that should be added to the current buffer.
 	 * Synchronized so that only one can be active at any time
-	 * 
+	 *
 	 * @param input
 	 *            a single new Value for thi   s sensor
 	 */
@@ -347,10 +347,10 @@ public abstract class AbstractSensor {
 	// TODO confirm this code works when we start using sliding windows again
 	// TODO make sure this works with the scheduler too.
 	private synchronized void addValueSlidingWindows(int[] input, long timestamps[]) {
-		assert(true);  // we should not end up here, since we're 
+		assert(true);  // we should not end up here, since we're
 		// not using sliding windows right now
 
-		int copied = 0;				
+		int copied = 0;
 		// while the input left to copy will overflow the windowStep
 		while (input.length - copied >= slidingWindowStep) {
 			int canAdd = slidingWindowStep;
@@ -362,10 +362,10 @@ public abstract class AbstractSensor {
 				System.arraycopy(timestamps, copied, this.timestamps, bufferIndex, canAdd);
 				copied += canAdd;
 				canAdd = slidingWindowStep - windowSize + bufferIndex;
-				bufferIndex = 0;				
+				bufferIndex = 0;
 			}
 
-			// copy whatever else we can add from the input to the window. 
+			// copy whatever else we can add from the input to the window.
 			// this will complete the window
 			System.arraycopy(input, copied, buffer, bufferIndex, canAdd);
 			System.arraycopy(timestamps, copied, this.timestamps, bufferIndex, canAdd);
@@ -391,7 +391,7 @@ public abstract class AbstractSensor {
 				bufferIndex = 0;
 			}
 
-			// copy whatever is left in the input to the window. 
+			// copy whatever is left in the input to the window.
 			System.arraycopy(input, copied, buffer, bufferIndex, canAdd);
 			System.arraycopy(timestamps, copied, this.timestamps, bufferIndex, canAdd);
 			bufferIndex += canAdd;
@@ -408,7 +408,7 @@ public abstract class AbstractSensor {
 			// copy until we fill the window
 			int canAdd = windowSize - bufferIndex;
 			System.arraycopy(input, copied, buffer, bufferIndex, canAdd);
-			System.arraycopy(l_timestamps, copied, this.timestamps, bufferIndex, canAdd);							
+			System.arraycopy(l_timestamps, copied, this.timestamps, bufferIndex, canAdd);
 			bufferIndex = 0;
 			//			Log.d("AbstractSensor", "Buffer filled");
 			copied += canAdd;
@@ -421,7 +421,7 @@ public abstract class AbstractSensor {
 		}
 
 		if (input.length - copied < windowSize-bufferIndex) {
-			// copy anything that's left 
+			// copy anything that's left
 			//			Log.d("AbstractSensor", "bufferIndex = " + bufferIndex);
 			int canAdd = input.length-copied;
 			System.arraycopy(input, copied, buffer, bufferIndex, canAdd);
@@ -433,7 +433,7 @@ public abstract class AbstractSensor {
 
 	/**
 	 * new raw sensors values that should be added to the current buffer.
-	 * 
+	 *
 	 * @param input
 	 *            a array of new values
 	 */
@@ -451,7 +451,7 @@ public abstract class AbstractSensor {
 		case Constants.SENSOR_NINE_AXIS_RIGHT_GYRO_Y:
 		case Constants.SENSOR_NINE_AXIS_RIGHT_GYRO_Z:
 		case Constants.SENSOR_NINE_AXIS_RIGHT_NULL_PACKET:
-		
+
 		case Constants.SENSOR_NINE_AXIS_LEFT_ACCL_X:
 		case Constants.SENSOR_NINE_AXIS_LEFT_ACCL_Y:
 		case Constants.SENSOR_NINE_AXIS_LEFT_ACCL_Z:
@@ -462,14 +462,14 @@ public abstract class AbstractSensor {
 			// For Nine axis do not do further processing. e.g., logging in db/txt file. Quality already assessed.
 			return;
 		default:
-				
+
 		}
-		
+
 		if (slidingWindowStep == windowSize) {
 			// static windows
 			addValueStaticWindows(input, l_timestamps);
 		}
-		else {   
+		else {
 			// sliding windows
 			addValueSlidingWindows(input, l_timestamps);
 		}

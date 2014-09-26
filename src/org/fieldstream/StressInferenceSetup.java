@@ -1,24 +1,24 @@
 ﻿//Copyright (c) 2010, University of Memphis
 //All rights reserved.
 //
-//Redistribution and use in source and binary forms, with or without modification, are permitted provided 
+//Redistribution and use in source and binary forms, with or without modification, are permitted provided
 //that the following conditions are met:
 //
-//    * Redistributions of source code must retain the above copyright notice, this list of conditions and 
+//    * Redistributions of source code must retain the above copyright notice, this list of conditions and
 //      the following disclaimer.
-//    * Redistributions in binary form must reproduce the above copyright notice, this list of conditions 
-//      and the following disclaimer in the documentation and/or other materials provided with the 
+//    * Redistributions in binary form must reproduce the above copyright notice, this list of conditions
+//      and the following disclaimer in the documentation and/or other materials provided with the
 //      distribution.
-//    * Neither the name of the University of Memphis nor the names of its contributors may be used to 
+//    * Neither the name of the University of Memphis nor the names of its contributors may be used to
 //      endorse or promote products derived from this software without specific prior written permission.
 //
-//THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED 
-//WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A 
-//PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR 
-//ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED 
-//TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) 
-//HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING 
-//NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
+//THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED
+//WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+//PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR
+//ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
+//TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+//HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+//NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 //POSSIBILITY OF SUCH DAMAGE.
 //
 package org.fieldstream;
@@ -42,7 +42,7 @@ import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.AdapterView.OnItemClickListener;
 
-public class StressInferenceSetup extends Activity 
+public class StressInferenceSetup extends Activity
 {
 	protected static final String TAG = "StressInferenceSetup";
 
@@ -56,7 +56,7 @@ public class StressInferenceSetup extends Activity
 
 		setContentView(R.layout.sisetup_layout);
 
-		createUI();		
+		createUI();
 	}
 
 	/* This is called when the app is killed. */
@@ -69,7 +69,7 @@ public class StressInferenceSetup extends Activity
 	public void createUI()
 	{
 		ListView options = (ListView) findViewById(R.id.setup_options_list);
-		
+
 		// fill in the options
 		List<Map<String, String>> groupData = new ArrayList<Map<String, String>>() {
 			{
@@ -79,37 +79,37 @@ public class StressInferenceSetup extends Activity
 						put( "text2",  "Enter ANT Address of ANT Devices" );
 					}
 				});
-				
+
 				add(new HashMap<String, String>() {
 					{
 						put( "text1",  "Dead Periods" );
 						put( "text2",  "Select the time of the first day of the study and the time period the participant will sleep" );
 					}
-				});				
+				});
 			}
 		};
-		
+
 		// -- create an adapter, takes care of binding hash objects in our list to actual row views
-		SimpleAdapter adapter = new SimpleAdapter( this, groupData, android.R.layout.simple_list_item_2, 
+		SimpleAdapter adapter = new SimpleAdapter( this, groupData, android.R.layout.simple_list_item_2,
 		                                                   new String[] { "text1", "text2" },
 		                                                   new int[]{ android.R.id.text1, android.R.id.text2 } );
-		options.setAdapter( adapter );		
-		
-		options.setOnItemClickListener(onClickListener);		
+		options.setAdapter( adapter );
+
+		options.setOnItemClickListener(onClickListener);
 	}
 
 	// Scan Button Handler
-	private OnItemClickListener onClickListener = new OnItemClickListener() 
+	private OnItemClickListener onClickListener = new OnItemClickListener()
 	{
 		public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 			if (position == 0) {
-				Intent intent = new Intent(getBaseContext(), NetworkSetup.class);				
+				Intent intent = new Intent(getBaseContext(), NetworkSetup.class);
 				startActivity(intent);
 			}
 			else if (position == 1) {
 				Intent intent = new Intent(getBaseContext(), Minnesota_DeadPeriodSetup.class);
-				startActivity(intent);				
-			}			
+				startActivity(intent);
+			}
 		}
 	};
 

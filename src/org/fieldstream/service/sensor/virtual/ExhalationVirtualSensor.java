@@ -1,47 +1,47 @@
 ﻿//Copyright (c) 2010, University of Memphis, Carnegie Mellon University
 //All rights reserved.
 //
-//Redistribution and use in source and binary forms, with or without modification, are permitted provided 
+//Redistribution and use in source and binary forms, with or without modification, are permitted provided
 //that the following conditions are met:
 //
-//    * Redistributions of source code must retain the above copyright notice, this list of conditions and 
+//    * Redistributions of source code must retain the above copyright notice, this list of conditions and
 //      the following disclaimer.
-//    * Redistributions in binary form must reproduce the above copyright notice, this list of conditions 
-//      and the following disclaimer in the documentation and/or other materials provided with the 
+//    * Redistributions in binary form must reproduce the above copyright notice, this list of conditions
+//      and the following disclaimer in the documentation and/or other materials provided with the
 //      distribution.
-//    * Neither the names of the University of Memphis and Carnegie Mellon University nor the names of its 
-//      contributors may be used to endorse or promote products derived from this software without specific 
+//    * Neither the names of the University of Memphis and Carnegie Mellon University nor the names of its
+//      contributors may be used to endorse or promote products derived from this software without specific
 //      prior written permission.
 //
-//THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED 
-//WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A 
-//PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR 
-//ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED 
-//TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) 
-//HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING 
-//NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
+//THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED
+//WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+//PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR
+//ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
+//TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+//HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+//NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 //POSSIBILITY OF SUCH DAMAGE.
 //
 //All rights reserved.
 //
-//Redistribution and use in source and binary forms, with or without modification, are permitted provided 
+//Redistribution and use in source and binary forms, with or without modification, are permitted provided
 //that the following conditions are met:
 //
-//    * Redistributions of source code must retain the above copyright notice, this list of conditions and 
+//    * Redistributions of source code must retain the above copyright notice, this list of conditions and
 //      the following disclaimer.
-//    * Redistributions in binary form must reproduce the above copyright notice, this list of conditions 
-//      and the following disclaimer in the documentation and/or other materials provided with the 
+//    * Redistributions in binary form must reproduce the above copyright notice, this list of conditions
+//      and the following disclaimer in the documentation and/or other materials provided with the
 //      distribution.
-//    * Neither the name of the University of Memphis nor the names of its contributors may be used to 
+//    * Neither the name of the University of Memphis nor the names of its contributors may be used to
 //      endorse or promote products derived from this software without specific prior written permission.
 //
-//THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED 
-//WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A 
-//PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR 
-//ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED 
-//TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) 
-//HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING 
-//NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
+//THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED
+//WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+//PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR
+//ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
+//TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+//HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+//NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 //POSSIBILITY OF SUCH DAMAGE.
 //
 
@@ -58,7 +58,7 @@ import org.fieldstream.service.sensor.SensorBus;
 import org.fieldstream.service.sensor.SensorBusSubscriber;
 import org.fieldstream.service.sensors.api.AbstractSensor;
 /**
- * This Class has two modes. One connects to the mote subsystem to receive updates for the ECG one connects to the replay server. 
+ * This Class has two modes. One connects to the mote subsystem to receive updates for the ECG one connects to the replay server.
  * @author mahbub
  *
  */
@@ -68,10 +68,10 @@ public class ExhalationVirtualSensor extends AbstractSensor implements SensorBus
 	private static final int EXHALATION_WINDOWSIZE = 4*NUMBER_OF_PEAKS_TO_CONSIDER+2;
 	private static final Boolean EXHALATION_SCHEDULER = false;
 	/**
-	 * decide if the Replay sensor or the mote ECG sensor should be used! 
+	 * decide if the Replay sensor or the mote ECG sensor should be used!
 	 */
 	//private static final Boolean REPLAY_SENSOR = true;
-	private ExhalationRunner runner = new ExhalationRunner(); 
+	private ExhalationRunner runner = new ExhalationRunner();
 
 	private Object lock = new Object();
 	/**
@@ -103,7 +103,7 @@ public class ExhalationVirtualSensor extends AbstractSensor implements SensorBus
 							}
 							else if (calculate.length<timestamps.length) {
 								float fakeIndex = 0;
-								float factor = timestamps.length/((float)calculate.length - 1);	
+								float factor = timestamps.length/((float)calculate.length - 1);
 								timestampsNew[0]=timestamps[0];
 								for (int i=1; i<calculate.length;i++) {
 									fakeIndex = i * factor;
@@ -122,14 +122,14 @@ public class ExhalationVirtualSensor extends AbstractSensor implements SensorBus
 							//							String sensor = "";
 							//							for (int i=0; i < calculate.length; i++) {
 							//								sensor += calculate[i] + ",";
-							//							}		
+							//							}
 							//							Log.d("Exhalation", "Exhalation Durations = " + sensor);
 							String sensor = "";
 
 							for (int i=0; i < calculate.length; i++) {
 								sensor += calculate[i] + ",";
-							}		
-							Log.d("Exhalation", "Exhalation Durations = " + sensor);	
+							}
+							Log.d("Exhalation", "Exhalation Durations = " + sensor);
 
 							String timeStamp="";
 							for(int i=0;i<timestampsNew.length;i++)
@@ -179,7 +179,7 @@ public class ExhalationVirtualSensor extends AbstractSensor implements SensorBus
 		synchronized(lock) {
 			runner.active=false;
 			ExhalThread=null;
-			lock.notify();		
+			lock.notify();
 		}
 
 	}
@@ -197,9 +197,9 @@ public class ExhalationVirtualSensor extends AbstractSensor implements SensorBus
 				runner.timestamps=toSendTimestamps;
 				runner.startNewData=startNewData;
 				runner.endData=endNewData;
-				lock.notify();	
+				lock.notify();
 			}
-		}		
+		}
 	}
 	/**
 	 * called from the Runner thread to actually send the new buffer to the AbstractSensor
@@ -218,14 +218,14 @@ public class ExhalationVirtualSensor extends AbstractSensor implements SensorBus
 	//		if(SensorID == Constants.SENSOR_VIRTUAL_REALPEAKVALLEY)
 	//		{
 	//			long[] timeStamps = new long[data.length];
-	//			addValue(data, timeStamps);		
+	//			addValue(data, timeStamps);
 	//		}
-	//		
+	//
 	//	}
 	public void receiveBuffer(int sensorID, int[] data, long[] timestamps,
 			int startNewData, int endNewData) {
 		if (sensorID==Constants.SENSOR_VIRTUAL_REALPEAKVALLEY) {
-			addValue(data, timestamps);	
+			addValue(data, timestamps);
 //			String realPeakValley="";
 //			for(int i=0;i<data.length;i++)
 //			{
@@ -241,5 +241,3 @@ public class ExhalationVirtualSensor extends AbstractSensor implements SensorBus
 		}
 	}
 }
-
-

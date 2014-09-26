@@ -1,24 +1,24 @@
 //Copyright (c) 2010, University of Memphis
 //All rights reserved.
 //
-//Redistribution and use in source and binary forms, with or without modification, are permitted provided 
+//Redistribution and use in source and binary forms, with or without modification, are permitted provided
 //that the following conditions are met:
 //
-//    * Redistributions of source code must retain the above copyright notice, this list of conditions and 
+//    * Redistributions of source code must retain the above copyright notice, this list of conditions and
 //      the following disclaimer.
-//    * Redistributions in binary form must reproduce the above copyright notice, this list of conditions 
-//      and the following disclaimer in the documentation and/or other materials provided with the 
+//    * Redistributions in binary form must reproduce the above copyright notice, this list of conditions
+//      and the following disclaimer in the documentation and/or other materials provided with the
 //      distribution.
-//    * Neither the name of the University of Memphis nor the names of its contributors may be used to 
+//    * Neither the name of the University of Memphis nor the names of its contributors may be used to
 //      endorse or promote products derived from this software without specific prior written permission.
 //
-//THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED 
-//WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A 
-//PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR 
-//ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED 
-//TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) 
-//HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING 
-//NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
+//THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED
+//WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+//PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR
+//ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
+//TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+//HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+//NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 //POSSIBILITY OF SUCH DAMAGE.
 //
 
@@ -71,18 +71,18 @@ public class FieldReportActivity extends Activity{
 	DatabaseLogger db;
 	private static Map<Long, ReportValueObject> dayReportMap = new HashMap<Long, ReportValueObject>(); // Preserve this map when report is closed. So static.
 	private static long lastModifiedReportMap = (long) -1;
-	
+
 	@Override
 	public void onAttachedToWindow() {
-	    this.getWindow().setType(WindowManager.LayoutParams.TYPE_KEYGUARD_DIALOG);  
+	    this.getWindow().setType(WindowManager.LayoutParams.TYPE_KEYGUARD_DIALOG);
 	    super.onAttachedToWindow();
-	}	
+	}
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		db=DatabaseLogger.getInstance(this);
-		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,   
-				WindowManager.LayoutParams.FLAG_FULLSCREEN);  
+		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+				WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
 		this.setContentView(R.layout.fieldreport);
 
@@ -112,9 +112,9 @@ public class FieldReportActivity extends Activity{
 	{
 		try {
 			DatabaseLogger db=DatabaseLogger.getInstance(this);
-	
+
 			SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yy(EEE)");
-	
+
 			String date;
 			long todaysStartTime = 0;
 			for(int day=0; day<MAXDAY; day++){
@@ -129,7 +129,7 @@ public class FieldReportActivity extends Activity{
 				if(day==0) {
 					todaysStartTime = startTime.longValue();
 				}
-	
+
 				//generate endtime
 				Calendar calEnd = Calendar.getInstance();
 				calEnd.set(Calendar.HOUR_OF_DAY, 23);
@@ -139,9 +139,9 @@ public class FieldReportActivity extends Activity{
 				calEnd.set(Calendar.DAY_OF_YEAR, calEnd.get(Calendar.DAY_OF_YEAR)-day);
 				Long endTime = calEnd.getTimeInMillis();
 				// read # of saliva confirmation
-				
+
 				date=dateFormat.format(startTime);
-				
+
 				ReportValueObject reportValueObject = dayReportMap.get(startTime);
 				if(reportValueObject==null || day==0 || lastModifiedReportMap!=todaysStartTime) {
 					reportValueObject = new ReportValueObject();
@@ -162,7 +162,7 @@ public class FieldReportActivity extends Activity{
 					}
 				}
 				//Log.ema_alarm("", "time="+Constants.millisecondToDateTime(startTime)+" Saliva No="+salivaAck);
-				
+
 				addRow(date, reportValueObject);
 			}
 			lastModifiedReportMap = todaysStartTime; // If this changes than invalidate the map.
@@ -174,28 +174,28 @@ public class FieldReportActivity extends Activity{
 		//return String.format("%d:%02d:%02d", durationSec/3600, (durationSec%3600)/60, (durationSec%60));
 		return String.format("%.2fh", ((durationSec*1.0)/3600));
 	}
-	
+
 	void addRow(String date, ReportValueObject reportValueObject)
 	{
-		//String qualityDurationStr = this.getDurationString(reportValueObject.wearingSecond) + 
+		//String qualityDurationStr = this.getDurationString(reportValueObject.wearingSecond) +
 		//			"\n(" + this.getDurationString(reportValueObject.totalSecond) +")";
-		String qualityDurationStr = this.getDurationString(reportValueObject.wearingRip) 
+		String qualityDurationStr = this.getDurationString(reportValueObject.wearingRip)
 				+ ", " + this.getDurationString(reportValueObject.wearingEcg)
 				+ "\n" + this.getDurationString(reportValueObject.wearingWristLeft)
 				+ ", " + this.getDurationString(reportValueObject.wearingWristRight)
 				+ "\n(" + this.getDurationString(reportValueObject.totalSecond) +")";
-		
+
 		TableLayout tl = (TableLayout)findViewById(R.id.tablelayout_fieldreport);
 		/* Create a new row to be added. */
 		TableRow tr = new TableRow(this);
 		LayoutParams lp = new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT);
-		
+
 		int leftMargin=0;
         int topMargin=10;
         int rightMargin=0;
         int bottomMargin=0;
 		lp.setMargins(leftMargin, topMargin, rightMargin, bottomMargin);
-		
+
 		tr.setLayoutParams(lp);
 
 		TextView tv1 = new TextView(this);
@@ -216,7 +216,7 @@ public class FieldReportActivity extends Activity{
 		tv3.setText(emaText);
 		//tv3.setText(String.valueOf(emaAnswered)+"("+String.valueOf(emaPrompt)+")");
 		tv3.setGravity(Gravity.CENTER);
-		
+
 		TextView tv4 = new TextView(this);
 		tv4.setLayoutParams(lp);
 		tv4.setText(String.valueOf(reportValueObject.salivaAckCount));
@@ -224,12 +224,12 @@ public class FieldReportActivity extends Activity{
 
 		tr.addView(tv1);
 		tr.addView(tv2);
-		tr.addView(tv3);         
+		tr.addView(tv3);
 		tr.addView(tv4);
-		
+
 		tl.addView(tr, new TableLayout.LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT));
 	}
-	
+
 	public class ReportValueObject {
 		//public long wearingSecond;
 		public long wearingRip;

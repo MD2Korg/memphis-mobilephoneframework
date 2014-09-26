@@ -1,24 +1,24 @@
 ﻿//Copyright (c) 2010, University of Memphis
 //All rights reserved.
 //
-//Redistribution and use in source and binary forms, with or without modification, are permitted provided 
+//Redistribution and use in source and binary forms, with or without modification, are permitted provided
 //that the following conditions are met:
 //
-//    * Redistributions of source code must retain the above copyright notice, this list of conditions and 
+//    * Redistributions of source code must retain the above copyright notice, this list of conditions and
 //      the following disclaimer.
-//    * Redistributions in binary form must reproduce the above copyright notice, this list of conditions 
-//      and the following disclaimer in the documentation and/or other materials provided with the 
+//    * Redistributions in binary form must reproduce the above copyright notice, this list of conditions
+//      and the following disclaimer in the documentation and/or other materials provided with the
 //      distribution.
-//    * Neither the name of the University of Memphis nor the names of its contributors may be used to 
+//    * Neither the name of the University of Memphis nor the names of its contributors may be used to
 //      endorse or promote products derived from this software without specific prior written permission.
 //
-//THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED 
-//WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A 
-//PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR 
-//ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED 
-//TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) 
-//HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING 
-//NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
+//THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED
+//WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+//PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR
+//ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
+//TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+//HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+//NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 //POSSIBILITY OF SUCH DAMAGE.
 //
 
@@ -46,7 +46,7 @@ public class EckQualityCalculation {
 	private static final int RANGE_THRESHOLD=200;
 
 	public final static int DATA_QUALITY_GOOD = 0;
-	public final static int DATA_QUALITY_NOISE = 1;    
+	public final static int DATA_QUALITY_NOISE = 1;
 	public final static int DATA_QUALITY_BAND_LOOSE = 2;
 	public final static int DATA_QUALITY_BAND_OFF = 3;
 
@@ -105,7 +105,7 @@ public class EckQualityCalculation {
 				if(flip) large_flip++;
 			}else if(data[i]<OUTLIER_THRESHOLD_LOW){
 				if(stuck) small_stuck++;
-				if(flip) small_flip++;				
+				if(flip) small_flip++;
 			}else{
 				if(data[i]>max_value) max_value=data[i];
 				if(data[i]<min_value) min_value=data[i];
@@ -161,13 +161,13 @@ public class EckQualityCalculation {
 			return DATA_QUALITY_BAND_LOOSE;
 		}
 		//return DATA_QUALITY_GOOD;
-		
+
 		//Added by mahbub
 		//if this function returns good quality, then it is further checked by the second function developed by Rummana
 		//fitler_bad_ecg_v2(int[] data);
 		//assume that 3 seconds data is received by this function. now segment them into one second window and returns the status as good if just one window give good quality result
-	
-		return fitler_bad_ecg_v2(data);		
+
+		return fitler_bad_ecg_v2(data);
 	}
 	private int fitler_bad_ecg_v2(int[] data){
 		//we are supposed to receive data for 1 second = 64 samples
@@ -178,41 +178,41 @@ public class EckQualityCalculation {
 		if(median_slope>SLOPE_THRESHOLD || range<RANGE_THRESHOLD)
 			return DATA_QUALITY_BAND_LOOSE;
 		if(max>OUTLIER_THRESHOLD_HIGH)
-			return DATA_QUALITY_BAND_OFF;		
+			return DATA_QUALITY_BAND_OFF;
 		return DATA_QUALITY_GOOD;
 	}
 
 	// getting the maximum value
-	public static int getMaxValue(int[] array){  
-		int maxValue = array[0];  
-		for(int i=1;i < array.length;i++){  
-			if(array[i] > maxValue){  
-				maxValue = array[i];  
+	public static int getMaxValue(int[] array){
+		int maxValue = array[0];
+		for(int i=1;i < array.length;i++){
+			if(array[i] > maxValue){
+				maxValue = array[i];
 
-			}  
-		}  
-		return maxValue;  
-	}  
+			}
+		}
+		return maxValue;
+	}
 
 	// getting the miniumum value
-	public static int getMinValue(int[] array){  
-		int minValue = array[0];  
-		for(int i=1;i<array.length;i++){  
-			if(array[i] < minValue){  
-				minValue = array[i];  
-			}  
-		}  
-		return minValue;  
-	} 
+	public static int getMinValue(int[] array){
+		int minValue = array[0];
+		for(int i=1;i<array.length;i++){
+			if(array[i] < minValue){
+				minValue = array[i];
+			}
+		}
+		return minValue;
+	}
 	//getting first difference
-	public static int[] getFirstDiff(int[] array){  		
+	public static int[] getFirstDiff(int[] array){
 		int[] diff=new int[array.length-1];
 
-		for(int i=1;i<array.length;i++){  
+		for(int i=1;i<array.length;i++){
 			diff[i-1]=Math.abs(array[i]-array[i-1]);
-		}  
-		return diff;  
-	} 
+		}
+		return diff;
+	}
 	//getting median of an array
 	public static float getMedian(int[] m) {
 		//sort the array

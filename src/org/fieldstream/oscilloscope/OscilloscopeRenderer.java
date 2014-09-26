@@ -1,24 +1,24 @@
 ﻿//Copyright (c) 2010, University of Memphis
 //All rights reserved.
 //
-//Redistribution and use in source and binary forms, with or without modification, are permitted provided 
+//Redistribution and use in source and binary forms, with or without modification, are permitted provided
 //that the following conditions are met:
 //
-//    * Redistributions of source code must retain the above copyright notice, this list of conditions and 
+//    * Redistributions of source code must retain the above copyright notice, this list of conditions and
 //      the following disclaimer.
-//    * Redistributions in binary form must reproduce the above copyright notice, this list of conditions 
-//      and the following disclaimer in the documentation and/or other materials provided with the 
+//    * Redistributions in binary form must reproduce the above copyright notice, this list of conditions
+//      and the following disclaimer in the documentation and/or other materials provided with the
 //      distribution.
-//    * Neither the name of the University of Memphis nor the names of its contributors may be used to 
+//    * Neither the name of the University of Memphis nor the names of its contributors may be used to
 //      endorse or promote products derived from this software without specific prior written permission.
 //
-//THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED 
-//WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A 
-//PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR 
-//ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED 
-//TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) 
-//HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING 
-//NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
+//THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED
+//WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+//PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR
+//ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
+//TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+//HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+//NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 //POSSIBILITY OF SUCH DAMAGE.
 //
 
@@ -45,47 +45,47 @@ public class OscilloscopeRenderer implements Renderer {
 	private int pixelHeight;
 	private boolean drawingEnabled = true;
 
-	int newWidth = 0;	
-	
+	int newWidth = 0;
+
 	OscilloscopeRenderer() {
-		super();	
+		super();
 		signalRenderers = new ArrayList<SignalRenderer>();
 	}
-	
-	
-	
+
+
+
 	void addSignal(SignalRenderer sr) {
 		signalRenderers.add(sr);
-		
+
 		resetWindowWidths();
 	}
-	
+
 	void removeSignal(SignalRenderer sr) {
 		signalRenderers.remove(sr);
-		
+
 		resetWindowWidths();
 	}
-		
+
 	public void onDrawFrame(GL10 gl) {
 		if(isDrawingEnabled()) {
 			// clear the screen
 			gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
-	
+
 			// set up the camera
 			gl.glMatrixMode(GL10.GL_PROJECTION);
 			gl.glLoadIdentity();
-	
+
 			// apply transforms to each signal model
 			gl.glMatrixMode(GL10.GL_MODELVIEW);
 			gl.glLoadIdentity();
-			
-			
-			
-			
+
+
+
+
 			int xPos = 0;
-	
+
 			for (SignalRenderer sr : signalRenderers) {
-			    gl.glViewport(xPos, 0, newWidth, pixelHeight);  		    
+			    gl.glViewport(xPos, 0, newWidth, pixelHeight);
 			    sr.draw(gl);
 				xPos += newWidth;
 			}
@@ -96,22 +96,22 @@ public class OscilloscopeRenderer implements Renderer {
 	private void resetWindowWidths() {
 	 	float dx = 1/(float)signalRenderers.size();
 		newWidth = (int)(dx * pixelWidth);
-		
+
 		for (SignalRenderer r : signalRenderers) {
 			r.setPixelSize(newWidth, pixelHeight);
 		}
 	}
-	
+
 	public void onSurfaceChanged(GL10 gl, int width, int height) {
 		Log.d(TAG, "adusting for screen resolution (" + width + ", " + height + ")");
 	     pixelWidth = width;
 	     pixelHeight = height;
-	    
+
 	     resetWindowWidths();
 	}
-	
+
 	public void onSurfaceCreated(GL10 gl, EGLConfig glConfig) {
-		
+
 		gl.glClearColor(0, 0, 0, 1);
 
 		// this doesn't seem to do anything!
@@ -130,6 +130,6 @@ public class OscilloscopeRenderer implements Renderer {
 	public void setDrawingEnabled(boolean drawingEnabled) {
 		this.drawingEnabled = drawingEnabled;
 	}
-	
-	
+
+
 }

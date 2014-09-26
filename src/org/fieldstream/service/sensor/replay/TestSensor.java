@@ -1,25 +1,25 @@
 ﻿//Copyright (c) 2010, University of Memphis, Carnegie Mellon University
 //All rights reserved.
 //
-//Redistribution and use in source and binary forms, with or without modification, are permitted provided 
+//Redistribution and use in source and binary forms, with or without modification, are permitted provided
 //that the following conditions are met:
 //
-//    * Redistributions of source code must retain the above copyright notice, this list of conditions and 
+//    * Redistributions of source code must retain the above copyright notice, this list of conditions and
 //      the following disclaimer.
-//    * Redistributions in binary form must reproduce the above copyright notice, this list of conditions 
-//      and the following disclaimer in the documentation and/or other materials provided with the 
+//    * Redistributions in binary form must reproduce the above copyright notice, this list of conditions
+//      and the following disclaimer in the documentation and/or other materials provided with the
 //      distribution.
-//    * Neither the names of the University of Memphis and Carnegie Mellon University nor the names of its 
-//      contributors may be used to endorse or promote products derived from this software without specific 
+//    * Neither the names of the University of Memphis and Carnegie Mellon University nor the names of its
+//      contributors may be used to endorse or promote products derived from this software without specific
 //      prior written permission.
 //
-//THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED 
-//WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A 
-//PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR 
-//ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED 
-//TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) 
-//HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING 
-//NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
+//THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED
+//WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+//PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR
+//ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
+//TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+//HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+//NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 //POSSIBILITY OF SUCH DAMAGE.
 //
 
@@ -51,14 +51,14 @@ public class TestSensor extends org.fieldstream.service.sensors.api.AbstractSens
 	private Handler myhandler;
 	private int delay;
 	private ReaderRunner readerRunner;
-	
+
 	/**
-	 * constructor, finally called by {@link ActivationManager} to establish this sensors. Has to set the correct parameters for this sensor 
+	 * constructor, finally called by {@link ActivationManager} to establish this sensors. Has to set the correct parameters for this sensor
 	 * @param SensorID
 	 */
-	
+
 	public TestSensor(int SensorID ) {
-		
+
 		super(SensorID);
 		//	, scheduler, windowLength, slidingWindowStep);
 		switch (SensorID) {
@@ -76,13 +76,13 @@ public class TestSensor extends org.fieldstream.service.sensors.api.AbstractSens
 			TYPE = TestSensorStorage.RESP;
 			// framerate for RIP is 60hz
 			frameRate = 60;
-			
+
 		break;
 		case Constants.SENSOR_REPLAY_TEMP:
 			TYPE = TestSensorStorage.TEMP;
 			// framerate for ECG is 64hz
 			frameRate = 10;
-			
+
 		break;
 //		//case added by mahbub.........need to check whether it is required or not. because, these virtual classes are supposed to collect data from its previous sensor/virtual sensor
 //		case Constants.SENSOR_VIRTUAL_INHALATION:
@@ -110,8 +110,8 @@ public class TestSensor extends org.fieldstream.service.sensors.api.AbstractSens
 		default:
 			frameRate=1;
 			break;
-		} 
-		
+		}
+
 		reader = TestSensorStorage.getInstance().getReader(TYPE);
 		threader = new HandlerThread("ReplaySensor"+TYPE);
 		threader.setName("fs_TestSensor_"+System.currentTimeMillis());
@@ -141,9 +141,9 @@ public class TestSensor extends org.fieldstream.service.sensors.api.AbstractSens
 		active=false;
 		myhandler.removeCallbacks(readerRunner);
 		threader.getLooper().quit();
-		
+
 	}
-	
+
 	class ReaderRunner implements Runnable {
 		String line;
 		long lastTime;
@@ -160,9 +160,9 @@ public class TestSensor extends org.fieldstream.service.sensors.api.AbstractSens
 								timeStamps[i]=lastTime+delay/50;
 								if (!valuesString[i].equals("")) {
 //									try {
-									
+
 									values[i]=Integer.parseInt(valuesString[i].trim());
-									
+
 //										values[i]=.parse(valuesString[i]).intValue();
 //									} catch (ParseException e) {
 										// TODO Auto-generated catch block
@@ -172,7 +172,7 @@ public class TestSensor extends org.fieldstream.service.sensors.api.AbstractSens
 								}
 							}
 							timeStamps[timeStamps.length-1]=System.currentTimeMillis();
-							
+
 							addValue(values, timeStamps);
 //							if (Log.DEBUG) Log.d("TestSensor", "finished new replay window, time " + System.currentTimeMillis() + " and time since last call (in millis) " + (System.currentTimeMillis()-lastTime));
 //							if (Log.VERBOSE) {
@@ -180,7 +180,7 @@ public class TestSensor extends org.fieldstream.service.sensors.api.AbstractSens
 //								for (int i=0;i<values.length;i++ ) {
 //									output+=";"+values[i];
 //								}
-//								
+//
 //								Log.v("TestSensor","values:" +output);
 //							}
 							lastTime=System.currentTimeMillis();
@@ -195,7 +195,7 @@ public class TestSensor extends org.fieldstream.service.sensors.api.AbstractSens
 			}
 			myhandler.postAtTime(this,SystemClock.uptimeMillis()+delay);
 		}
-		
+
 	}
-	
+
 }

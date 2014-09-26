@@ -1,25 +1,25 @@
 ﻿//Copyright (c) 2010, University of Memphis, Carnegie Mellon University
 //All rights reserved.
 //
-//Redistribution and use in source and binary forms, with or without modification, are permitted provided 
+//Redistribution and use in source and binary forms, with or without modification, are permitted provided
 //that the following conditions are met:
 //
-//    * Redistributions of source code must retain the above copyright notice, this list of conditions and 
+//    * Redistributions of source code must retain the above copyright notice, this list of conditions and
 //      the following disclaimer.
-//    * Redistributions in binary form must reproduce the above copyright notice, this list of conditions 
-//      and the following disclaimer in the documentation and/or other materials provided with the 
+//    * Redistributions in binary form must reproduce the above copyright notice, this list of conditions
+//      and the following disclaimer in the documentation and/or other materials provided with the
 //      distribution.
-//    * Neither the names of the University of Memphis and Carnegie Mellon University nor the names of its 
-//      contributors may be used to endorse or promote products derived from this software without specific 
+//    * Neither the names of the University of Memphis and Carnegie Mellon University nor the names of its
+//      contributors may be used to endorse or promote products derived from this software without specific
 //      prior written permission.
 //
-//THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED 
-//WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A 
-//PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR 
-//ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED 
-//TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) 
-//HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING 
-//NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
+//THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED
+//WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+//PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR
+//ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
+//TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+//HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+//NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 //POSSIBILITY OF SUCH DAMAGE.
 //
 
@@ -75,20 +75,20 @@ public class DeadPeriodSetup extends Activity {
 		loadDeadPeriods();
 
 		// capture our View elements
-		quietStartDateButton = (Button) findViewById(R.id.NoInterviewsStartDateButton);	    
+		quietStartDateButton = (Button) findViewById(R.id.NoInterviewsStartDateButton);
 		quietStartTimeButton = (Button) findViewById(R.id.NoInterviewsStartTimeButton);
-		quietEndDateButton = (Button) findViewById(R.id.NoInterviewsEndDateButton);	    
+		quietEndDateButton = (Button) findViewById(R.id.NoInterviewsEndDateButton);
 		quietEndTimeButton = (Button) findViewById(R.id.NoInterviewsEndTimeButton);
-		sleepingStartDateButton = (Button) findViewById(R.id.SleepingStartDateButton);	    
+		sleepingStartDateButton = (Button) findViewById(R.id.SleepingStartDateButton);
 		sleepingStartTimeButton = (Button) findViewById(R.id.SleepingStartTimeButton);
-		sleepingEndDateButton = (Button) findViewById(R.id.SleepingEndDateButton);	    
+		sleepingEndDateButton = (Button) findViewById(R.id.SleepingEndDateButton);
 		sleepingEndTimeButton = (Button) findViewById(R.id.SleepingEndTimeButton);
-		dayStartDateButton = (Button) findViewById(R.id.DayStartDateButton);	    
+		dayStartDateButton = (Button) findViewById(R.id.DayStartDateButton);
 		dayStartTimeButton = (Button) findViewById(R.id.DayStartTimeButton);
 
-		saveButton = (Button) findViewById(R.id.SaveDeadPeriod);	    
+		saveButton = (Button) findViewById(R.id.SaveDeadPeriod);
 		backButton = (Button) findViewById(R.id.BackDeadPeriod);
-		
+
 		// add a click listener to the button
 		quietStartTimeButton.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
@@ -172,7 +172,7 @@ public class DeadPeriodSetup extends Activity {
 		quietEndTime.setTimeInMillis(Constants.QUIETEND);
 		sleepingStartTime.setTimeInMillis(Constants.SLEEPSTART);
 		sleepingEndTime.setTimeInMillis(Constants.SLEEPEND);
-		dayStartTime.setTimeInMillis(Constants.DAYSTART);	    
+		dayStartTime.setTimeInMillis(Constants.DAYSTART);
 	}
 
 	@Override
@@ -180,7 +180,7 @@ public class DeadPeriodSetup extends Activity {
 		super.onResume();
 		loadDeadPeriods();
 		// display the current date
-		updateDisplay();    	
+		updateDisplay();
 	}
 	public void saveDeadPeriod()
 	{
@@ -191,7 +191,7 @@ public class DeadPeriodSetup extends Activity {
 		long sleepingEndTimeUnix = sleepingEndTime.getTimeInMillis();
 		long dayStartTimeUnix=dayStartTime.getTimeInMillis();
 		success=ReadWriteConfigFiles.getInstance(this).writeDeadPeriodsDB(quietStartTimeUnix, quietEndTimeUnix, sleepingStartTimeUnix, sleepingEndTimeUnix,dayStartTimeUnix);
-		
+
 		if(success==true)
 			Toast.makeText(getApplicationContext(), "Dead Periods Saved Successfully", Toast.LENGTH_SHORT).show();
 		else
@@ -244,13 +244,13 @@ public class DeadPeriodSetup extends Activity {
 			return new DatePickerDialog(this,
 					onDayStartDateSetListener, dayStartTime.get(Calendar.YEAR), dayStartTime.get(Calendar.MONTH), dayStartTime.get(Calendar.DAY_OF_MONTH));
 
-		}		
+		}
 
 		return null;
 	}
 
 	// updates the time we display in the TextView
-	private void updateDisplay() {	
+	private void updateDisplay() {
 		DateFormat timeFormatter = DateFormat.getTimeInstance(DateFormat.SHORT);
 
 		quietStartTimeButton.setText(timeFormatter.format(quietStartTime.getTime()));
@@ -259,7 +259,7 @@ public class DeadPeriodSetup extends Activity {
 		sleepingEndTimeButton.setText(timeFormatter.format(sleepingEndTime.getTime()));
 
 		quietStartDateButton.setText(getDateText(quietStartTime));
-		quietEndDateButton.setText(getDateText(quietEndTime));	    
+		quietEndDateButton.setText(getDateText(quietEndTime));
 		sleepingStartDateButton.setText(getDateText(sleepingStartTime));
 		sleepingEndDateButton.setText(getDateText(sleepingEndTime));
 
@@ -279,17 +279,17 @@ public class DeadPeriodSetup extends Activity {
 			else if (days == 1)
 				return "Tomorrow";
 			else if(days==-1) return "Yesterday";
-			//			else if (days > 1 && days < 7) 
+			//			else if (days > 1 && days < 7)
 			//				return new SimpleDateFormat("EEEE").format(cal.getTime());
-			else 
+			else
 				//				return new SimpleDateFormat("EEEE").format(cal.getTime());
 				return DateFormat.getDateInstance(DateFormat.MEDIUM).format(cal.getTime());
 		}
 		else if (years == 1) {
 			days = days + today.getActualMaximum(Calendar.DAY_OF_YEAR);
-			if (days == 0) 
+			if (days == 0)
 				return "Tomorrow";
-			else if (days > 0 && days < 6) 
+			else if (days > 0 && days < 6)
 				return new SimpleDateFormat("EEEE").format(cal.getTime());
 			else {
 				return DateFormat.getDateInstance(DateFormat.MEDIUM).format(cal.getTime());
@@ -316,7 +316,7 @@ public class DeadPeriodSetup extends Activity {
 		public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
 			quietEndTime.set(Calendar.HOUR_OF_DAY, hourOfDay);
 			quietEndTime.set(Calendar.MINUTE, minute);
-			quietEndTime.set(Calendar.SECOND, 0);	        	
+			quietEndTime.set(Calendar.SECOND, 0);
 			settingsChanged = true;
 			updateDisplay();
 		}
@@ -356,7 +356,7 @@ public class DeadPeriodSetup extends Activity {
 	};
 
 
-	private DatePickerDialog.OnDateSetListener onQuietStartDateSetListener = 
+	private DatePickerDialog.OnDateSetListener onQuietStartDateSetListener =
 			new DatePickerDialog.OnDateSetListener() {
 		public void onDateSet(DatePicker view, int year, int monthOfYear,
 				int dayOfMonth) {
@@ -367,7 +367,7 @@ public class DeadPeriodSetup extends Activity {
 			updateDisplay();
 		}
 	};
-	private DatePickerDialog.OnDateSetListener onQuietEndDateSetListener = 
+	private DatePickerDialog.OnDateSetListener onQuietEndDateSetListener =
 			new DatePickerDialog.OnDateSetListener() {
 		public void onDateSet(DatePicker view, int year, int monthOfYear,
 				int dayOfMonth) {
@@ -378,7 +378,7 @@ public class DeadPeriodSetup extends Activity {
 			updateDisplay();
 		}
 	};
-	private DatePickerDialog.OnDateSetListener onSleepingStartDateSetListener = 
+	private DatePickerDialog.OnDateSetListener onSleepingStartDateSetListener =
 			new DatePickerDialog.OnDateSetListener() {
 		public void onDateSet(DatePicker view, int year, int monthOfYear,
 				int dayOfMonth) {
@@ -389,7 +389,7 @@ public class DeadPeriodSetup extends Activity {
 			updateDisplay();
 		}
 	};
-	private DatePickerDialog.OnDateSetListener onDayStartDateSetListener = 
+	private DatePickerDialog.OnDateSetListener onDayStartDateSetListener =
 			new DatePickerDialog.OnDateSetListener() {
 		public void onDateSet(DatePicker view, int year, int monthOfYear,
 				int dayOfMonth) {
@@ -401,7 +401,7 @@ public class DeadPeriodSetup extends Activity {
 		}
 	};
 
-	private DatePickerDialog.OnDateSetListener onSleepingEndDateSetListener = 
+	private DatePickerDialog.OnDateSetListener onSleepingEndDateSetListener =
 			new DatePickerDialog.OnDateSetListener() {
 		public void onDateSet(DatePicker view, int year, int monthOfYear,
 				int dayOfMonth) {

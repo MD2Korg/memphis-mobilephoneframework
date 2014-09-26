@@ -1,24 +1,24 @@
 //All rights reserved.
 //
-//Redistribution and use in source and binary forms, with or without modification, are permitted provided 
+//Redistribution and use in source and binary forms, with or without modification, are permitted provided
 //that the following conditions are met:
 //
-//    * Redistributions of source code must retain the above copyright notice, this list of conditions and 
+//    * Redistributions of source code must retain the above copyright notice, this list of conditions and
 //      the following disclaimer.
-//    * Redistributions in binary form must reproduce the above copyright notice, this list of conditions 
-//      and the following disclaimer in the documentation and/or other materials provided with the 
+//    * Redistributions in binary form must reproduce the above copyright notice, this list of conditions
+//      and the following disclaimer in the documentation and/or other materials provided with the
 //      distribution.
-//    * Neither the names of the University of Memphis and Carnegie Mellon University nor the names of its 
-//      contributors may be used to endorse or promote products derived from this software without specific 
+//    * Neither the names of the University of Memphis and Carnegie Mellon University nor the names of its
+//      contributors may be used to endorse or promote products derived from this software without specific
 //      prior written permission.
 //
-//THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED 
-//WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A 
-//PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR 
-//ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED 
-//TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) 
-//HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING 
-//NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
+//THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED
+//WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+//PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR
+//ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
+//TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+//HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+//NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 //POSSIBILITY OF SUCH DAMAGE.
 //
 package org.fieldstream;
@@ -72,22 +72,22 @@ public class Minnesota_SmokingStudyActivity extends BaseActivity {
 	private int result;
 /*	@Override
 	public void onAttachedToWindow() {
-	    super.onAttachedToWindow();		
+	    super.onAttachedToWindow();
 	    this.getWindow().setType(WindowManager.LayoutParams.TYPE_KEYGUARD_DIALOG);
 		getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN);
-	}	
+	}
 	*/
-/*	
-	@Override    
+/*
+	@Override
 	public void onWindowFocusChanged(boolean hasFocus) {
-	    this.getWindow().setType(WindowManager.LayoutParams.TYPE_KEYGUARD);    
+	    this.getWindow().setType(WindowManager.LayoutParams.TYPE_KEYGUARD);
 		getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.titlebar);
-	    
+
 	    super.onWindowFocusChanged(hasFocus);
-	}	
-*/	
-	
+	}
+*/
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		COUNT++;
@@ -98,14 +98,14 @@ public class Minnesota_SmokingStudyActivity extends BaseActivity {
 		DatabaseLogger.getInstance(this).logAnything("prog_stat", "start", System.currentTimeMillis());
 		getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN);
-		
-//		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,   
-//				WindowManager.LayoutParams.FLAG_FULLSCREEN);  
+
+//		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+//				WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
 		requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
 		setContentView(R.layout.minnesota_smokingstudy_layout);
 		getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.titlebar);
-		
+
 		titleText="Minnesota FieldStudy";
 
 		setTitleBar(NOT_CONNECTED);
@@ -173,7 +173,7 @@ public class Minnesota_SmokingStudyActivity extends BaseActivity {
 		if(bluetoothAdapter.isEnabled()) {
 			bluetoothAdapter.disable();
 		}*/
-		
+
 		if(message.length()>0) {
 			message = message + " turned off due to optimize power";
 			Toast.makeText(this, message, Toast.LENGTH_LONG).show();
@@ -224,7 +224,7 @@ public class Minnesota_SmokingStudyActivity extends BaseActivity {
 	}
 	//	long firstDayStart;
 	private void loadEMAScheduler(){
-		InterviewScheduler.INCENTIVE_SCHEME=InterviewScheduler.NO_INCENTIVE_SCHEME;		
+		InterviewScheduler.INCENTIVE_SCHEME=InterviewScheduler.NO_INCENTIVE_SCHEME;
 		if(emaScheduler!=null){
 			stopService(emaScheduler);
 		}
@@ -235,7 +235,7 @@ public class Minnesota_SmokingStudyActivity extends BaseActivity {
 	/* This is called when the app is killed. */
 	@Override
 	public void onResume() {
-		context=this;		
+		context=this;
 		super.onResume();
 		setGUI();
 	}
@@ -263,12 +263,12 @@ public class Minnesota_SmokingStudyActivity extends BaseActivity {
 		if(waketime==-1) waketime=ReadWriteConfigFiles.getInstance(this).getdefaulttime(0,8);
 		long sleeptime=DatabaseLogger.getInstance(this).getdeadperiod("sleepstart", today, today+Constants.DAYMILLIS);
 		if(sleeptime==-1) sleeptime=ReadWriteConfigFiles.getInstance(this).getdefaulttime(0,22);
-		
+
 		wakestr=Constants.millisecondToTime(waketime);
 		sleepstr=Constants.millisecondToTime(sleeptime);
 
 		saliva.setText(s);
 		wakeup.setText(wakestr);
 		sleep.setText(sleepstr);
-	}	
+	}
 }

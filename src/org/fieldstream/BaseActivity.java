@@ -1,25 +1,25 @@
 //Copyright (c) 2010, University of Memphis, Carnegie Mellon University
 //All rights reserved.
 //
-//Redistribution and use in source and binary forms, with or without modification, are permitted provided 
+//Redistribution and use in source and binary forms, with or without modification, are permitted provided
 //that the following conditions are met:
 //
-//    * Redistributions of source code must retain the above copyright notice, this list of conditions and 
+//    * Redistributions of source code must retain the above copyright notice, this list of conditions and
 //      the following disclaimer.
-//    * Redistributions in binary form must reproduce the above copyright notice, this list of conditions 
-//      and the following disclaimer in the documentation and/or other materials provided with the 
+//    * Redistributions in binary form must reproduce the above copyright notice, this list of conditions
+//      and the following disclaimer in the documentation and/or other materials provided with the
 //      distribution.
-//    * Neither the names of the University of Memphis and Carnegie Mellon University nor the names of its 
-//      contributors may be used to endorse or promote products derived from this software without specific 
+//    * Neither the names of the University of Memphis and Carnegie Mellon University nor the names of its
+//      contributors may be used to endorse or promote products derived from this software without specific
 //      prior written permission.
 //
-//THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED 
-//WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A 
-//PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR 
-//ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED 
-//TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) 
-//HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING 
-//NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
+//THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED
+//WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+//PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR
+//ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
+//TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+//HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+//NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 //POSSIBILITY OF SUCH DAMAGE.
 //
 package org.fieldstream;
@@ -106,12 +106,12 @@ public class BaseActivity extends Activity {
 	protected ImageButton eight;
 	protected ImageButton nine;
 	protected ImageButton zero;
-	
+
 	protected final static String EXIT_CODE = "7556";
 	protected final static String OSCOPE_CODE ="6557";
 	protected final static String ECGRIP_DEMO_CODE ="3366";
 	protected final static String REPORT_CODE = "8812";
-	
+
 	protected String keypadCode = "";
 
 	// inference service access
@@ -123,7 +123,7 @@ public class BaseActivity extends Activity {
 	// state variables
 	static protected int start=0;
 	public static BaseActivity mainActivity=null;
-	
+
 	// Alarm
 /*
 	PendingIntent pi;
@@ -144,7 +144,7 @@ public class BaseActivity extends Activity {
 	void setTitleBar(boolean connection) {
 		setTitleBar(connection, "");
 	}
-	
+
 	void setTitleBar(boolean connection, String message) {
 		View titleView = getWindow().findViewById(android.R.id.title);
 	    if (titleView != null) {
@@ -157,13 +157,13 @@ public class BaseActivity extends Activity {
 /*
 		if(connection==CONNECTED){
 			TextView status=(TextView) findViewById(R.id.status);
-			status.setBackgroundColor(Color.rgb(0, 100, 0));						
+			status.setBackgroundColor(Color.rgb(0, 100, 0));
 			status.setText("Connected");
 			TextView title=(TextView) findViewById(R.id.myTitle);
-			title.setBackgroundColor(Color.rgb(0, 50, 0));						
+			title.setBackgroundColor(Color.rgb(0, 50, 0));
 			title.setText(titleText);
-			
-			
+
+
 		}
 		else if (connection==NOT_CONNECTED){
 			TextView status=(TextView) findViewById(R.id.status);
@@ -171,12 +171,12 @@ public class BaseActivity extends Activity {
 			status.setText("Not Connected");
 			TextView title=(TextView) findViewById(R.id.myTitle);
 			title.setText(message);
-			title.setBackgroundColor(Color.RED);			
+			title.setBackgroundColor(Color.RED);
 		}
 */
 	}
-	
-	
+
+
 	protected IInferrenceServiceCallback inferenceCallback = new IInferrenceServiceCallback.Stub() {
 
 		public void receiveCallback(int modelID, int value, long startTime,
@@ -186,17 +186,17 @@ public class BaseActivity extends Activity {
 	};
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);		
+		super.onCreate(savedInstanceState);
 		// why imp??
 		mHandler.removeCallbacks(mUpdateTimeTask);
         mHandler.postDelayed(mUpdateTimeTask, 2000);
-		DatabaseLogger.active=true;		
+		DatabaseLogger.active=true;
 //		DatabaseLogger.makeActive();
 		Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler(this));
 
-//		requestWindowFeature(Window.FEATURE_NO_TITLE);  
-		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,   
-				WindowManager.LayoutParams.FLAG_FULLSCREEN);  
+//		requestWindowFeature(Window.FEATURE_NO_TITLE);
+		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+				WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
 //		setContentView(R.layout.labstudy_layout);
 
@@ -213,8 +213,8 @@ public class BaseActivity extends Activity {
 		}
 		keypad = createKeypad();
 		initKeypad(keypad);
-		oscopeIntent = new Intent(getBaseContext(), OscilloscopeActivity.class);		
-		ecgripDemoIntent = new Intent(getBaseContext(), ECGRIPOscilloscopeActivity.class);				
+		oscopeIntent = new Intent(getBaseContext(), OscilloscopeActivity.class);
+		ecgripDemoIntent = new Intent(getBaseContext(), ECGRIPOscilloscopeActivity.class);
 		fieldReportIntent = new Intent(getBaseContext(),FieldReportActivity.class);
 //		 setup();
 //		am.set( AlarmManager.ELAPSED_REALTIME_WAKEUP, SystemClock.elapsedRealtime() + TWENTY_SECONDS, pi );
@@ -256,7 +256,7 @@ public class BaseActivity extends Activity {
 //		Thread.currentThread().getName()
 //		db.close();
 //		db.close();
-		
+
 		// Alarm
 //		am.cancel(pi);
 //	    unregisterReceiver(br);
@@ -266,7 +266,7 @@ public class BaseActivity extends Activity {
 	@Override
 	public void onResume() {
 		super.onResume();
-		
+
 		if (inferenceService != null)
 			try {
 				inferenceService.logResume(System.currentTimeMillis());
@@ -306,7 +306,7 @@ public class BaseActivity extends Activity {
 */
 
 	protected void disconnect() throws RemoteException {
-		inferenceService.unsubscribe(inferenceCallback);				
+		inferenceService.unsubscribe(inferenceCallback);
 		unbindService(inferenceConnection);
 		stopService(inferenceServiceIntent);
 		inferenceServiceIntent = null;
@@ -331,15 +331,15 @@ public class BaseActivity extends Activity {
 	public static ArrayList<Integer> activeMotesAutoSense2 = new ArrayList<Integer>() {
 		{
 			add(Constants.MOTE_TYPE_AUTOSENSE_2_ALCOHOL);
-			add(Constants.MOTE_TYPE_AUTOSENSE_2_ECG_RIP);		
+			add(Constants.MOTE_TYPE_AUTOSENSE_2_ECG_RIP);
 			add(Constants.MOTE_TYPE_AUTOSENSE_2_NINE_AXIS);
 		}
 	};
-	
+
 	public static ArrayList<Integer> activeMotesAutoSense1 = new ArrayList<Integer>() {
 		{
 			add(Constants.MOTE_TYPE_AUTOSENSE_1_ECG);
-			add(Constants.MOTE_TYPE_AUTOSENSE_1_RIP);		
+			add(Constants.MOTE_TYPE_AUTOSENSE_1_RIP);
 		}
 	};
 
@@ -351,7 +351,7 @@ public class BaseActivity extends Activity {
 			Log.i("inferenceConnection", "Connected to the inference service");
 
 			//updateIncentivesDisplay();
-			
+
 			try {
 				inferenceService.subscribe(inferenceCallback);
 				Log.i("inferenceConnection",
@@ -360,8 +360,8 @@ public class BaseActivity extends Activity {
 				//				inferenceService.activateModel(Constants.MODEL_DATAQUALITY);
 				//				inferenceService.activateModel(Constants.MODEL_CONVERSATION);
 				//				inferenceService.activateModel(Constants.MODEL_ACTIVITY);
-			
-				// start the motes here				
+
+				// start the motes here
 				if(Constants.CURRENT_SENSOR_SUITE == Constants.SENSOR_SUITE_AUTOSENSE_1)
 				{
 					for(Integer mote : activeMotesAutoSense1) {
@@ -372,16 +372,16 @@ public class BaseActivity extends Activity {
 				{
 					for(Integer mote : activeMotesAutoSense2) {
 						inferenceService.activateMote(mote);
-					}					
+					}
 				}
-				
+
 			} catch (RemoteException e) {
 				e.printStackTrace();
 			}
 		}
 
 		public void onServiceDisconnected(ComponentName name) {
-			
+
 			if(Constants.CURRENT_SENSOR_SUITE == Constants.SENSOR_SUITE_AUTOSENSE_1)
 			{
 				for(Integer mote : activeMotesAutoSense1) {
@@ -389,7 +389,7 @@ public class BaseActivity extends Activity {
 					inferenceService.deactivateMote(mote);
 					} catch (RemoteException e) {
 						e.printStackTrace();
-					} // end catch					
+					} // end catch
 				} // end for
 			}
 			else if(Constants.CURRENT_SENSOR_SUITE == Constants.SENSOR_SUITE_AUTOSENSE_2)
@@ -400,7 +400,7 @@ public class BaseActivity extends Activity {
 					} catch (RemoteException e) {
 						e.printStackTrace();
 					}// end catch
-				} // end for							
+				} // end for
 			} // end else if
 
 
@@ -455,7 +455,7 @@ public class BaseActivity extends Activity {
 			//finish();
 			return true;
 		}
-		
+
 		return super.onKeyDown(keyCode, event);
 	}
 
@@ -586,13 +586,13 @@ public class BaseActivity extends Activity {
 	}
 
 	protected void checkKeypadCodes() {
-		
-		
-		if (keypadCode.length() == EXIT_CODE.length() 
+
+
+		if (keypadCode.length() == EXIT_CODE.length()
 				|| keypadCode.length() == OSCOPE_CODE.length()
-				|| keypadCode.length() == ECGRIP_DEMO_CODE.length() 
+				|| keypadCode.length() == ECGRIP_DEMO_CODE.length()
 				|| keypadCode.length() == REPORT_CODE.length()) {
-			if (keypadCode.equalsIgnoreCase(EXIT_CODE)) {		
+			if (keypadCode.equalsIgnoreCase(EXIT_CODE)) {
 				keypad.hide();
 				keypadVisible = false;
 				keypad.dismiss();
@@ -601,22 +601,22 @@ public class BaseActivity extends Activity {
 			} else if (keypadCode.equalsIgnoreCase(OSCOPE_CODE)) {
 				keypad.hide();
 				keypadVisible = false;
-				this.startActivity(oscopeIntent);		
+				this.startActivity(oscopeIntent);
 			} else if (keypadCode.equalsIgnoreCase(ECGRIP_DEMO_CODE)) {
 				keypad.hide();
 				keypadVisible = false;
-				this.startActivity(ecgripDemoIntent);    				
-				
+				this.startActivity(ecgripDemoIntent);
+
 			} else if (keypadCode.equalsIgnoreCase(REPORT_CODE)) {
-				
+
 				keypad.hide();
 				keypadVisible = false;
-				startActivity(fieldReportIntent);				
-				
+				startActivity(fieldReportIntent);
+
 			} else {
 				keypad.hide();
 				keypadVisible = false;
-				
+
 			}
 		}
 	}
@@ -631,12 +631,12 @@ public class BaseActivity extends Activity {
 //				createAlertDialog("\""+Constants.NETWORK_CONFIG_FILENAME+"\" is not found");
 				return;
 			}
-			
+
 	        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
             DocumentBuilder builder = factory.newDocumentBuilder();
             Document dom = builder.parse(setupFile);
-            
-            Element xmlroot = dom.getDocumentElement();		
+
+            Element xmlroot = dom.getDocumentElement();
             NodeList nodeList;
             Constants.antAddress[Constants.MOTE_RIPECG_IND]="";
             Constants.antAddress[Constants.MOTE_ALCOHOL_IND]="";
@@ -668,7 +668,7 @@ public class BaseActivity extends Activity {
             			break;
             		}
             	}
-            	
+
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -679,7 +679,7 @@ public class BaseActivity extends Activity {
 	private Handler mHandler = new Handler();
 
 private Runnable mUpdateTimeTask = new Runnable() {
-	
+
 	private int getColor(DataQualityColorEnum dataQualityColorEnum) {
 		switch(dataQualityColorEnum) {
 		case RED:
@@ -691,21 +691,21 @@ private Runnable mUpdateTimeTask = new Runnable() {
 		}
 		return Color.BLACK;
 	}
-	
+
 	long lastLogTimestamp = -1;
-	
+
 	   public void run() {
 //		   if(true) return;
 		   TextView txtLeftMoteTitle = (TextView)findViewById(R.id.txtLeftMoteTitle);
 		   TextView txtRipTitle = (TextView)findViewById(R.id.txtRipTitle);
 		   TextView txtEcgTitle = (TextView)findViewById(R.id.txtEcgTitle);
 		   TextView txtRightMoteTitle = (TextView)findViewById(R.id.txtRightMoteTitle);
-		   
+
 		   long timestampCurrent = System.currentTimeMillis();
 		   if(lastLogTimestamp==-1) {
 			   lastLogTimestamp = timestampCurrent-3000;
 		   }
-		   
+
 		   try {
 			   if(Constants.moteActive[Constants.MOTE_RIPECG_IND]==true){
 				   DataQualityColorEnum dataQualityColorRip = SensorDataQualitySingleton.getInstance().getDataQualityColorRip();
@@ -741,16 +741,16 @@ private Runnable mUpdateTimeTask = new Runnable() {
 	       //if (seconds < 10) {
 	       //    mTimeLabel.setText("" + minutes + ":0" + seconds);
 	       //} else {
-	       //    mTimeLabel.setText("" + minutes + ":" + seconds);            
+	       //    mTimeLabel.setText("" + minutes + ":" + seconds);
 	       //}
-		   
+
 		   //if(isConnected!=AntStateManager.isReceived[Constants.MOTE_RIPECG_IND]){
 			//   isConnected=AntStateManager.isReceived[Constants.MOTE_RIPECG_IND];
 			//   setTitleBar(isConnected);
 		   //}
 		   String newFailMessage="";
 		   Boolean newIsConnected = true;
-		   
+
 		   if(!AntStateManager.isReceived[Constants.MOTE_ALCOHOL_ACCL_LEFT_IND] && Constants.moteActive[Constants.MOTE_ALCOHOL_ACCL_LEFT_IND]==true){
 			   newIsConnected = false;
 			   if(newFailMessage.length()>0) {
@@ -764,26 +764,26 @@ private Runnable mUpdateTimeTask = new Runnable() {
 				   newFailMessage += ",";
 			   }
 			   newFailMessage += "L(9)";
-			   
+
 			   txtLeftMoteTitle.setBackgroundColor(Color.RED);
 		   } else {
 			   txtLeftMoteTitle.setBackgroundColor(Color.GREEN);
 		   }
-		   
+
 		   if(!AntStateManager.isReceived[Constants.MOTE_RIPECG_IND] && Constants.moteActive[Constants.MOTE_RIPECG_IND]==true){
 			   newIsConnected = false;
 			   if(newFailMessage.length()>0) {
 				   newFailMessage += ",";
 			   }
 			   newFailMessage += "Chest";
-			   
+
 			   txtEcgTitle.setBackgroundColor(Color.RED);
 			   //txtRipTitle.setBackgroundColor(Color.RED);
 		   } else {
 			   txtEcgTitle.setBackgroundColor(Color.GREEN);
 			   //txtRipTitle.setBackgroundColor(Color.GREEN);
 		   }
-		   
+
 		   if(!AntStateManager.isReceived[Constants.MOTE_ALCOHOL_ACCL_RIGHT_IND] && Constants.moteActive[Constants.MOTE_ALCOHOL_ACCL_RIGHT_IND]==true){
 			   newIsConnected = false;
 			   if(newFailMessage.length()>0) {
@@ -802,7 +802,7 @@ private Runnable mUpdateTimeTask = new Runnable() {
 			   txtRightMoteTitle.setBackgroundColor(Color.GREEN);
 		   }
 		   newFailMessage = "Sensor: " + newFailMessage;
-		   
+
 		   if(newIsConnected != isConnected || !newFailMessage.equals(failMessage)) {
 			   isConnected = newIsConnected;
 			   failMessage = newFailMessage;
@@ -810,11 +810,11 @@ private Runnable mUpdateTimeTask = new Runnable() {
 			   Log.h("Hillol", "Connected: " + isConnected + ", " + failMessage);
 		   }
 		   */
-		   
+
 		   mHandler.postDelayed(this,3000);
 	   }
-	};	
-	
+	};
+
 /*	private void setup() {
 	    br = new BroadcastReceiver() {
 	           @Override

@@ -1,25 +1,25 @@
 ﻿//Copyright (c) 2010, University of Memphis, Carnegie Mellon University
 //All rights reserved.
 //
-//Redistribution and use in source and binary forms, with or without modification, are permitted provided 
+//Redistribution and use in source and binary forms, with or without modification, are permitted provided
 //that the following conditions are met:
 //
-//    * Redistributions of source code must retain the above copyright notice, this list of conditions and 
+//    * Redistributions of source code must retain the above copyright notice, this list of conditions and
 //      the following disclaimer.
-//    * Redistributions in binary form must reproduce the above copyright notice, this list of conditions 
-//      and the following disclaimer in the documentation and/or other materials provided with the 
+//    * Redistributions in binary form must reproduce the above copyright notice, this list of conditions
+//      and the following disclaimer in the documentation and/or other materials provided with the
 //      distribution.
-//    * Neither the names of the University of Memphis and Carnegie Mellon University nor the names of its 
-//      contributors may be used to endorse or promote products derived from this software without specific 
+//    * Neither the names of the University of Memphis and Carnegie Mellon University nor the names of its
+//      contributors may be used to endorse or promote products derived from this software without specific
 //      prior written permission.
 //
-//THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED 
-//WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A 
-//PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR 
-//ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED 
-//TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) 
-//HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING 
-//NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
+//THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED
+//WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+//PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR
+//ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
+//TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+//HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+//NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 //POSSIBILITY OF SUCH DAMAGE.
 //
 
@@ -119,10 +119,10 @@ import org.fieldstream.service.sensors.phone.LocationSensor;
 //import edu.cmu.ices.stress.phone.service.sensor.virtual.InhalationVirtualSensor;
 
 public class Factory {
-	
+
 	/**
 	 * Factory to create Features, has a hardcoded switch from feature constants (see {@link Constants}) to feature classes
-	 * Each Feature class must extend {@link AbstractFeature} 
+	 * Each Feature class must extend {@link AbstractFeature}
 	 * @param featureID
 	 * @return
 	 */
@@ -177,10 +177,10 @@ public class Factory {
 			break;
 		case Constants.FEATURE_HR_POWER_23:
 			feature = new HeartRatePower23(featureID, false, 0);
-			break;			
+			break;
 		case Constants.FEATURE_HR_POWER_34:
 			feature = new HeartRatePower34(featureID, false, 0);
-			break;						
+			break;
 		case Constants.FEATURE_GSRA:
 			feature = new GSRA(featureID,false,0);
 			break;
@@ -229,8 +229,8 @@ public class Factory {
 		}
 		return feature;
 	}
-	
-	
+
+
 	/**
 	 * load a model specified by it's ID
 	 * @param modelID
@@ -291,8 +291,8 @@ public class Factory {
 			throw new InvalidParameterException("Wrong/Non-Existing Feature ID");
 		}
 		return model;
-	}	
-	
+	}
+
 	static AbstractMote moteFactory(int moteType){
 		AbstractMote mote = null;
 		switch (moteType) {
@@ -306,8 +306,8 @@ public class Factory {
 		}
 		return mote;
 	}
-	
-	
+
+
 	/**
 	 * load a Sensors identified by it SensorID. Uses a Case statement for this
 	 * @param sensorID
@@ -315,7 +315,7 @@ public class Factory {
 	 */
 	static AbstractSensor sensorFactory(int sensorID) {
 		if(Log.DEBUG_MONOWAR) Log.m("Monowar_ALL","OK\t: (Factory)_SensorFactory_SensorID="+sensorID);
-		
+
 		AbstractSensor sensor = null;
 		switch (sensorID) {
 		case Constants.SENSOR_ACCELPHONEMAG:
@@ -350,10 +350,10 @@ public class Factory {
 		case Constants.SENSOR_BODY_TEMP:
 		case Constants.SENSOR_AMBIENT_TEMP:
 		case Constants.SENSOR_GSR:
-		case Constants.SENSOR_ALCOHOL:			
+		case Constants.SENSOR_ALCOHOL:
 		case Constants.SENSOR_GSRWRIST:
 		case Constants.SENSOR_TEMPWRIST:
-			
+
 		case Constants.SENSOR_NINE_AXIS_RIGHT_ACCL_X:
 		case Constants.SENSOR_NINE_AXIS_RIGHT_ACCL_Y:
 		case Constants.SENSOR_NINE_AXIS_RIGHT_ACCL_Z:
@@ -401,7 +401,7 @@ public class Factory {
 			break;
 		case Constants.SENSOR_VIRTUAL_FIRSTDIFF_EXHALATION_NEW:					//mahbub
 			sensor = new ExhalationFirstDiffVirtualSensorNew(sensorID);
-			break;	
+			break;
 		case Constants.SENSOR_REPLAY_ECK:
 			sensor = new TestSensor(sensorID);
 			break;
@@ -439,5 +439,5 @@ public class Factory {
 //			throw new InvalidParameterException("Wrong/Non-Existing Sensor ID");
 		}
 		return sensor;
-	}	
+	}
 }

@@ -1,28 +1,28 @@
 ﻿//Copyright (c) 2010, Carnegie Mellon University
 //All rights reserved.
 //
-//Redistribution and use in source and binary forms, with or without modification, are permitted provided 
+//Redistribution and use in source and binary forms, with or without modification, are permitted provided
 //that the following conditions are met:
 //
-//    * Redistributions of source code must retain the above copyright notice, this list of conditions and 
+//    * Redistributions of source code must retain the above copyright notice, this list of conditions and
 //      the following disclaimer.
-//    * Redistributions in binary form must reproduce the above copyright notice, this list of conditions 
-//      and the following disclaimer in the documentation and/or other materials provided with the 
+//    * Redistributions in binary form must reproduce the above copyright notice, this list of conditions
+//      and the following disclaimer in the documentation and/or other materials provided with the
 //      distribution.
-//    * Neither the name of Carnegie Mellon University nor the names of its contributors may be used to 
+//    * Neither the name of Carnegie Mellon University nor the names of its contributors may be used to
 //      endorse or promote products derived from this software without specific prior written permission.
 //
-//THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED 
-//WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A 
-//PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR 
-//ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED 
-//TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) 
-//HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING 
-//NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
+//THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED
+//WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+//PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR
+//ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
+//TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+//HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+//NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 //POSSIBILITY OF SUCH DAMAGE.
 //
 /**
- * 
+ *
  */
 package org.fieldstream.service.context.model;
 
@@ -43,11 +43,11 @@ import android.os.SystemClock;
 /**
  * @author Sang Won Lee Read pre-constructed SVM model from /svmModel.txt Model
  *         is loaded & other appropriate adjustments are made in CONSTRUCTOR
- * 
+ *
  *         'receiveUpdate' will classify only if all the features arrived
  *         (temporarily 10 features) when there is any missed features, the
  *         latest value will be used to predict
- * 
+ *
  *         Classification result can be accessed from the class field,
  *         'stressLevel'
  */
@@ -107,8 +107,8 @@ public class StressCalculation extends ModelCalculation {
 		lastResults = new int[25];
 		count = 0;
 		featureFlag = new int[featureNum];
-		
-		
+
+
 		int resourcemodel = 0;
 		int resourcebaseline = 0;
 		int resourcescale = 0;
@@ -162,7 +162,7 @@ public class StressCalculation extends ModelCalculation {
 
 	/**
 	 * loads the values in to the {@link StressCalculation#usedFeaturesed}
-	 * 
+	 *
 	 * @param scalereader
 	 *            a reader for a usedfeatures.txt file
 	 * @throws NumberFormatException
@@ -275,7 +275,7 @@ public class StressCalculation extends ModelCalculation {
 		// Constants.SENSOR_GSR));
 		// featureLabels.add(Constants.getId(Constants.FEATURE_GSRD,
 		// Constants.SENSOR_GSR));
-		//		
+		//
 //		 featureLabels.add(Constants.getId(Constants.FEATURE_MEAN,
 //		 Constants.SENSOR_REPLAY_GSR));
 //		 featureLabels.add(Constants.getId(Constants.FEATURE_VAR,
@@ -319,7 +319,7 @@ public class StressCalculation extends ModelCalculation {
 		// Constants.SENSOR_RIP)); // RPMED
 		// featureLabels.add(Constants.getId(Constants.FEATURE_RAMP,
 		// Constants.SENSOR_RIP)); // RAMP
-		//		
+		//
 		// featureLabels.add(Constants.getId(Constants.FEATURE_RESP_RATE,
 		// Constants.SENSOR_REPLAY_RESP)); // RR
 		// featureLabels.add(Constants.getId(Constants.FEATURE_RESP_SD,
@@ -331,7 +331,7 @@ public class StressCalculation extends ModelCalculation {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @seeedu.cmu.ices.stress.phone.service.context.model.ModelCalculation#
 	 * getCurrentClassifier()
 	 */
@@ -341,7 +341,7 @@ public class StressCalculation extends ModelCalculation {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see
 	 * edu.cmu.ices.stress.phone.service.context.model.ModelCalculation#getID()
 	 */
@@ -351,26 +351,26 @@ public class StressCalculation extends ModelCalculation {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see
 	 * edu.cmu.ices.stress.phone.service.context.model.ModelCalculation#setLabel
 	 * ()
 	 */
 	public synchronized void setLabel(float label) {
-   		
+
 		//when stress level is same as label (should retrieve ema result in real app)
 		emaLabel = (int)label;
 		emaHasBeenSet=true;
 		Log.d(STRESS_CALULATION,"Received new EMA label: "+label);
-			
+
 	}
-	
+
 	private void retrain(int newLabel) {
 		// get the ones we need. For this, we iterate over the retrainLables list
 		ArrayList<String> list = new ArrayList<String>();
 		for (int i=0;i<retrainLables.size();i++) {
 			if (retrainLables.get(i)!=newLabel && receivedFeatureSets.size()>i) {
-				
+
 				svm_node[] reTrainNodes = receivedFeatureSets.get(i);
 				StringBuffer newLine = new StringBuffer();
 				newLine.append(emaLabel);
@@ -391,14 +391,14 @@ public class StressCalculation extends ModelCalculation {
 			try {
 				/**DUBUG CODE**/
 				long timeTrainS = System.currentTimeMillis(); // stop timin
-				
+
 				//retrain model, first argument is to tell svm that it's retrainng mode,
 				//second argument is list of new vectors, each vector is in the following format
 				//label		features
 				//2 		1:0.48596122 2:0.78856732 3:0.69265633 4:0.56234436 5:0.24639338 6:0.37203857 7:0.38492230
 				svm_train_mod.setModel(model);
 				svm_train_mod.go(true, list.toArray(new String[list.size()]));
-				
+
 				/**DUBUG CODE**/
 				long timeTrainE = System.currentTimeMillis(); // stop timin
 				Log.i(STRESS_CALULATION, "Retraining on "+list.size()+" took "+ (timeTrainE-timeTrainS)+"ms");
@@ -408,18 +408,18 @@ public class StressCalculation extends ModelCalculation {
 			}
 			//retrieve retrained model
 			model=svm_train_mod.getModel();
-			
+
 			// this should save the model!
-			
+
 	}
 
-	
+
 	/**
 	 * receives new feature values, {@link StressCalculation#scale(double, int)}
 	 * them and orders them into {@link StressCalculation#data}. once all
 	 * features have been received once, the current stress level is predicted
-	 * 
-	 * 
+	 *
+	 *
 	 * {@see edu.cmu.ices.stress.phone.service.sensors.api.FeatureBusSubscriber#
 	 * receiveUpdate(int, float)}
 	 */
@@ -430,17 +430,17 @@ public class StressCalculation extends ModelCalculation {
 
 		int index = 0;
 		for (int featureID : featureLabels) {
-			
+
 			double value = fs.getFeature(featureID);
- 
+
 			// svm_node takes index from 1 through 10, not 0 to 9 (need to be
 			// verified though)
 			data[index].index = index + 1;
 			data[index].value = scale(value, index);
 			index++;
 		}
-		
-		
+
+
 //		if (testCounter==15) {
 //			testCounter=0;
 //			emaLabel=2;
@@ -449,8 +449,8 @@ public class StressCalculation extends ModelCalculation {
 //			testCounter++;
 //		} else if (testCounter==0) {
 //			testCounter = 1;
-//		} 
-		
+//		}
+
 		predictLabel();
 		ContextBus.getInstance().pushNewContext(getID(), stressLevel, fs.getBeginTime(), fs.getEndTime());
 
@@ -459,12 +459,12 @@ public class StressCalculation extends ModelCalculation {
 	private void predictLabel() {
 		// push classification result to a higher layer
 		stressLevel = (int) svm.svm_predict(model, data);
-		
+
 		// add to the set of received values
 		if (receivedFeatureSets.size()>=MAX_RETRAIN_FEATURESETS) {
 			receivedFeatureSets.remove(0);
 		}
-		
+
 		receivedFeatureSets.add(data);
 		if (emaHasBeenSet) {
 			if (Log.DEBUG) {
@@ -478,7 +478,7 @@ public class StressCalculation extends ModelCalculation {
 	//			if (previousContexts!=null) {
 //					retrainLables.addAll(ContextBus.getInstance().getPreviousContexts(this.getID()));
 //				}
-			} 
+			}
 			retrainLables.add(stressLevel);
 			count++;
 			if (count>5) {
@@ -492,7 +492,7 @@ public class StressCalculation extends ModelCalculation {
 	/**
 	 * scales and normalized the given value based on it's index in the
 	 * featureLabels array
-	 * 
+	 *
 	 * @param value
 	 * @param index
 	 * @return

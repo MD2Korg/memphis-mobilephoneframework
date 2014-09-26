@@ -1,25 +1,25 @@
 ﻿//Copyright (c) 2010, University of Memphis, Carnegie Mellon University
 //All rights reserved.
 //
-//Redistribution and use in source and binary forms, with or without modification, are permitted provided 
+//Redistribution and use in source and binary forms, with or without modification, are permitted provided
 //that the following conditions are met:
 //
-//    * Redistributions of source code must retain the above copyright notice, this list of conditions and 
+//    * Redistributions of source code must retain the above copyright notice, this list of conditions and
 //      the following disclaimer.
-//    * Redistributions in binary form must reproduce the above copyright notice, this list of conditions 
-//      and the following disclaimer in the documentation and/or other materials provided with the 
+//    * Redistributions in binary form must reproduce the above copyright notice, this list of conditions
+//      and the following disclaimer in the documentation and/or other materials provided with the
 //      distribution.
-//    * Neither the names of the University of Memphis and Carnegie Mellon University nor the names of its 
-//      contributors may be used to endorse or promote products derived from this software without specific 
+//    * Neither the names of the University of Memphis and Carnegie Mellon University nor the names of its
+//      contributors may be used to endorse or promote products derived from this software without specific
 //      prior written permission.
 //
-//THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED 
-//WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A 
-//PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR 
-//ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED 
-//TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) 
-//HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING 
-//NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
+//THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED
+//WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+//PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR
+//ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
+//TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+//HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+//NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 //POSSIBILITY OF SUCH DAMAGE.
 //
 
@@ -82,7 +82,7 @@ public class InterviewScheduler extends Service {
 			level=clevel;
 			indexQuestionFile=indexfile;
 		}
-		public int getModelID() { return modelID; }		
+		public int getModelID() { return modelID; }
 		public String getModelName() { return modelName; }
 		public int getBudget() { return budget; }
 		public int getExpectedNumber() { return expectedNumber; }
@@ -115,7 +115,7 @@ public class InterviewScheduler extends Service {
 
 	public EMAIncentiveManager getIncentiveMangager() {
 		return incentives;
-	}	
+	}
 	// scheduler constants
 	static final long MINUTE_MILLIS = 60L * 1000L;
 	static final long HOUR_MILLIS = 60L * 60L * 1000L;
@@ -126,7 +126,7 @@ public class InterviewScheduler extends Service {
 	long GRACE_PERIOD;// = (33L * MINUTE_MILLIS);
 	int MAX_DAILY_EMA;// = 20;
 	public Model[] models;
-	int MINDELAY_FIRSTEMA=20; //10 minutes minimum delay for 1st EMA	
+	int MINDELAY_FIRSTEMA=20; //10 minutes minimum delay for 1st EMA
 
 	// rescheduling type constants
 	static final int PERIODIC = 0;
@@ -160,7 +160,7 @@ public class InterviewScheduler extends Service {
 		if (intent != null) {
 			dataLogger=DatabaseLogger.getInstance(this);
 			ReadWriteConfigFiles.getInstance(this).loadDeadPeriodsDB();
-		} 
+		}
 		initialize_handler();
 		bindServices();
 		resetInterviewScheduler();
@@ -216,7 +216,7 @@ public class InterviewScheduler extends Service {
 			scheduler.postDelayed(QUIETTIME, Constants.QUIETSTART - currtime);
 		}
 		else if (currtime < Constants.QUIETEND && Constants.QUIETSTART<Constants.QUIETEND){
-			Log.ema_alarm("IS", "Quiettime: now");		
+			Log.ema_alarm("IS", "Quiettime: now");
 			scheduler.removeCallbacks(QUIETTIME);
 			scheduler.post(QUIETTIME);
 			return;
@@ -229,12 +229,12 @@ public class InterviewScheduler extends Service {
 			return;
 		}
 		else if(currtime<Constants.SLEEPSTART){
-			Log.ema_alarm("IS", "Sleeptime: "+Constants.millisecondToDateTime(Constants.SLEEPSTART));			
+			Log.ema_alarm("IS", "Sleeptime: "+Constants.millisecondToDateTime(Constants.SLEEPSTART));
 			scheduler.removeCallbacks(SLEEPTIME);
 			scheduler.postDelayed(SLEEPTIME, Constants.SLEEPSTART-currtime);
 		}
 		reschedulePeriodicEMA();
-		Log.ema_alarm("IS", "resetNewDay: "+Constants.millisecondToDateTime(Constants.DAYEND));		
+		Log.ema_alarm("IS", "resetNewDay: "+Constants.millisecondToDateTime(Constants.DAYEND));
 		scheduler.removeCallbacks(resetNewDay);
 		scheduler.postDelayed(resetNewDay, Constants.DAYEND-currtime);
 	}
@@ -311,7 +311,7 @@ public class InterviewScheduler extends Service {
 		}
 		c.close();
 		Log.mm(TAG,"OK\t: (InterviewScheduler)_isvalidforema() count="+count+", datavalidity="+dataValidity);
-		if(Log.LOG_DB){DatabaseLogger db=DatabaseLogger.getInstance(this);db.logAnything("DEBUG", "OK\t: (InterviewScheduler)_isvalidforema() count="+count,System.currentTimeMillis());}	
+		if(Log.LOG_DB){DatabaseLogger db=DatabaseLogger.getInstance(this);db.logAnything("DEBUG", "OK\t: (InterviewScheduler)_isvalidforema() count="+count,System.currentTimeMillis());}
 		if(count >=dataValidity)
 			return true;
 		return false;
@@ -355,7 +355,7 @@ public class InterviewScheduler extends Service {
 			if (Log.DEBUG) Log.d("inferenceConnection", "Connected to the inference service");
 
 			try {
-				inferenceService.subscribe(inferenceCallback);				
+				inferenceService.subscribe(inferenceCallback);
 
 				if (Log.DEBUG) Log.d("inferenceConnection",
 						"Subscribed to the inference service callback");
@@ -367,7 +367,7 @@ public class InterviewScheduler extends Service {
 			resetInterviewScheduler();
 		}
 
-		public void onServiceDisconnected(ComponentName name) {			
+		public void onServiceDisconnected(ComponentName name) {
 
 			inferenceService = null;
 			if (Log.DEBUG) Log.d("inferenceConnection", "Disconnected from inference service");
@@ -513,7 +513,7 @@ public class InterviewScheduler extends Service {
 				who=i;
 				break;
 			}
-		}		
+		}
 		if(modelID==Constants.MODEL_COLLECT_SALIVA){
 			//			sleepActive=false;quietActive=false;graceActive=false;
 			scheduler.removeCallbacks(launchSalivaInterview);
@@ -593,7 +593,7 @@ public class InterviewScheduler extends Service {
 		public void run() {
 			long currtime=System.currentTimeMillis();
 			if(interviewRunning || currtime-dataLogger.getLastEMA_completed_or_prompted()<5*60*1000){
-				reschedulePeriodicEMA();				
+				reschedulePeriodicEMA();
 				return;
 			}
 			if (!interviewRunning  && Constants.ALARMRUNNING==false) {
@@ -614,7 +614,7 @@ public class InterviewScheduler extends Service {
 			long currtime=System.currentTimeMillis();
 
 			if(sleepActive==true || quietActive==true || graceActive==true || (currtime-dataLogger.getLastEMA_completed_or_prompted())<GRACE_PERIOD) {
-				reschedulePeriodicEMA();				
+				reschedulePeriodicEMA();
 				return;
 			}
 			long diff=AlarmScheduler.getInstance(getBaseContext()).findNearAlarm();
@@ -655,7 +655,7 @@ public class InterviewScheduler extends Service {
 			long curtime=System.currentTimeMillis();
 			stopInterviewScheduler();
 			sleepActive=true;
-			Log.ema_alarm("IS", "(SleepEnd) RestartScheduler: "+Constants.millisecondToDateTime(Constants.SLEEPEND));			
+			Log.ema_alarm("IS", "(SleepEnd) RestartScheduler: "+Constants.millisecondToDateTime(Constants.SLEEPEND));
 			scheduler.removeCallbacks(restartScheduler);
 			if(Constants.SLEEPEND-curtime<=0)
 				scheduler.post(restartScheduler);
@@ -714,7 +714,7 @@ public class InterviewScheduler extends Service {
 							delayResponses[i] = (String)response;
 						} catch(ClassCastException e) {
 							delayResponses[i] = "" + (Integer)response;
-						}						
+						}
 					}
 				}
 
@@ -728,7 +728,7 @@ public class InterviewScheduler extends Service {
 					// if (resultCode == Activity.RESULT_CANCELED) {
 					// // something bad happened
 					// Log.e("onActivityResult", "Interview failed!!");
-					//					
+					//
 					// } else {
 					// received a result from the interview
 					Log.i("onActivityResult", "Interview returned correctly");
@@ -744,7 +744,7 @@ public class InterviewScheduler extends Service {
 							} catch(ClassCastException e) {
 								interviewResponses[i] = "" + (Integer)response;
 							}
-						}						
+						}
 					}
 					break;
 				default:
@@ -752,7 +752,7 @@ public class InterviewScheduler extends Service {
 				}
 				try {
 					if (requestCode == INTERVIEW_REQUEST && inferenceService != null) {
-						inferenceService.writeEMALog(launchType, activeModelsString, emaStatus, promptTime, delayTime, delayResponses, delayResponseTimes, startTime, interviewResponses, responseTimes);						
+						inferenceService.writeEMALog(launchType, activeModelsString, emaStatus, promptTime, delayTime, delayResponses, delayResponseTimes, startTime, interviewResponses, responseTimes);
 					}
 
 				} catch (RemoteException e) {
@@ -765,7 +765,7 @@ public class InterviewScheduler extends Service {
 			String[] id = activeModelsString.split(" ");
 			String tt="OK\t: (InterviewScheduler)_InterviewCompleted() id.length="+id.length+"id[0]="+id[0];
 			Log.mm(TAG,tt);
-			if(Log.LOG_DB){DatabaseLogger db=DatabaseLogger.getInstance(this);db.logAnything("DEBUG", tt,System.currentTimeMillis());}	
+			if(Log.LOG_DB){DatabaseLogger db=DatabaseLogger.getInstance(this);db.logAnything("DEBUG", tt,System.currentTimeMillis());}
 
 
 			if (id[0].equals("")) {
@@ -831,7 +831,7 @@ public class InterviewScheduler extends Service {
 			Document doc = builder.parse(setupFile);
 
 			NodeList minTimeEMAList = doc.getElementsByTagName("min_time_between_ema");
-			Element minTimeEMAElement = (Element)minTimeEMAList.item(0); 
+			Element minTimeEMAElement = (Element)minTimeEMAList.item(0);
 			NodeList nodeminTimeEMAList = minTimeEMAElement.getChildNodes();
 			int minTimeEMA = Integer.parseInt(((Node)nodeminTimeEMAList.item(0)).getNodeValue().trim());
 			GRACE_PERIOD=minTimeEMA*MINUTE_MILLIS;
@@ -843,12 +843,12 @@ public class InterviewScheduler extends Service {
 			MAX_DAILY_EMA=maxNumberEMAs;
 
 			NodeList timeoutList = doc.getElementsByTagName("starttimeout");
-			Element timeoutElement = (Element)timeoutList.item(0); 
+			Element timeoutElement = (Element)timeoutList.item(0);
 			NodeList nodetimeoutList = timeoutElement.getChildNodes();
 			long timeout = Long.parseLong(((Node)nodetimeoutList.item(0)).getNodeValue().trim());
 			Constants.START_TIMEOUT=timeout*60*1000;
 			timeoutList = doc.getElementsByTagName("interviewtimeout");
-			timeoutElement = (Element)timeoutList.item(0); 
+			timeoutElement = (Element)timeoutList.item(0);
 			nodetimeoutList = timeoutElement.getChildNodes();
 			timeout = Long.parseLong(((Node)nodetimeoutList.item(0)).getNodeValue().trim());
 			Constants.INTERVIEW_TIMEOUT=timeout*60*1000;
@@ -856,13 +856,13 @@ public class InterviewScheduler extends Service {
 			//PERIODIC_INTERVAL=periodicEMAInterval*MINUTE_MILLIS;
 
 			NodeList list = doc.getElementsByTagName("beeptime");
-			Element element = (Element)list.item(0); 
+			Element element = (Element)list.item(0);
 			NodeList lists = element.getChildNodes();
 			int beeptime = Integer.parseInt(((Node)lists.item(0)).getNodeValue().trim());
 			Constants.BEEP_COUNT=beeptime*60;
 
 			list = doc.getElementsByTagName("userdelay");
-			element = (Element)list.item(0); 
+			element = (Element)list.item(0);
 			lists = element.getChildNodes();
 			long maxdelay = Long.parseLong(((Node)lists.item(0)).getNodeValue().trim());
 			Constants.USER_DELAY=maxdelay*60*1000;
@@ -886,7 +886,7 @@ public class InterviewScheduler extends Service {
 			}
 
 			list = doc.getElementsByTagName("defaultemafiles");
-			element = (Element)list.item(0); 
+			element = (Element)list.item(0);
 			lists = element.getChildNodes();
 			String filename = (((Node)lists.item(0)).getNodeValue().trim());
 			for(int ii=0;ii<Constants.EMA_QUESTION_FILENAME.length;ii++){
@@ -914,29 +914,29 @@ public class InterviewScheduler extends Service {
 					String model = ((Node)Lists.item(0)).getNodeValue().trim();
 
 					List = eventElement.getElementsByTagName("budget");
-					Element = (Element)List.item(0); 
+					Element = (Element)List.item(0);
 					Lists = Element.getChildNodes();
 					int budget = Integer.parseInt(((Node)Lists.item(0)).getNodeValue().trim());
 
 					List = eventElement.getElementsByTagName("expected_number");
-					Element = (Element)List.item(0); 
+					Element = (Element)List.item(0);
 					Lists = Element.getChildNodes();
 					int expectedNumber = Integer.parseInt(((Node)Lists.item(0)).getNodeValue().trim());
 
 					List = eventElement.getElementsByTagName("delay");
-					Element = (Element)List.item(0); 
+					Element = (Element)List.item(0);
 					Lists = Element.getChildNodes();
 					int delay = Integer.parseInt(((Node)Lists.item(0)).getNodeValue().trim());
 
 					List = eventElement.getElementsByTagName("level");
-					Element = (Element)List.item(0); 
+					Element = (Element)List.item(0);
 					Lists = Element.getChildNodes();
 					String level = ((Node)Lists.item(0)).getNodeValue().trim();
 
 					int indexfile=Constants.INDEX_DEFAULT_EMA_QUESTION_FILENAME;
 					List = eventElement.getElementsByTagName("filename");
 					if(List.getLength()!=0){
-						Element = (Element)List.item(0); 
+						Element = (Element)List.item(0);
 						Lists = Element.getChildNodes();
 						filename = ((Node)Lists.item(0)).getNodeValue().trim();
 						for(int ii=0;ii<Constants.EMA_QUESTION_FILENAME.length;ii++){
@@ -988,7 +988,7 @@ public class InterviewScheduler extends Service {
 	public static final int UNIFORM_INCENTIVE_SCHEME = 0;
 	public static final int VARIABLE_INCENTIVE_SCHEME = 1;
 	public static final int HIDDEN_INCENTIVE_SCHEME = 2;
-	public static final int UNIFORM_AND_BONUS_INCENTIVE_SCHEME = 4;	
+	public static final int UNIFORM_AND_BONUS_INCENTIVE_SCHEME = 4;
 
 	public static int INCENTIVE_SCHEME = NO_INCENTIVE_SCHEME;//UNIFORM_AND_BONUS_INCENTIVE_SCHEME;
 
@@ -1021,7 +1021,7 @@ public class InterviewScheduler extends Service {
 		//				0.013636364f,       3/220
 		//				0.009090909f};      2/220
 
-		// on average, this distribution leads to EMAs 
+		// on average, this distribution leads to EMAs
 		// worth $1.05, much closer to the uniform max of $1.04
 		// also happens to produce an expected value of $1.00 (exactly)
 		float[] distribution = {
@@ -1036,7 +1036,7 @@ public class InterviewScheduler extends Service {
 				0.018181818f,    //  4/220
 				0.013636364f,    //  3/220
 				0.009090909f     //  2/220
-		};		
+		};
 
 		BigDecimal[] amounts ={
 				new BigDecimal("0.50").setScale(2, BigDecimal.ROUND_HALF_EVEN),
@@ -1052,9 +1052,9 @@ public class InterviewScheduler extends Service {
 				new BigDecimal("3.00").setScale(2, BigDecimal.ROUND_HALF_EVEN)};
 
 
-		if (INCENTIVE_SCHEME == UNIFORM_AND_BONUS_INCENTIVE_SCHEME) {		
+		if (INCENTIVE_SCHEME == UNIFORM_AND_BONUS_INCENTIVE_SCHEME) {
 			incentives.setUniform(new BigDecimal(1));
-			incentives.setIncentiveVisible(true);		
+			incentives.setIncentiveVisible(true);
 			incentives.setBonusTime(300000);
 			incentives.setBonusAmount(new BigDecimal(1).divide(new BigDecimal(2)));
 		}
@@ -1062,9 +1062,9 @@ public class InterviewScheduler extends Service {
 			incentives.setUniform(new BigDecimal(1));
 			incentives.setIncentiveVisible(true);
 		}
-		else if (INCENTIVE_SCHEME == VARIABLE_INCENTIVE_SCHEME) {			
+		else if (INCENTIVE_SCHEME == VARIABLE_INCENTIVE_SCHEME) {
 			incentives.setVariable(distribution, amounts);
-			incentives.setIncentiveVisible(true);			
+			incentives.setIncentiveVisible(true);
 		}
 		else if (INCENTIVE_SCHEME == HIDDEN_INCENTIVE_SCHEME) {
 			incentives.setVariable(distribution, amounts);

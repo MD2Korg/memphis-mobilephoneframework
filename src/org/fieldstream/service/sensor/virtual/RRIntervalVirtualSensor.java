@@ -1,25 +1,25 @@
 ﻿//Copyright (c) 2010, University of Memphis, Carnegie Mellon University
 //All rights reserved.
 //
-//Redistribution and use in source and binary forms, with or without modification, are permitted provided 
+//Redistribution and use in source and binary forms, with or without modification, are permitted provided
 //that the following conditions are met:
 //
-//    * Redistributions of source code must retain the above copyright notice, this list of conditions and 
+//    * Redistributions of source code must retain the above copyright notice, this list of conditions and
 //      the following disclaimer.
-//    * Redistributions in binary form must reproduce the above copyright notice, this list of conditions 
-//      and the following disclaimer in the documentation and/or other materials provided with the 
+//    * Redistributions in binary form must reproduce the above copyright notice, this list of conditions
+//      and the following disclaimer in the documentation and/or other materials provided with the
 //      distribution.
-//    * Neither the names of the University of Memphis and Carnegie Mellon University nor the names of its 
-//      contributors may be used to endorse or promote products derived from this software without specific 
+//    * Neither the names of the University of Memphis and Carnegie Mellon University nor the names of its
+//      contributors may be used to endorse or promote products derived from this software without specific
 //      prior written permission.
 //
-//THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED 
-//WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A 
-//PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR 
-//ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED 
-//TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) 
-//HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING 
-//NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
+//THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED
+//WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+//PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR
+//ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
+//TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+//HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+//NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 //POSSIBILITY OF SUCH DAMAGE.
 //
 package org.fieldstream.service.sensor.virtual;
@@ -37,7 +37,7 @@ import org.fieldstream.service.sensor.SensorBus;
 import org.fieldstream.service.sensor.SensorBusSubscriber;
 import org.fieldstream.service.sensors.api.AbstractSensor;
 /**
- * This Class has two modes. One connects to the mote subsystem to receive updates for the ECG one connects to the replay server. 
+ * This Class has two modes. One connects to the mote subsystem to receive updates for the ECG one connects to the replay server.
  * @author blitz
  *
  */
@@ -48,11 +48,11 @@ public class RRIntervalVirtualSensor extends AbstractSensor implements SensorBus
 	// windows are 1 minute worth of samples at 64 samples/second = 3850 samples
 
 	/**
-	 * decide if the Replay sensor or the mote ECG sensor should be used! 
+	 * decide if the Replay sensor or the mote ECG sensor should be used!
 	 */
 	private static final Boolean REPLAY_SENSOR = false;
-	private RRRunner runner = new RRRunner(); 
-	
+	private RRRunner runner = new RRRunner();
+
 	private Object lock = new Object();
 	/**
 	 * internal runner to execute the RRCalculation in a separate thread
@@ -68,7 +68,7 @@ public class RRIntervalVirtualSensor extends AbstractSensor implements SensorBus
 			public RRRunner() {
 				rrCalculation = new RRIntervalCalculation();
 			}
-			
+
 			public void run() {
 				Log.d(TAG, "run(): starting run()");
 				while (active) {
@@ -88,7 +88,7 @@ public class RRIntervalVirtualSensor extends AbstractSensor implements SensorBus
 								}
 								else if (calculate.length<timestamps.length) {
 									float fakeIndex = 0;
-									float factor = timestamps.length/((float)calculate.length - 1);	
+									float factor = timestamps.length/((float)calculate.length - 1);
 									timestampsNew[0]=timestamps[0];
 									for (int i=1; i<calculate.length;i++) {
 										fakeIndex = i * factor;
@@ -101,15 +101,15 @@ public class RRIntervalVirtualSensor extends AbstractSensor implements SensorBus
 								}
 
 								Log.d(TAG, "run(): timestamps calculated");
-								
+
 								// using the current time as the timestamp when the calculation finished!
 //								long timestamp = System.currentTimeMillis();
 //								long[] timestampsNew= new long[calculate.length];
 //								for (int i=0; i<calculate.length;i++) {
-//									timestampsNew[i]=timestamp;	
+//									timestampsNew[i]=timestamp;
 //								}
-								
-								
+
+
 								int start = 0;
 								int end = calculate.length;
 								if (Log.DEBUG) Log.d(TAG,"Sending buffer with length "+calculate.length+ ", end "+ end+ ", start "+start+", and timestamp length"+timestampsNew.length );
@@ -117,7 +117,7 @@ public class RRIntervalVirtualSensor extends AbstractSensor implements SensorBus
 									String output="";
 									for (int i=0; i<calculate.length;i++) {
 										output+=";"+calculate[i];
-										
+
 									}
 									String input="";
 									for (int i=0; i<buffer.length;i++) {
@@ -125,7 +125,7 @@ public class RRIntervalVirtualSensor extends AbstractSensor implements SensorBus
 										if (i%250==0 && i>1) {
 											Log.v("TestRRComputation","input: "+input);
 											input="";
-											
+
 										}
 									}
 									Log.v("TestRRComputation","input: "+input);
@@ -136,8 +136,8 @@ public class RRIntervalVirtualSensor extends AbstractSensor implements SensorBus
 		//							rr+= calculate[i] + " ";
 		//						}
 		//						Log.d("RRVirtualSensorRunner", rr);
-								
-			
+
+
 								sendBufferReal(calculate, timestampsNew,start,end);
 								if (Log.DEBUG) Log.d("RRVirtualSensorRunner", "Send buffer after calculation");
 							}
@@ -161,9 +161,9 @@ public class RRIntervalVirtualSensor extends AbstractSensor implements SensorBus
 		super(SensorID);
 		Log.d(TAG, "constructor(): started");
 		INSTANCE = this;
-	//	initalize(HRSCHEDULER,HRWINDOWSIZE, HRWINDOWSIZE);		
+	//	initalize(HRSCHEDULER,HRWINDOWSIZE, HRWINDOWSIZE);
 	}
-	
+
 	@Override
 	public void activate() {
 		Log.d(TAG, "activate(): activated");
@@ -180,25 +180,25 @@ public class RRIntervalVirtualSensor extends AbstractSensor implements SensorBus
 			InferrenceService.INSTANCE.fm.activateSensor(Constants.SENSOR_REPLAY_ECK);
 		} else {
 			InferrenceService.INSTANCE.fm.activateSensor(Constants.SENSOR_ECK);
-		}		
+		}
 	}
 
 	@Override
 	public void deactivate() {
-		
+
 		SensorBus.getInstance().unsubscribe(this);
 		if (REPLAY_SENSOR) {
 			InferrenceService.INSTANCE.fm.deactivateSensor(Constants.SENSOR_REPLAY_ECK);
 		} else {
-			InferrenceService.INSTANCE.fm.deactivateSensor(Constants.SENSOR_ECK);	
+			InferrenceService.INSTANCE.fm.deactivateSensor(Constants.SENSOR_ECK);
 		}
-		
+
 		active = false;
 		synchronized (lock) {
 			runner.active=false;
 			RRThread=null;
 			lock.notify();
-		}		
+		}
 	}
 
 
@@ -215,12 +215,12 @@ public class RRIntervalVirtualSensor extends AbstractSensor implements SensorBus
 //				runner.timestamps=toSendTimestamps;
 //				runner.startNewData=startNewData;
 //				runner.endData=endNewData;
-//				lock.notify();	
+//				lock.notify();
 //			}
 //		}
-//		
+//
 //	}
-	
+
 	protected void calculate(int[] toSendSamples, long[] timestamps) {
 		// TODO Auto-generated method stub
 //		super.sendBuffer(toSendSamples, toSendTimestamps, startNewData, endNewData);
@@ -233,10 +233,10 @@ public class RRIntervalVirtualSensor extends AbstractSensor implements SensorBus
 				runner.timestamps=timestamps;
 
 				if (Log.DEBUG) Log.d(TAG,"calculate(): notifying others that the lock is free");
-				lock.notify();	
+				lock.notify();
 			}
 		}
-		
+
 	}
 	/**
 	 * called from the Runner thread to actually send the new buffer to the AbstractSensor
@@ -247,7 +247,7 @@ public class RRIntervalVirtualSensor extends AbstractSensor implements SensorBus
 	 */
 	protected void sendBufferReal(int[] toSendSamples, long[] toSendTimestamps, int startNewData, int endNewData) {
 		// TODO Auto-generated method stub
-				
+
 		super.sendBuffer(toSendSamples, toSendTimestamps, startNewData, endNewData);
 	}
 
@@ -260,11 +260,11 @@ public class RRIntervalVirtualSensor extends AbstractSensor implements SensorBus
 //			long[] timeStamps = new long[data.length];
 //			Arrays.fill(timeStamps, 0, data.length, t);
 //			if (Log.DEBUG) Log.d("RRInterval Sensor", "received "+data.length+" samples");
-//			addValue(data, timeStamps);		
-//			
+//			addValue(data, timeStamps);
+//
 //			//Log.d("RRIntervalVirtualSensor", "raw value = " + data[0]);
 //		}
-//		
+//
 //	}
 
 
@@ -273,7 +273,7 @@ public class RRIntervalVirtualSensor extends AbstractSensor implements SensorBus
 			int startNewData, int endNewData) {
 		Log.d(TAG, "activate(): got a buffer from " + sensorID);
 		if (sensorID==Constants.SENSOR_REPLAY_ECK) {
-			calculate(data, timestamps);		
+			calculate(data, timestamps);
 		} else if (sensorID == Constants.SENSOR_ECK) {
 			Log.d(TAG, "activate(): got a buffer from SENSOR_ECK");
 			calculate(data, timestamps);

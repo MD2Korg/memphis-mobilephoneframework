@@ -1,25 +1,49 @@
+//Copyright (c) 2010, University of Memphis, Carnegie Mellon University
+//All rights reserved.
+//
+//Redistribution and use in source and binary forms, with or without modification, are permitted provided
+//that the following conditions are met:
+//
+//    * Redistributions of source code must retain the above copyright notice, this list of conditions and
+//      the following disclaimer.
+//    * Redistributions in binary form must reproduce the above copyright notice, this list of conditions
+//      and the following disclaimer in the documentation and/or other materials provided with the
+//      distribution.
+//    * Neither the names of the University of Memphis and Carnegie Mellon University nor the names of its
+//      contributors may be used to endorse or promote products derived from this software without specific
+//      prior written permission.
+//
+//THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED
+//WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+//PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR
+//ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
+//TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+//HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+//NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+//POSSIBILITY OF SUCH DAMAGE.
+//
 ﻿package org.fieldstream.service.sensor.virtual;
 
 import java.util.Arrays;
 
 public class RRIntervalCalculation{
-    
+
     private static final int L=5000;
     public int peaktimes[]=new int[L];
     public int pind=0;
-    
+
     public RRIntervalCalculation(){}
-    
+
     private int RR_ptr = 0;
     int lastPeakTime = 0;
     private float[] RR = new float[L];
-    
+
     public int[] tbody;
     public int[] tbandbody0;
     public float[] tdiffbody0;
     public float[] tlpbody0;
     public float[] tlpbody1;
-    
+
     // ==============================================================
     public int[] calculate(int[] databuffer,long[] timestamps){
         // =============================================================
@@ -71,7 +95,7 @@ public class RRIntervalCalculation{
         }
     }
     // ==============================================================
-    
+
     public float[] concat(float[] a, float[] b){
         float[] out=new float[a.length+b.length];
         int k=0;
@@ -79,37 +103,37 @@ public class RRIntervalCalculation{
         for(int i=0;i<b.length;i++) out[k++]=b[i];
         return out;
     }
-    
+
     public float[] calculateSegment(int[] databuffer) {
         int len = databuffer.length;
-       
+
         tbody=new int[len];
         tbandbody0 = new int[len];
         tdiffbody0 = new float[len];
         tlpbody0 = new float[len];
-        
+
         tbody = lowpass(databuffer);
         tbandbody0 = bandpass(tbody);
-        
+
         float tbandbody00[]=new float[len];
         for(int i=0;i<len;i++) tbandbody00[i]=(float)tbandbody0[i];
-        
+
         tdiffbody0 = diffsqfilt(tbandbody00);
         tlpbody0 = lpfilt(tdiffbody0);
         tlpbody1=removelargepeak(tlpbody0);
-        
+
         //=======================================
-        
+
         float tlpbody00[]=new float[L];
         for(int i=0;i<len;i++) tlpbody00[i]=(float)tlpbody1[i];
         RR = findpks(tlpbody00);
-        
+
         float[] return_RR = new float[RR_ptr];
         System.arraycopy(RR, 0, return_RR, 0, RR_ptr);
-        
+
         Arrays.fill(RR, 0, RR_ptr, 0);
         RR_ptr = 0;
-        
+
         return return_RR;
     }
 
@@ -121,12 +145,12 @@ public class RRIntervalCalculation{
         float b=v[len2];
         float alpha=(float)0.1;
         float[] out=new float[len];
-        
+
         for(int i=len2;i<len;i++){
             b=(v[i]>b)?v[i]:b;
             a=(v[i]<a)?v[i]:a;
         }
-        
+
         for(int i=0;i<len;i++){
 //            if(v[i]>maxval) out[i]=maxval;
 //            else if(v[i]<minval) out[i]=minval;
@@ -138,14 +162,14 @@ public class RRIntervalCalculation{
             }else{
                 out[i]=a+(float)1.1*(b-a)-b/(1+alpha*(v[i]-b)*(v[i]-b));
             }
-            
-        
+
+
         }
         return out;
     }
 
     // ==============================================================
-   
+
     public float[] findpks(float[] tlpbody02) {
         final float theta=(float) 0.125;
         final float RR_high_limit = (float) 1.4;
@@ -167,7 +191,7 @@ public class RRIntervalCalculation{
         int[] pks = new int[SIZE];
         float[] valuepks = new float[SIZE];
         int count = 0;
-        
+
         // ======================================
         // FINDS THE PEAKS
         // ======================================
@@ -181,7 +205,7 @@ public class RRIntervalCalculation{
                 count++;
             }
         }
-        
+
         // ======================================
         // FINDS R-PEAKS
         // ======================================
@@ -246,7 +270,7 @@ public class RRIntervalCalculation{
         lastPeakTime = lastPeakTime - SIZE;
         return RR;
     }
-    
+
     // First low pass filter
     public int[] lowpass(int[] data) {
         int k = 0;
@@ -271,7 +295,7 @@ public class RRIntervalCalculation{
         }
         return data;
     }
-    
+
     // Band Pass filter
     public int[] bandpass(int[] data) {
         int k1 = 0;
@@ -288,7 +312,7 @@ public class RRIntervalCalculation{
             * y1[(k1 + 3) % FILTER_SIZE_BAND] - AA3
             * y1[(k1 + 2) % FILTER_SIZE_BAND] - AA4
             * y1[(k1 + 1) % FILTER_SIZE_BAND];
-            
+
             y1[k1] = (y1[k1]) >> FILTER_GAIN_REMOVE_BAND;
             if (y1[k1] == 0) {
                 data[i] = 0;
@@ -299,7 +323,7 @@ public class RRIntervalCalculation{
         }
         return data;
     }
-    
+
     // Derivative filter and squaring
     public float[] diffsqfilt(float[] data) {
         float[] x2 = new float[5];
@@ -319,12 +343,12 @@ public class RRIntervalCalculation{
             data[i] = data[i] * data[i];
             data[i] = data[i] / (float)Math.pow(2,SQ);
             //}
-            
+
             k2 = (k2 + 1) % FILTER_SIZE_DIFF;
         }
         return data;
     }
-    
+
     // Final Low Pass filter2
     public float[] lpfilt(float[] data) {
         float[] x3 = new float[26];
@@ -333,7 +357,7 @@ public class RRIntervalCalculation{
         int SIZE = data.length;
         for (int i = 0; i < SIZE; i++) {
             x3[k3] = data[i];
-            
+
             y3[k3] = AAL0 * x3[k3] + AAL1 * x3[(k3 + 25) % FILTER_SIZE_LP]
             + AAL2 * x3[(k3 + 24) % FILTER_SIZE_LP]
             + AAL3 * x3[(k3 + 23) % FILTER_SIZE_LP]
@@ -359,7 +383,7 @@ public class RRIntervalCalculation{
             * x3[(k3 + 3) % FILTER_SIZE_LP] + AAL24
             * x3[(k3 + 2) % FILTER_SIZE_LP] + AAL25
             * x3[(k3 + 1) % FILTER_SIZE_LP];
-            
+
             y3[k3] = (y3[k3]) /(float)Math.pow(2,FILTER_GAIN_REMOVE_LP);
             if (y3[k3] > -500) {
                 data[i] = y3[k3];
@@ -370,7 +394,7 @@ public class RRIntervalCalculation{
         }
         return data;
     }
-    
+
     private static final int FILTER_GAIN_REMOVE = 16; // Right shift by X
     private static final int A1 = -8208;
     private static final int A2 = 5927;
@@ -380,7 +404,7 @@ public class RRIntervalCalculation{
     private static final int B2 = 12288;
     private static final int B3 = 4096;
     private static final int FILTER_SIZE = 4;
-    
+
     private static final int FILTER_GAIN_REMOVE_BAND = 21; // Right shift by X
     private static final int BB0 = 1048576;
     private static final int BB1 = -1593350;
@@ -392,7 +416,7 @@ public class RRIntervalCalculation{
     private static final int AA3 = 0;
     private static final int AA4 = 0;
     private static final int FILTER_SIZE_BAND = 5;
-    
+
     private static final int FILTER_GAIN_REMOVE_DIFF = 2; // Right shift by X
     private static final int BBD0 = -69;
     private static final int BBD1 = 149;
@@ -400,7 +424,7 @@ public class RRIntervalCalculation{
     private static final int BBD3 = -147;
     private static final int BBD4 = 69;
     private static final int FILTER_SIZE_DIFF = 5;
-    
+
     private static final int FILTER_GAIN_REMOVE_LP = 20;
     private static final int AAL0 = -678;
     private static final int AAL1 = -2916;
@@ -429,5 +453,5 @@ public class RRIntervalCalculation{
     private static final int AAL24 = -2916;
     private static final int AAL25 = -678;
     private static final int FILTER_SIZE_LP = 26;
-    
+
 }

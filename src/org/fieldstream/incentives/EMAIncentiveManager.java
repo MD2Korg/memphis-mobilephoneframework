@@ -1,29 +1,29 @@
 ﻿//Copyright (c) 2010, University of Memphis
 //All rights reserved.
 //
-//Redistribution and use in source and binary forms, with or without modification, are permitted provided 
+//Redistribution and use in source and binary forms, with or without modification, are permitted provided
 //that the following conditions are met:
 //
-//    * Redistributions of source code must retain the above copyright notice, this list of conditions and 
+//    * Redistributions of source code must retain the above copyright notice, this list of conditions and
 //      the following disclaimer.
-//    * Redistributions in binary form must reproduce the above copyright notice, this list of conditions 
-//      and the following disclaimer in the documentation and/or other materials provided with the 
+//    * Redistributions in binary form must reproduce the above copyright notice, this list of conditions
+//      and the following disclaimer in the documentation and/or other materials provided with the
 //      distribution.
-//    * Neither the name of the University of Memphis nor the names of its contributors may be used to 
+//    * Neither the name of the University of Memphis nor the names of its contributors may be used to
 //      endorse or promote products derived from this software without specific prior written permission.
 //
-//THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED 
-//WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A 
-//PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR 
-//ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED 
-//TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) 
-//HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING 
-//NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
+//THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED
+//WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+//PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR
+//ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
+//TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+//HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+//NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 //POSSIBILITY OF SUCH DAMAGE.
 //
 
 /**
- * 
+ *
  */
 
 //@author Andrew Raij
@@ -47,106 +47,106 @@ public class EMAIncentiveManager extends AbstractIncentivesManager {
 	boolean loggingEnabled = true;
 	boolean perQuestion = false;
 	int numQuestionsAnswered = 0;
-	
+
 	boolean variable = false;
 	private float[] variableDistribution;
 	private BigDecimal[] variableAmounts;
-	
+
 	BigDecimal uniformAmount = new BigDecimal(1);
 	BigDecimal currentIncentive = new BigDecimal(0);
 	BigDecimal bonusAmount = new BigDecimal(0);
 	long bonusTime = 0;
-	
+
 	boolean incentiveVisible = true;
 	boolean loaded = false;
-	
+
 	int numQuestions = 1;
 
-	
-	BigDecimal currentInterviewTotal = new BigDecimal(0); 
-	
+
+	BigDecimal currentInterviewTotal = new BigDecimal(0);
+
 	DatabaseLogger dataLogger;
 
-	
-	
-	
+
+
+
 	public EMAIncentiveManager() {
 		dataLogger = null;
-		
+
 //  		if (Constants.LOGTODB) {
-  			dataLogger = DatabaseLogger.getInstance(this); 
+  			dataLogger = DatabaseLogger.getInstance(this);
  // 		}
 	}
-	
+
 	public void setBonusTime(long time) {
 		bonusTime = time;
 	}
-	
+
 	public void setBonusAmount(BigDecimal amount) {
 		bonusAmount = amount;
 	}
-			
+
 	public void setVariable(float[] distribution, BigDecimal[] amounts) {
 		this.variable = true;
 		variableDistribution = distribution;
 		variableAmounts = amounts;
-		
+
 		recomputeIncentives();
 	}
-		
+
 	public void setUniform(BigDecimal amount) {
 		this.variable = false;
 		uniformAmount = amount;
-		
+
 		recomputeIncentives();
 	}
-	
+
 	public void setPerQuestion(boolean perQuestion) {
 		this.perQuestion = perQuestion;
-		
+
 		recomputeIncentives();
 	}
-	
+
 	public void setNumQuestions(int numQuestions) {
 		this.numQuestions = numQuestions;
-		
+
 		recomputeIncentives();
 	}
-	
+
 	public BigDecimal requestIncentive(String id, long timeToFinish) {
 		if (!hasIncentive(id)) {
 			if (timeToFinish < bonusTime) {
-				setIncentive(id, currentIncentive.add(bonusAmount));	
+				setIncentive(id, currentIncentive.add(bonusAmount));
 				Log.d("EMAIncentiveManager", "requestIncentive: $1.25");
 			}
 			else {
 				setIncentive(id, currentIncentive);
-				Log.d("EMAIncentiveManager", "requestIncentive: $1.00");				
+				Log.d("EMAIncentiveManager", "requestIncentive: $1.00");
 			}
 		}
-		
+
 		return getIncentive(id);
 	}
-	
+
 	public BigDecimal markIncentive(String id, boolean earned) {
 		Boolean alreadyEarned = this.incentiveEarned(id);
 
 		BigDecimal amount = super.markIncentive(id, earned);
 		currentInterviewTotal = currentInterviewTotal.add(amount);
-		
+
 		Log.d("EMAIncentiveManager", "markIncentive: " + NumberFormat.getCurrencyInstance().format(currentInterviewTotal));
-		
+
 		if (alreadyEarned == null)
 			return amount;
-		
+
 		if (earned) {
 			if (!alreadyEarned) {
 
 				if (perQuestion)
 					numQuestionsAnswered++;
-				else 
+				else
 					numQuestionsAnswered+=numQuestions;
-				
+
 				if (loggingEnabled) {
 					long timestamp = System.currentTimeMillis();
 					dataLogger.logIncentiveEarned(getID(), id, timestamp, amount.floatValue(), getTotalEarned().floatValue());
@@ -158,47 +158,47 @@ public class EMAIncentiveManager extends AbstractIncentivesManager {
 
 				if (perQuestion)
 					numQuestionsAnswered--;
-				else 
+				else
 					numQuestionsAnswered-=numQuestions;
-				
+
 				if (loggingEnabled) {
 					long timestamp = System.currentTimeMillis();
 					dataLogger.logIncentiveEarned(getID(), id, timestamp, amount.floatValue(), getTotalEarned().floatValue());
 				}
-			}			
+			}
 		}
-		
+
 		return amount;
 	}
 
 	public int getID() {
 		int id = AbstractIncentivesManager.INCENTIVE_NONE;
-		
+
 		id |= perQuestion ? AbstractIncentivesManager.INCENTIVE_EMA_PER_QUESTION : AbstractIncentivesManager.INCENTIVE_NONE;
 		id |= variable ? AbstractIncentivesManager.INCENTIVE_EMA_VARIABLE : AbstractIncentivesManager.INCENTIVE_NONE;
 		id |= incentiveVisible ? AbstractIncentivesManager.INCENTIVE_EMA_VISIBLE : AbstractIncentivesManager.INCENTIVE_NONE;
-		id |= bonusTime > 0 ? AbstractIncentivesManager.INCENTIVE_EMA_TIME_BONUS : AbstractIncentivesManager.INCENTIVE_NONE;		
-		
+		id |= bonusTime > 0 ? AbstractIncentivesManager.INCENTIVE_EMA_TIME_BONUS : AbstractIncentivesManager.INCENTIVE_NONE;
+
 		return id;
 	}
-	
+
 	public void reset(boolean resetTotal) {
 		super.reset(resetTotal);
 		if (resetTotal)
-			loaded = false;		
-		
+			loaded = false;
+
 		currentInterviewTotal = new BigDecimal(0);
-		
+
 		if (variable) {
 			recomputeIncentives();
 		}
 	}
-		
+
 	private void recomputeIncentives() {
 		currentInterviewTotal = new BigDecimal(0);
-		
+
 		BigDecimal currentInterviewAmount = new BigDecimal(0);
-		
+
 		if (variable) {
 			float value = (float)Math.random();
 			float total = 0;
@@ -207,14 +207,14 @@ public class EMAIncentiveManager extends AbstractIncentivesManager {
 					currentInterviewAmount = variableAmounts[i];
 					break;
 				}
-				
+
 				total += variableDistribution[i];
 			}
 		}
 		else {
 			currentInterviewAmount = uniformAmount;
 		}
-		
+
 		if (perQuestion) {
 			currentIncentive = currentInterviewAmount.divide(new BigDecimal(numQuestions), 2, BigDecimal.ROUND_HALF_EVEN);
 		}
@@ -222,23 +222,23 @@ public class EMAIncentiveManager extends AbstractIncentivesManager {
 			currentIncentive = currentInterviewAmount;
 		}
 	}
-	
-	public BigDecimal getCurrentIncentive() {		
+
+	public BigDecimal getCurrentIncentive() {
 		return currentIncentive;
 	}
 
 	public BigDecimal getCurrentInterviewTotal() {
 		return currentInterviewTotal;
 	}
-	
+
 	public int getNumQuestionsAnswered() {
 		return numQuestionsAnswered;
 	}
-	
+
 	public void setIncentiveVisible(boolean visible) {
 		this.incentiveVisible = visible;
 	}
-	
+
 	public boolean isIncentiveVisible() {
 		return incentiveVisible;
 	}
@@ -246,19 +246,19 @@ public class EMAIncentiveManager extends AbstractIncentivesManager {
 	public boolean isPerQuestion() {
 		return perQuestion;
 	}
-	
+
 	public String getIncentiveDesc() {
 		return EMAIncentiveManager.getIncentiveDesc(getID());
 	}
-	
+
 	public static String getIncentiveDesc(int id) {
 		String summary = "Incentives earned for completing EMAs.  Incentives ";
-		
+
 		summary += (INCENTIVE_EMA_PER_QUESTION & id) > 0 ? "are earned per question, " : "are earned per questionnaire, ";
 		summary += (INCENTIVE_EMA_VARIABLE & id) > 0 ? "are of variable amounts, and" : "are of uniform amounts, and ";
 		summary += (INCENTIVE_EMA_VISIBLE & id) > 0 ? "are shown to the user before the incentive is awarded." : "are hidden from the user until the incentive is awarded.";
-		summary += (INCENTIVE_EMA_TIME_BONUS & id) > 0 ? "include a time bonus." : "";		
-		
+		summary += (INCENTIVE_EMA_TIME_BONUS & id) > 0 ? "include a time bonus." : "";
+
 		return summary;
 	}
 
@@ -266,16 +266,16 @@ public class EMAIncentiveManager extends AbstractIncentivesManager {
 	public void loadIncentivesEarned() {
 		if (loaded)
 			return;
-		
+
 		if (dataLogger == null)
 			return;
 
 		loggingEnabled = false;
-		
+
 		if (Log.DEBUG) Log.d("incentive", "total=" + this.getTotalEarned());
-		
+
 		try {
-			
+
 			Cursor c = dataLogger.readIncentivesData(getID());
 			Log.d("EMAIncentive", "got the cursor");
 
@@ -293,14 +293,14 @@ public class EMAIncentiveManager extends AbstractIncentivesManager {
 					} while (c.moveToNext());
 				}
 				c.close();
-			}		
+			}
 		} catch (Exception e) {
 			if (Log.DEBUG) Log.d("StressInferenceIncentiveManager", e.getLocalizedMessage());
 		}
-		
+
 		loaded = true;
 		loggingEnabled = true;
-		
+
 
 	}
 
@@ -308,13 +308,13 @@ public class EMAIncentiveManager extends AbstractIncentivesManager {
 	public String status() {
 		return "";
 	}
-	
+
 	public void cleanup() {
 		if (dataLogger != null) {
 			dataLogger = null;
 		}
 	}
-	
+
 	protected void finalize() {
 		cleanup();
 	}
@@ -323,5 +323,5 @@ public class EMAIncentiveManager extends AbstractIncentivesManager {
 	public BigDecimal requestIncentive(String id) {
 		return requestIncentive(id, 0);
 	}
-	
+
 }

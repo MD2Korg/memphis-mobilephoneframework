@@ -1,24 +1,24 @@
 ﻿//Copyright (c) 2010, University of Memphis
 //All rights reserved.
 //
-//Redistribution and use in source and binary forms, with or without modification, are permitted provided 
+//Redistribution and use in source and binary forms, with or without modification, are permitted provided
 //that the following conditions are met:
 //
-//    * Redistributions of source code must retain the above copyright notice, this list of conditions and 
+//    * Redistributions of source code must retain the above copyright notice, this list of conditions and
 //      the following disclaimer.
-//    * Redistributions in binary form must reproduce the above copyright notice, this list of conditions 
-//      and the following disclaimer in the documentation and/or other materials provided with the 
+//    * Redistributions in binary form must reproduce the above copyright notice, this list of conditions
+//      and the following disclaimer in the documentation and/or other materials provided with the
 //      distribution.
-//    * Neither the name of the University of Memphis nor the names of its contributors may be used to 
+//    * Neither the name of the University of Memphis nor the names of its contributors may be used to
 //      endorse or promote products derived from this software without specific prior written permission.
 //
-//THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED 
-//WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A 
-//PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR 
-//ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED 
-//TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) 
-//HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING 
-//NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
+//THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED
+//WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+//PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR
+//ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
+//TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+//HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+//NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 //POSSIBILITY OF SUCH DAMAGE.
 //
 
@@ -35,9 +35,9 @@ import org.fieldstream.service.logger.Log;
 public class BdurationCalculation {
 
 
-	public static boolean isPeak=false;							
+	public static boolean isPeak=false;
 	/**
-	 * Last index of previous window; next window peak/valley index should be added with this. 
+	 * Last index of previous window; next window peak/valley index should be added with this.
 	 * this is the connection between two window
 	 */
 	public static int lastPointIndexOfPrevWindow=0;
@@ -67,18 +67,18 @@ public class BdurationCalculation {
 		System.arraycopy(data, 0, buffer, 0, data.length);
 		RPVCalculationNew rpv=new RPVCalculationNew();
 		int rpvs[]=rpv.calculate(data,timestamp);
-		
+
 		String rpvs1="";
 		for(int i=0;i<rpvs.length;i++)
 			rpvs1+=rpvs[i]+",";
-		
+
 		//Log.d("BdurationVS","RPV= "+rpvs1);
-		
+
 		int bdruations[]=getBdurationUsingRPV(rpvs);
 		return bdruations;
 	}
 	/**
-	 * 
+	 *
 	 * @param rpv
 	 * @return bduration
 	 */
@@ -202,11 +202,11 @@ public class BdurationCalculation {
 		ArrayList<Integer> list=new ArrayList<Integer>();
 
 		int prev1_valleyIndex=-1;
-		int prev1_valley=-1;		
+		int prev1_valley=-1;
 		int prev1_peakIndex=-1;
 		int prev1_peak=-1;
 		int current_valleyIndex=-1;
-		int current_valley=-1;		
+		int current_valley=-1;
 		int current_peakIndex=-1;
 		int current_peak=-1;
 		int valleyAnchor=-1;
@@ -261,7 +261,7 @@ public class BdurationCalculation {
 						continue outer;
 					}
 					current_valleyIndex=data[i];
-					current_valley=data[i+1];		
+					current_valley=data[i+1];
 					current_peakIndex=data[i+2];
 					current_peak=data[i+3];
 					i+=4;
@@ -337,7 +337,7 @@ public class BdurationCalculation {
 							continue outer;
 						}
 						current_valleyIndex=data[i];				//line=dis.readLine();
-						current_valley=data[i+1];		
+						current_valley=data[i+1];
 						current_peakIndex=data[i+2];
 						current_peak=data[i+3];
 						i+=4;										//curr_value=line.split(" ");
@@ -421,7 +421,7 @@ public class BdurationCalculation {
 								{
 									realValley=valleyAnchor1;					//this is a previous valley candidate
 									realValleyIndex=valleyAnchorIndex1;
-								}	
+								}
 								if(prev_realValleyIndex!=-1&&realValleyIndex!=-1)
 								{
 									list.add(new Integer(getBduration(prev_realValleyIndex,realValleyIndex)));
@@ -465,7 +465,7 @@ public class BdurationCalculation {
 						}
 
 						current_valleyIndex=data[i];				//line=dis.readLine();
-						current_valley=data[i+1];		
+						current_valley=data[i+1];
 						current_peakIndex=data[i+2];
 						current_peak=data[i+3];
 						i+=4;										//curr_value=line.split(" ");
@@ -522,7 +522,7 @@ public class BdurationCalculation {
 		for(int i=1;i<data.length;i++)
 		{
 			if(data[i]>=max)
-			{	
+			{
 				max=data[i];
 				pos=i;
 			}
@@ -536,7 +536,7 @@ public class BdurationCalculation {
 		for(int i=index;i<data.length;i++)
 		{
 			if(data[i]<=min)
-			{	
+			{
 				min=data[i];
 				pos=i;
 			}
@@ -564,7 +564,7 @@ public class BdurationCalculation {
 	 * @param startIndex the starting point of the back tracking to search the valley anchor
 	 * @return valleyAnchor Index
 	 */
-			
+
 	public int getValleyAnchorIndexBelowThreshold(int data[],int startIndex, int prevRealPeak)
 	{
 		int prevRealPeakIndex=0;

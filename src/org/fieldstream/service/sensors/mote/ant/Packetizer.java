@@ -1,24 +1,24 @@
 ﻿////Copyright (c) 2010, University of Memphis
 ////All rights reserved.
 ////
-////Redistribution and use in source and binary forms, with or without modification, are permitted provided 
+////Redistribution and use in source and binary forms, with or without modification, are permitted provided
 ////that the following conditions are met:
 ////
-////    * Redistributions of source code must retain the above copyright notice, this list of conditions and 
+////    * Redistributions of source code must retain the above copyright notice, this list of conditions and
 ////      the following disclaimer.
-////    * Redistributions in binary form must reproduce the above copyright notice, this list of conditions 
-////      and the following disclaimer in the documentation and/or other materials provided with the 
+////    * Redistributions in binary form must reproduce the above copyright notice, this list of conditions
+////      and the following disclaimer in the documentation and/or other materials provided with the
 ////      distribution.
-////    * Neither the name of the University of Memphis nor the names of its contributors may be used to 
+////    * Neither the name of the University of Memphis nor the names of its contributors may be used to
 ////      endorse or promote products derived from this software without specific prior written permission.
 ////
-////THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED 
-////WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A 
-////PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR 
-////ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED 
-////TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) 
-////HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING 
-////NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
+////THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED
+////WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+////PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR
+////ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
+////TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+////HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+////NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 ////POSSIBILITY OF SUCH DAMAGE.
 ////
 //
@@ -77,11 +77,11 @@ public class Packetizer extends Thread {
 	//	String linkLogFileName = root + "/" + Constants.LOG_DIR + "/LINK_PACKET";
 
 
-	Packetizer() 
-	{ 
+	Packetizer()
+	{
 //		TOSpacketBuff=new ArrayList<TOSOscopeIntPacket>();
 		TOSpacketBuff=new StringBuilder();
-		queue = new LinkedBlockingQueue<TOSOscopeIntPacket>();	 
+		queue = new LinkedBlockingQueue<TOSOscopeIntPacket>();
 		keepAlive = true;
 		setName("fs_Packetizer_"+System.currentTimeMillis());
 		if(Log.LOG_DB){DatabaseLogger db=DatabaseLogger.getInstance(this);db.logAnything("DEBUG", "OK\t: (Packetizer)_thread_Constructor", System.currentTimeMillis());}
@@ -90,14 +90,14 @@ public class Packetizer extends Thread {
 
 	public static Packetizer getInstance()
 	{
-		if(InferrenceService.running==false)return null; 		
+		if(InferrenceService.running==false)return null;
 		if(INSTANCE == null)
 		{
 			INSTANCE = new Packetizer();
 			INSTANCE.setPriority(MIN_PRIORITY);
 
 			INSTANCE.initTOSFile();
-			INSTANCE.start();			
+			INSTANCE.start();
 		}
 		return INSTANCE;
 	}
@@ -108,7 +108,7 @@ public class Packetizer extends Thread {
 			keepAlive = false;
 			interrupt();  // necessary?
 			INSTANCE = null;
-			if(Log.DEBUG_MONOWAR) Log.m("Monowar_ALL","OK\t: (Packetizer)_thread_kill()");			
+			if(Log.DEBUG_MONOWAR) Log.m("Monowar_ALL","OK\t: (Packetizer)_thread_kill()");
 			//		if(Log.LOG_DB){DatabaseLogger db=DatabaseLogger.getInstance(this);db.logAnything("DEBUG", "OK\t: (Packetizer)_thread_kill()", System.currentTimeMillis());}
 		}
 		catch(Exception e){
@@ -116,26 +116,26 @@ public class Packetizer extends Thread {
 		}
 	}
 
-	public synchronized void run() 
+	public synchronized void run()
 	{
 		TAG = "readerRun";
-		try 
+		try
 		{
-			while(keepAlive) 
-			{ 
-				consume(); 
+			while(keepAlive)
+			{
+				consume();
 
 			}
-			if(Log.DEBUG_MONOWAR) Log.m("Monowar_ALL","OK\t: (Packetizer)_thread_run() terminated");			
+			if(Log.DEBUG_MONOWAR) Log.m("Monowar_ALL","OK\t: (Packetizer)_thread_run() terminated");
 			//			if(Log.LOG_DB){DatabaseLogger db=DatabaseLogger.getInstance(this);db.logAnything("DEBUG", "OK\t: (Packetizer)_thread_run() terminated", System.currentTimeMillis());}
 
 			TAG = "Reader";
 			if (Log.DEBUG) Log.d(TAG,"Reader was killed");
-		} 
-		catch (Exception e) 
+		}
+		catch (Exception e)
 		{
 			TAG = "Reader";
-			if(Log.DEBUG_MONOWAR) Log.m("Monowar_ALL","EXCEPTION\t: (Packetizer)_thread_run() ("+e.getLocalizedMessage()+")");			
+			if(Log.DEBUG_MONOWAR) Log.m("Monowar_ALL","EXCEPTION\t: (Packetizer)_thread_run() ("+e.getLocalizedMessage()+")");
 			//			if(Log.LOG_DB){DatabaseLogger db=DatabaseLogger.getInstance(this);db.logAnything("DEBUG", "EXCEPTION\t: (Packetizer)_thread_run() ("+e.getLocalizedMessage()+")", System.currentTimeMillis());}
 		}
 	}
@@ -145,24 +145,24 @@ public class Packetizer extends Thread {
 	{
 		TOSOscopeIntPacket b = new TOSOscopeIntPacket();
 		try
-		{		
+		{
 			b = queue.take();
 		}
 		catch(Exception e)
 		{
-			if(Log.DEBUG_MONOWAR) Log.m("Monowar_ALL","EXCEPTION\t: (Packetizer)_thread_consume() ("+e.getLocalizedMessage()+")");			
+			if(Log.DEBUG_MONOWAR) Log.m("Monowar_ALL","EXCEPTION\t: (Packetizer)_thread_consume() ("+e.getLocalizedMessage()+")");
 			//			if(Log.LOG_DB){DatabaseLogger db=DatabaseLogger.getInstance(this);db.logAnything("DEBUG", "EXCEPTION\t: (Packetizer)_thread_consume() ("+e.getLocalizedMessage()+")", System.currentTimeMillis());}
-		} 
+		}
 		try
 		{
 			// print to the tos packet file
 			logToTOSFile(b);
-			
-			
+
+
 			SensorDataBufferSingleton.getInstance().pushData(b.getChan(), b.getData());
-			
+
 			switch(b.getChan()) {
-			
+
 			case ChannelToSensorMapping.ECG:
 			case ChannelToSensorMapping.ACCELX:
 			case ChannelToSensorMapping.ACCELY:
@@ -191,27 +191,27 @@ public class Packetizer extends Thread {
 					MoteDeviceManager.getInstance().onReceive(b);
 					break;
 				}
-				
+
 			case ChannelToSensorMapping.ALCOHOL_ACCL_RIGHT_X:
 			case ChannelToSensorMapping.ALCOHOL_ACCL_RIGHT_Y:
 			case ChannelToSensorMapping.ALCOHOL_ACCL_RIGHT_Z:
 			case ChannelToSensorMapping.ALCOHOL_ACCL_LEFT_X:
 			case ChannelToSensorMapping.ALCOHOL_ACCL_LEFT_Y:
 			case ChannelToSensorMapping.ALCOHOL_ACCL_LEFT_Z:
-				
+
 			case ChannelToSensorMapping.NINE_AXIS_RIGHT_NULL_PACKET:
 			case ChannelToSensorMapping.NINE_AXIS_LEFT_NULL_PACKET:
 				// stop sending data to upper layer
 				break;
-				
+
 				default:
-					
+
 			}
 			/*
 			if(b.getChan()!=8) {
 				if(b.getChan()>=13 && b.getChan()<=18) {
 					// TODO Hillol: For Alcohol Accelerometer Sensor need to implement
-				} 
+				}
 				else if( (b.getChan()>=19 && b.getChan()<=24)||(b.getChan()>=26 && b.getChan()<=31) ) {
 					// TODO Hillol: Nine axis mote disabled to do further processing for displaying plot sensor data realtime.
 					MoteDeviceManager.getInstance().onReceive(b);
@@ -223,14 +223,14 @@ public class Packetizer extends Thread {
 		}
 		catch(Exception e)
 		{
-			if(Log.DEBUG_MONOWAR) Log.m("Monowar_ALL","EXCEPTION\t: (Packetizer)_thread_consume2() ("+e.getLocalizedMessage()+")");			
+			if(Log.DEBUG_MONOWAR) Log.m("Monowar_ALL","EXCEPTION\t: (Packetizer)_thread_consume2() ("+e.getLocalizedMessage()+")");
 			//			if(Log.LOG_DB){DatabaseLogger db=DatabaseLogger.getInstance(this);db.logAnything("DEBUG", "EXCEPTION\t: (Packetizer)_thread_consume2() ("+e.getLocalizedMessage()+")", System.currentTimeMillis());}
 		}
 	}
 
 	private void initTOSFile()
 	{
-		if(Log.DEBUG_MONOWAR) Log.m("Monowar_ALL","OK\t: (Packetizer)_thread_initTOSFile()");			
+		if(Log.DEBUG_MONOWAR) Log.m("Monowar_ALL","OK\t: (Packetizer)_thread_initTOSFile()");
 
 		if (Constants.NETWORK_LOGGING) {
 			try
@@ -249,7 +249,7 @@ public class Packetizer extends Thread {
 			}
 			catch(Exception e)
 			{
-				if(Log.DEBUG_MONOWAR) Log.m("Monowar_ALL","EXCEPTION\t: (Packetizer)_thread_initTOSFile() ("+e.getLocalizedMessage()+")");			
+				if(Log.DEBUG_MONOWAR) Log.m("Monowar_ALL","EXCEPTION\t: (Packetizer)_thread_initTOSFile() ("+e.getLocalizedMessage()+")");
 				//				if(Log.LOG_DB){DatabaseLogger db=DatabaseLogger.getInstance(this);db.logAnything("DEBUG", "EXCEPTION\t: (Packetizer)_thread_initTOSFile() ("+e.getLocalizedMessage()+")", System.currentTimeMillis());}
 			}
 		}
@@ -257,7 +257,7 @@ public class Packetizer extends Thread {
 
 	private void closeTOSFile()
 	{
-		if(Log.DEBUG_MONOWAR) Log.m("Monowar_ALL","OK\t: (Packetizer)_thread_closeTOSFile()");			
+		if(Log.DEBUG_MONOWAR) Log.m("Monowar_ALL","OK\t: (Packetizer)_thread_closeTOSFile()");
 
 		if (Constants.NETWORK_LOGGING) {
 			try
@@ -271,7 +271,7 @@ public class Packetizer extends Thread {
 			}
 			catch(Exception e)
 			{
-				if(Log.DEBUG_MONOWAR) Log.m("Monowar_ALL","EXCEPTION\t: (Packetizer)_thread_closeTOSFile() ("+e.getLocalizedMessage()+")");			
+				if(Log.DEBUG_MONOWAR) Log.m("Monowar_ALL","EXCEPTION\t: (Packetizer)_thread_closeTOSFile() ("+e.getLocalizedMessage()+")");
 				if(Log.LOG_DB){DatabaseLogger db=DatabaseLogger.getInstance(this);db.logAnything("DEBUG", "EXCEPTION\t: (Packetizer)_thread_closeTOSFile() ("+e.getLocalizedMessage()+")", System.currentTimeMillis());}
 			}
 		}
@@ -307,8 +307,8 @@ public class Packetizer extends Thread {
 				TOSpacketBuff.setLength(0);
 //				pTos.flush();
 			}
-			
-/*			
+
+/*
 			if(TOSpacketBuff.size()<100)
 			{
 //				if(Log.DEBUG_MONOWAR) Log.m("Monowar_ALL","TOS buffer < 500. size = "+TOSpacketBuff.size());
@@ -334,7 +334,7 @@ public class Packetizer extends Thread {
 	}
 
 
-/*	private String printTOIP(TOSOscopeIntPacket toip) 
+/*	private String printTOIP(TOSOscopeIntPacket toip)
 	{
 		StringBuilder buffer = new StringBuilder();
 		//		StringBuffer buffer = new StringBuffer();
@@ -380,8 +380,7 @@ public class Packetizer extends Thread {
 
 	public void finalize() {
 		closeTOSFile();
-		if(Log.DEBUG_MONOWAR) Log.m("Monowar_ALL","OK\t: (Packetizer)_thread_finalize()");			
+		if(Log.DEBUG_MONOWAR) Log.m("Monowar_ALL","OK\t: (Packetizer)_thread_finalize()");
 		if(Log.LOG_DB){DatabaseLogger db=DatabaseLogger.getInstance(this);db.logAnything("DEBUG", "EXCEPTION\t: (Packetizer)_thread_finalize()",System.currentTimeMillis());}
 	}
 }
-

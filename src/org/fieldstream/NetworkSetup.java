@@ -1,25 +1,25 @@
 ﻿//Copyright (c) 2010, University of Memphis, Carnegie Mellon University
 //All rights reserved.
 //
-//Redistribution and use in source and binary forms, with or without modification, are permitted provided 
+//Redistribution and use in source and binary forms, with or without modification, are permitted provided
 //that the following conditions are met:
 //
-//    * Redistributions of source code must retain the above copyright notice, this list of conditions and 
+//    * Redistributions of source code must retain the above copyright notice, this list of conditions and
 //      the following disclaimer.
-//    * Redistributions in binary form must reproduce the above copyright notice, this list of conditions 
-//      and the following disclaimer in the documentation and/or other materials provided with the 
+//    * Redistributions in binary form must reproduce the above copyright notice, this list of conditions
+//      and the following disclaimer in the documentation and/or other materials provided with the
 //      distribution.
-//    * Neither the names of the University of Memphis and Carnegie Mellon University nor the names of its 
-//      contributors may be used to endorse or promote products derived from this software without specific 
+//    * Neither the names of the University of Memphis and Carnegie Mellon University nor the names of its
+//      contributors may be used to endorse or promote products derived from this software without specific
 //      prior written permission.
 //
-//THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED 
-//WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A 
-//PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR 
-//ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED 
-//TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) 
-//HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING 
-//NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
+//THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED
+//WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+//PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR
+//ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
+//TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+//HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+//NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 //POSSIBILITY OF SUCH DAMAGE.
 //
 
@@ -88,8 +88,8 @@ public class NetworkSetup extends Activity {
 		setContentView(R.layout.network_setup_layout);
 		this.loadActivationFromFile();
 		this.loadConfigFromFile();
-		initUI();		
-		saveButton = (Button) findViewById(R.id.SaveDeadPeriod);	    
+		initUI();
+		saveButton = (Button) findViewById(R.id.SaveDeadPeriod);
 		backButton = (Button) findViewById(R.id.BackDeadPeriod);
 		backButton.setOnClickListener(new View.OnClickListener() {
 
@@ -110,14 +110,14 @@ public class NetworkSetup extends Activity {
 				if(edittextRIPECG.getText()!=null){
 					entry="RIP,"+edittextRIPECG.getText().toString().trim();
 					db.logAnything("moteid", entry, curtime);
-				}				
+				}
 				if(edittextNineAxisRight.getText()!=null) {
 					entry="R9,"+edittextNineAxisRight.getText().toString().trim();
 					db.logAnything("moteid", entry, curtime);
 				}
 				if(edittextNineAxisLeft.getText()!=null) {
 					entry="L9,"+edittextNineAxisLeft.getText().toString().trim();
-					db.logAnything("moteid", entry, curtime);					
+					db.logAnything("moteid", entry, curtime);
 				}
 				finish();
 			}
@@ -143,7 +143,7 @@ public class NetworkSetup extends Activity {
 		edittextNineAxisLeft.setText(Constants.antAddress[Constants.MOTE_NINE_AXIS_LEFT_IND]);
 	}
 
-	void loadActivationFromFile() {		
+	void loadActivationFromFile() {
 		File root = Environment.getExternalStorageDirectory();
 
 		File dir = new File(root+"/"+Constants.CONFIG_DIR);
@@ -172,7 +172,7 @@ public class NetworkSetup extends Activity {
 			e.printStackTrace();
 		}
 
-		Element xmlroot = dom.getDocumentElement();		
+		Element xmlroot = dom.getDocumentElement();
 
 		NodeList nodeList = xmlroot.getElementsByTagName("startup");
 		if (nodeList.getLength() > 0) {
@@ -224,7 +224,7 @@ public class NetworkSetup extends Activity {
 			DocumentBuilder builder = factory.newDocumentBuilder();
 			Document dom = builder.parse(setupFile);
 
-			Element xmlroot = dom.getDocumentElement();		
+			Element xmlroot = dom.getDocumentElement();
 
 			NodeList nodeList;
 			for (int i=1;i<=Constants.MOTE_NO;i++){
@@ -264,7 +264,7 @@ public class NetworkSetup extends Activity {
 	}
 
 	void writeConfigToFile() {
-		try {			
+		try {
 			ArrayList<Integer> sensorMotes = new ArrayList<Integer>();
 
 			File root = Environment.getExternalStorageDirectory();
@@ -288,7 +288,7 @@ public class NetworkSetup extends Activity {
 
 				for (Integer i : sensorMotes) {
 					writer.write("\t\t<sensor_mote>");   writer.write(String.valueOf(i));   writer.write("</sensor_mote>\n");
-				}		
+				}
 				writer.write("\t</network>\n");
 				writer.write("</fieldstream>");
 
@@ -300,10 +300,10 @@ public class NetworkSetup extends Activity {
 		catch(Exception e) {
 			// TODO Auto-generated catch block
 			Log.d("SETUP",e.getMessage());
-			e.printStackTrace();			
+			e.printStackTrace();
 
-			Toast.makeText(getApplicationContext(), "Error Saving Network Setup", Toast.LENGTH_SHORT).show();			
-		}   
+			Toast.makeText(getApplicationContext(), "Error Saving Network Setup", Toast.LENGTH_SHORT).show();
+		}
 	}
 
 
@@ -356,7 +356,7 @@ public class NetworkSetup extends Activity {
 				return str;
 			}
 			for (int i = start; i < end; i++) {
-				if (	Character.isDigit(source.charAt(i)) || 
+				if (	Character.isDigit(source.charAt(i)) ||
 						(source.charAt(i)>='a' && source.charAt(i)<='f' ) ||
 						(source.charAt(i)>='A' && source.charAt(i)<='F' )
 						) {

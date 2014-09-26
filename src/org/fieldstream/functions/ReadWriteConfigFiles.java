@@ -1,3 +1,27 @@
+//Copyright (c) 2010, University of Memphis, Carnegie Mellon University
+//All rights reserved.
+//
+//Redistribution and use in source and binary forms, with or without modification, are permitted provided
+//that the following conditions are met:
+//
+//    * Redistributions of source code must retain the above copyright notice, this list of conditions and
+//      the following disclaimer.
+//    * Redistributions in binary form must reproduce the above copyright notice, this list of conditions
+//      and the following disclaimer in the documentation and/or other materials provided with the
+//      distribution.
+//    * Neither the names of the University of Memphis and Carnegie Mellon University nor the names of its
+//      contributors may be used to endorse or promote products derived from this software without specific
+//      prior written permission.
+//
+//THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED
+//WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+//PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR
+//ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
+//TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+//HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+//NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+//POSSIBILITY OF SUCH DAMAGE.
+//
 package org.fieldstream.functions;
 
 import java.io.File;
@@ -32,7 +56,7 @@ public class ReadWriteConfigFiles {
 	public void loadDeadPeriodsDB()
 	{
 		Calendar cal=Calendar.getInstance();
-		long now=cal.getTimeInMillis();		
+		long now=cal.getTimeInMillis();
 		cal.set(Calendar.HOUR_OF_DAY, 0);cal.set(Calendar.MINUTE, 0);cal.set(Calendar.SECOND, 0);cal.set(Calendar.MILLISECOND, 0);
 		long today=cal.getTimeInMillis();
 
@@ -50,19 +74,19 @@ public class ReadWriteConfigFiles {
 		while(Constants.DAYSTART>now)		Constants.DAYSTART-=Constants.DAYMILLIS;
 		while(Constants.DAYSTART+Constants.DAYMILLIS<now)			Constants.DAYSTART+=Constants.DAYMILLIS;
 		Constants.DAYEND=Constants.DAYSTART+Constants.DAYMILLIS;
-		
+
 		Constants.SLEEPSTART=db.getdeadperiod("sleepstart", today-Constants.DAYMILLIS, today);
 		if(Constants.SLEEPSTART==-1) Constants.SLEEPSTART=getdefaulttime(-1,22);
 		Constants.SLEEPEND=db.getdeadperiod("sleepend", today, today+Constants.DAYMILLIS);
 		if(Constants.SLEEPEND==-1) Constants.SLEEPEND=getdefaulttime(0,8);
-		
+
 		if(now>Constants.SLEEPEND){
 			Constants.SLEEPSTART=db.getdeadperiod("sleepstart", today,today+Constants.DAYMILLIS);
-			if(Constants.SLEEPSTART==-1) Constants.SLEEPSTART=getdefaulttime(0,22);			
+			if(Constants.SLEEPSTART==-1) Constants.SLEEPSTART=getdefaulttime(0,22);
 			Constants.SLEEPEND=db.getdeadperiod("sleepend", today+Constants.DAYMILLIS,today+Constants.DAYMILLIS*2);
 			if(Constants.SLEEPEND==-1) Constants.SLEEPEND=getdefaulttime(1,8);
 		}
-		Log.ema_alarm("loadDeadPeriod", "sleepstart="+Constants.millisecondToDateTime(Constants.SLEEPSTART)+ 
+		Log.ema_alarm("loadDeadPeriod", "sleepstart="+Constants.millisecondToDateTime(Constants.SLEEPSTART)+
 				" sleepend="+Constants.millisecondToDateTime(Constants.SLEEPEND)+" DayStart="+Constants.millisecondToDateTime(Constants.DAYSTART)+
 				" DayEnd="+Constants.millisecondToDateTime(Constants.DAYEND));
 	}
@@ -77,7 +101,7 @@ public class ReadWriteConfigFiles {
 		Alarm  alarms[];
 		alarms=readAlarms();
 		alarms=correctAlarmTime(alarms,day);
-		printAlarms(alarms);	
+		printAlarms(alarms);
 		return alarms;
 	}
 	void printAlarms(Alarm[] alarms)
@@ -95,7 +119,7 @@ public class ReadWriteConfigFiles {
 		if (INSTANCE == null) {
 			INSTANCE = new ReadWriteConfigFiles();
 		}
-		//		context=(Context) holder;		
+		//		context=(Context) holder;
 		return INSTANCE;
 	}
 	public boolean writeDeadPeriodsDB(long quietStart, long quietEnd, long sleepStart, long sleepEnd,long studyStart) {
@@ -105,7 +129,7 @@ public class ReadWriteConfigFiles {
 		db=DatabaseLogger.getInstance(this);
 //		if(db.isdeadperiod("studystart",studyStart)!=1)
 			res&=db.logAnything4("deadperiod", System.currentTimeMillis(),"studystart",String.valueOf(studyStart));
-//		if(db.isdeadperiod("sleepstart",sleepStart)!=1)		
+//		if(db.isdeadperiod("sleepstart",sleepStart)!=1)
 			res&=db.logAnything4("deadperiod", System.currentTimeMillis(),"sleepstart",String.valueOf(sleepStart));
 //		if(db.isdeadperiod("sleepend",sleepEnd)!=1)
 			res&=db.logAnything4("deadperiod", System.currentTimeMillis(),"sleepend",String.valueOf(sleepEnd));
@@ -113,7 +137,7 @@ public class ReadWriteConfigFiles {
 //			if(db.isdeadperiod("quietstart",quietStart)!=1)
 				res&=db.logAnything4("deadperiod", System.currentTimeMillis(),"quietstart",String.valueOf(quietStart));
 //			if(db.isdeadperiod("quietend",quietEnd)!=1)
-				res&=db.logAnything4("deadperiod", System.currentTimeMillis(),"quietend",String.valueOf(quietEnd));		
+				res&=db.logAnything4("deadperiod", System.currentTimeMillis(),"quietend",String.valueOf(quietEnd));
 		}
 		return res;
 	}
@@ -140,7 +164,7 @@ public class ReadWriteConfigFiles {
 			cal=Calendar.getInstance();
 			cal.set(Calendar.HOUR_OF_DAY, 22);cal.set(Calendar.MINUTE, 00);cal.set(Calendar.SECOND, 00);cal.set(Calendar.MILLISECOND, 0);
 			Constants.SLEEPSTART=cal.getTimeInMillis();
-			while(Constants.SLEEPEND<now){Constants.SLEEPEND+=Constants.DAYMILLIS;Constants.SLEEPSTART+=Constants.DAYMILLIS;}			
+			while(Constants.SLEEPEND<now){Constants.SLEEPEND+=Constants.DAYMILLIS;Constants.SLEEPSTART+=Constants.DAYMILLIS;}
 		}
 		if(Constants.DAYSTART<=0)
 			Constants.DAYSTART=now;
@@ -166,7 +190,7 @@ public class ReadWriteConfigFiles {
 		long stime=cal.getTimeInMillis(), etime=stime+Constants.DAYMILLIS, time;
 		time=db.getdeadperiod("sleepstart", stime, etime);
 		if(time<=0){
-			cal.set(Calendar.HOUR_OF_DAY,22);time=cal.getTimeInMillis();				
+			cal.set(Calendar.HOUR_OF_DAY,22);time=cal.getTimeInMillis();
 		}
 		return time;
 	}
@@ -185,7 +209,7 @@ public class ReadWriteConfigFiles {
 		etime=stime+Constants.DAYMILLIS;
 		time=db.getdeadperiod("sleepend", stime, etime);
 		Log.ema_alarm("","searchtime="+Constants.millisecondToDateTime(stime)+"time="+time+" datetime="+Constants.millisecondToDateTime(time));
-		
+
 		if(time>0) return time;
 		cal.set(Calendar.HOUR_OF_DAY, 8);
 		return cal.getTimeInMillis();
@@ -202,7 +226,7 @@ public class ReadWriteConfigFiles {
 				alarms[i].alarmTime=sleepEnd;
 			}
 			else if(alarms[i].alarmName.equals("sleep")){
-				Calendar cal=Calendar.getInstance();				
+				Calendar cal=Calendar.getInstance();
 				alarms[i].alarmTime=sleepStart;
 				cal.setTimeInMillis(sleepStart);
 				if(cal.get(Calendar.HOUR_OF_DAY)>=22 || cal.get(Calendar.HOUR_OF_DAY)<4){
@@ -210,7 +234,7 @@ public class ReadWriteConfigFiles {
 					cal.set(Calendar.MINUTE, 0);
 					cal.set(Calendar.SECOND,0);
 					cal.set(Calendar.MILLISECOND,0);
-					alarms[i].alarmTime=cal.getTimeInMillis();					
+					alarms[i].alarmTime=cal.getTimeInMillis();
 				}
 			}
 			else if(alarms[i].alarmName.startsWith("wakeup")==true){
@@ -218,15 +242,15 @@ public class ReadWriteConfigFiles {
 				alarms[i].alarmTime=sleepEnd+minute*60*1000;
 			}
 			else {
-				Calendar cal=Calendar.getInstance();				
-				cal=Calendar.getInstance();				
+				Calendar cal=Calendar.getInstance();
+				cal=Calendar.getInstance();
 				int hr=Integer.parseInt(alarms[i].alarmName.substring(0, 2));
 				cal.add(Calendar.DAY_OF_YEAR, day);
 				cal.set(Calendar.HOUR_OF_DAY, hr);
 				int mn=Integer.parseInt(alarms[i].alarmName.substring(3));
 				cal.set(Calendar.MINUTE, mn);
 				cal.set(Calendar.SECOND, 0);
-				cal.set(Calendar.MILLISECOND,0);				
+				cal.set(Calendar.MILLISECOND,0);
 				alarms[i].alarmTime=cal.getTimeInMillis();
 			}
 			//			cal=Calendar.getInstance();
@@ -252,18 +276,18 @@ public class ReadWriteConfigFiles {
 			Document doc = builder.parse(setupFile);
 
 			NodeList minTimeEMAList = doc.getElementsByTagName("alarmduration");
-			Element minTimeEMAElement = (Element)minTimeEMAList.item(0); 
+			Element minTimeEMAElement = (Element)minTimeEMAList.item(0);
 			NodeList nodeminTimeEMAList = minTimeEMAElement.getChildNodes();
 			int alarmtime = Integer.parseInt(((Node)nodeminTimeEMAList.item(0)).getNodeValue().trim());
 			Constants.ALARMDURATION=alarmtime;
 			minTimeEMAList = doc.getElementsByTagName("repeatalarm");
-			minTimeEMAElement = (Element)minTimeEMAList.item(0); 
+			minTimeEMAElement = (Element)minTimeEMAList.item(0);
 			nodeminTimeEMAList = minTimeEMAElement.getChildNodes();
 			int repeatalarm = Integer.parseInt(((Node)nodeminTimeEMAList.item(0)).getNodeValue().trim());
 			Constants.REPEATALARM=repeatalarm;
 
 			minTimeEMAList = doc.getElementsByTagName("diffbetweenalarms");
-			minTimeEMAElement = (Element)minTimeEMAList.item(0); 
+			minTimeEMAElement = (Element)minTimeEMAList.item(0);
 			nodeminTimeEMAList = minTimeEMAElement.getChildNodes();
 			int diff_alarm = Integer.parseInt(((Node)nodeminTimeEMAList.item(0)).getNodeValue().trim());
 			Constants.DIFF_BETWEEN_ALARM=diff_alarm;
@@ -279,7 +303,7 @@ public class ReadWriteConfigFiles {
 				if(eventNode!=null && eventNode.getNodeType() == Node.ELEMENT_NODE){
 					Element eventElement = (Element)eventNode;
 					NodeList List = eventElement.getElementsByTagName("time");
-					if(List!=null){				
+					if(List!=null){
 						Element element = (Element)List.item(0);
 						NodeList Lists = element.getChildNodes();
 						String alarmname=((Node)Lists.item(0)).getNodeValue().trim();
@@ -355,7 +379,7 @@ public class ReadWriteConfigFiles {
 			e.printStackTrace();
 		}
 
-		Element xmlroot = dom.getDocumentElement();		
+		Element xmlroot = dom.getDocumentElement();
 		self.clear();
 		NodeList nodeList1 = xmlroot.getElementsByTagName("selfreport");
 		for (int i=0; i<nodeList1.getLength();i++) {

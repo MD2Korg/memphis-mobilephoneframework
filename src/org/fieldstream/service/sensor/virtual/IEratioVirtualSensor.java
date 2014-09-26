@@ -1,25 +1,25 @@
 ﻿//Copyright (c) 2010, University of Memphis, Carnegie Mellon University
 //All rights reserved.
 //
-//Redistribution and use in source and binary forms, with or without modification, are permitted provided 
+//Redistribution and use in source and binary forms, with or without modification, are permitted provided
 //that the following conditions are met:
 //
-//    * Redistributions of source code must retain the above copyright notice, this list of conditions and 
+//    * Redistributions of source code must retain the above copyright notice, this list of conditions and
 //      the following disclaimer.
-//    * Redistributions in binary form must reproduce the above copyright notice, this list of conditions 
-//      and the following disclaimer in the documentation and/or other materials provided with the 
+//    * Redistributions in binary form must reproduce the above copyright notice, this list of conditions
+//      and the following disclaimer in the documentation and/or other materials provided with the
 //      distribution.
-//    * Neither the names of the University of Memphis and Carnegie Mellon University nor the names of its 
-//      contributors may be used to endorse or promote products derived from this software without specific 
+//    * Neither the names of the University of Memphis and Carnegie Mellon University nor the names of its
+//      contributors may be used to endorse or promote products derived from this software without specific
 //      prior written permission.
 //
-//THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED 
-//WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A 
-//PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR 
-//ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED 
-//TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) 
-//HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING 
-//NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
+//THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED
+//WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+//PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR
+//ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
+//TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+//HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+//NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 //POSSIBILITY OF SUCH DAMAGE.
 //
 
@@ -41,11 +41,11 @@ public class IEratioVirtualSensor extends AbstractSensor implements SensorBusSub
 	private static final int IEratio_WINDOWSIZE = 4*NUMBER_OF_PEAKS_TO_CONSIDER+2;
 	private static final Boolean IEratio_SCHEDULER = false;
 	/**
-	 * decide if the Replay sensor or the mote ECG sensor should be used! 
+	 * decide if the Replay sensor or the mote ECG sensor should be used!
 	 */
 	//private static final Boolean REPLAY_SENSOR = true;
-	private IEratioRunner runner = new IEratioRunner(); 
-	
+	private IEratioRunner runner = new IEratioRunner();
+
 	private Object lock = new Object();
 	/**
 	 * internal runner to execute the HRCalculation in a separate thread
@@ -87,22 +87,22 @@ public class IEratioVirtualSensor extends AbstractSensor implements SensorBusSub
 									timestampsNew[i]=timestamps[i];
 								}
 							}
-		
+
 							int start = 0;
 							int end = calculate.length;
 							Log.d("IEratioAfter","BeginTS= "+timestampsNew[0]+"EndTS= "+timestampsNew[timestampsNew.length-1]);
 //							String sensor = "";
 //							for (int i=0; i < calculate.length; i++) {
 //								sensor += calculate[i] + ",";
-//							}		
+//							}
 //							Log.d("IEratio", "IEratios = " + sensor);
-							
+
 //							String sensor = "";
 //
 //							for (int i=0; i < calculate.length; i++) {
 //								sensor += calculate[i] + ",";
-//							}		
-//							Log.d("IEratio", "IEratio = " + sensor);	
+//							}
+//							Log.d("IEratio", "IEratio = " + sensor);
 //
 //							String timeStamp="";
 //							for(int i=0;i<timestampsNew.length;i++)
@@ -123,8 +123,8 @@ public class IEratioVirtualSensor extends AbstractSensor implements SensorBusSub
 				}
 			}
 		}
-		
-		
+
+
 	};
 	private Thread IEratioThread;
 	private IEratioVirtualSensor INSTANCE;
@@ -133,21 +133,21 @@ public class IEratioVirtualSensor extends AbstractSensor implements SensorBusSub
 		super(SensorID);
 		INSTANCE = this;
 		initalize(IEratio_SCHEDULER,IEratio_WINDOWSIZE, IEratio_WINDOWSIZE);		//can I use sliding window
-		
-	}
-	
 
-	
+	}
+
+
+
 	@Override
 	public void activate() {
 		SensorBus.getInstance().subscribe(this);
-		
+
 		active = true;
 		runner.active = true;
 		IEratioThread = new Thread(runner);
 		IEratioThread.setName("virtual_"+System.currentTimeMillis());
 		IEratioThread.start();
-		
+
 	}
 
 	@Override
@@ -174,9 +174,9 @@ public class IEratioVirtualSensor extends AbstractSensor implements SensorBusSub
 				runner.timestamps=toSendTimestamps;
 				runner.startNewData=startNewData;
 				runner.endData=endNewData;
-				lock.notify();	
+				lock.notify();
 			}
-		}		
+		}
 	}
 	/**
 	 * called from the Runner thread to actually send the new buffer to the AbstractSensor
@@ -197,14 +197,14 @@ public class IEratioVirtualSensor extends AbstractSensor implements SensorBusSub
 //		if(SensorID == Constants.SENSOR_VIRTUAL_REALPEAKVALLEY)
 //		{
 //			long[] timeStamps = new long[data.length];
-//			addValue(data, timeStamps);		
+//			addValue(data, timeStamps);
 //		}
 //	}
 	public void receiveBuffer(int sensorID, int[] data, long[] timestamps,
 			int startNewData, int endNewData) {
 		if (sensorID==Constants.SENSOR_VIRTUAL_REALPEAKVALLEY) {
 			addValue(data, timestamps);
-			
+
 //			if (Log.DEBUG) {
 //				String realPeakValley="";
 //				for(int i=0;i<data.length;i++)
@@ -222,4 +222,3 @@ public class IEratioVirtualSensor extends AbstractSensor implements SensorBusSub
 		}
 	}
 }
-

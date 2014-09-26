@@ -1,3 +1,27 @@
+//Copyright (c) 2010, University of Memphis, Carnegie Mellon University
+//All rights reserved.
+//
+//Redistribution and use in source and binary forms, with or without modification, are permitted provided
+//that the following conditions are met:
+//
+//    * Redistributions of source code must retain the above copyright notice, this list of conditions and
+//      the following disclaimer.
+//    * Redistributions in binary form must reproduce the above copyright notice, this list of conditions
+//      and the following disclaimer in the documentation and/or other materials provided with the
+//      distribution.
+//    * Neither the names of the University of Memphis and Carnegie Mellon University nor the names of its
+//      contributors may be used to endorse or promote products derived from this software without specific
+//      prior written permission.
+//
+//THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED
+//WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+//PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR
+//ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
+//TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+//HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+//NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+//POSSIBILITY OF SUCH DAMAGE.
+//
 package org.fieldstream.service.sensors.mote.ant;
 
 
@@ -26,7 +50,7 @@ import com.dsi.ant.AntDefine;
 
 
 public class AntConnection {
-    
+
     /**
      * Defines the interface needed to work with all call backs this class makes
      */
@@ -35,137 +59,137 @@ public class AntConnection {
 	   private static long[] mAntLastDataReceivedTime=new long[Constants.MOTE_NO];
     /** The Log Tag. */
     public static final String TAG = "ANTApp";
-    
+
     /** The key for referencing the interrupted variable in saved instance data. */
     static final String ANT_INTERRUPTED_KEY = "ant_interrupted";
-    
+
     /** The key for referencing the state variable in saved instance data. */
     static final String ANT_STATE_KEY = "ant_state";
-    
+
     /** The interface to the ANT radio. */
     private AntInterface mAntReceiver;
-    
+
     /** Is the ANT background service connected. */
     private boolean mServiceConnected = false;
-    
+
     /** Stores which ANT status Intents to receive. */
     private IntentFilter statusIntentFilter;
-    
+
     /** Flag to know if the ANT App was interrupted. */
     private boolean mAntInterrupted = false;
-    
+
     /** Flag to know if an ANT Reset was triggered by this application. */
     private boolean mAntResetSent = false;
-    
+
     /** Flag if waiting for ANT_ENABLED. Default to true as assume ANT is always enabled */
     private boolean mEnabling = true;
-    
+
     // ANT Channels
     /** The ANT channel for the RIPECG. */
     static final byte MOTE_RIPECG_CHANNEL = (byte) 0;
-    
+
     /** ANT+ device type for an RIPECG */
     static final byte RIPECG_DEVICE_TYPE = (byte)1; //Temporary disable to test 9 axis. //(byte)1;
-    
+
     /** ANT+ channel period for an RIPECG */
     static final short RIPECG_PERIOD = 0x04EC;//8070;
-    
+
     /** The ANT channel for the ALCOHOL. */
     static final byte MOTE_ALCOHOL_CHANNEL = (byte) 1;
     /** The ANT channel for the ALCOHOL Accelerometer at Right Hand. */
     static final byte MOTE_ALCOHOL_ACCL_RIGHT_CHANNEL = (byte) 2;
     /** The ANT channel for the ALCOHOL Accelerometer at Left Hand. */
     static final byte MOTE_ALCOHOL_ACCL_LEFT_CHANNEL = (byte) 3;
-    
+
     static final byte MOTE_NINE_AXIS_RIGHT_CHANNEL = (byte) 4;
     static final byte MOTE_NINE_AXIS_LEFT_CHANNEL = (byte) 5;
-    
-    
+
+
     /** ANT+ device type for an ALCOHOL */
     static final byte ALCOHOL_DEVICE_TYPE = (byte)0x02;//0x7C;
     static final byte ALCOHOL_ACCL_RIGHT_DEVICE_TYPE = (byte)0x02;
     static final byte ALCOHOL_ACCL_LEFT_DEVICE_TYPE = (byte)0x02;
-    
+
     static final byte NINE_AXIS_DEVICE_TYPE = (byte)0x03;
-    
+
     /** ANT+ channel period for an ALCOHOL */
     static final short ALCOHOL_PERIOD = (short)0x1000;//8134;
-    
+
     /** ANT+ channel period for an ALCOHOL */
     static final short ALCOHOL_ACCL_PERIOD = (short)(32768/16);//16 HZ;
-    
+
     static final short NINE_AXIS_PERIOD = (short)1638; //(32768/20);//20 HZ;
-    
+
 	   /** The ECG channel for AutoSense. */
 	   static final byte ECG_CHANNEL = (byte) 0;
-	   
+
 	   /** The ACCELX channel for AutoSense. */
 	   static final byte ACCELX_CHANNEL = (byte) 1;
-	   
+
 	   /** The ACCELY channel for AutoSense. */
 	   static final byte ACCELY_CHANNEL = (byte) 2;
-	   
+
 	   /** The ACCELZ channel for AutoSense. */
 	   static final byte ACCELZ_CHANNEL = (byte) 3;
-	   
+
 	   /** The GSR channel for AutoSense. */
 	   static final byte GSR_CHANNEL = (byte) 4;
-	   
+
 	   /** The RIP channel for AutoSense. */
 	   static final byte RIP_CHANNEL = (byte) 7;
-	   
+
 	   /** The SKIN, AMBIENCE, BATTERY channels for AutoSense. */
 	   static final byte MISC_CHANNEL = (byte) 8;
-	   
+
 	   /** The ALCOHOL channel for AutoSense. */
 	   static final byte ALCOHOL_CHANNEL = (byte) 10;
-	   
+
 	   /** The GSR channel for AutoSense. */
 	   static final byte GSRWRIST_CHANNEL = (byte) 11;
-	   
+
 	   /** The BODYTEMP channel for AutoSense. */
 	   static final byte BODYTEMPWRIST_CHANNEL = (byte) 12;
-	   
+
 	   /** The ALCOHOL Accelerometer X channel for AutoSense. */
 	   static final byte ALCOHOL_ACCL_X_CHANNEL = (byte) 5;
 	   /** The ALCOHOL Accelerometer Y channel for AutoSense. */
 	   static final byte ALCOHOL_ACCL_Y_CHANNEL = (byte) 6;
 	   /** The ALCOHOL Accelerometer Z channel for AutoSense. */
 	   static final byte ALCOHOL_ACCL_Z_CHANNEL = (byte) 7;
-	   
+
 	   static final byte NINE_AXIS_ACCL_X_CHANNEL = (byte) 0;
 	   static final byte NINE_AXIS_ACCL_Y_CHANNEL = (byte) 7;
 	   static final byte NINE_AXIS_ACCL_Z_CHANNEL = (byte) 1;
-	   
+
 	   static final byte NINE_AXIS_GYRO_X_CHANNEL = (byte) 2;
 	   static final byte NINE_AXIS_GYRO_Y_CHANNEL = (byte) 3;
 	   static final byte NINE_AXIS_GYRO_Z_CHANNEL = (byte) 4;
-	   
+
 	   static final byte NINE_AXIS_NULL_PACKET_CHANNEL = (byte) 15;
-    
-    
-    
+
+
+
     /** Description of ANT's current state */
     private String mAntStateText = "";
-    
+
     /** Possible states of a device channel */
     public enum ChannelStates
     {
        /** Channel was explicitly closed or has not been opened */
        CLOSED,
-       
+
        /** User has requested we open the channel, but we are waiting for a reset */
        PENDING_OPEN,
-       
+
        /** Channel is opened, but we have not received any data yet */
        SEARCHING,
-       
+
        /** Channel is opened and has received status data from the device most recently */
        TRACKING_STATUS,
-       
+
        /** Channel is opened and has received measurement data most recently */
        TRACKING_DATA,
-       
+
        /** Channel is closed as the result of a search timeout */
        OFFLINE
     }
@@ -175,58 +199,58 @@ public class AntConnection {
 
     /** Current state of the ALCOHOL channel */
     private ChannelStates mALCOHOLState = ChannelStates.CLOSED;
-    
+
     /** Current state of the ALCOHOL Accl Right channel */
     private ChannelStates mALCOHOLAcclRightState = ChannelStates.CLOSED;
     /** Current state of the ALCOHOL Accl Left channel */
     private ChannelStates mALCOHOLAcclLeftState = ChannelStates.CLOSED;
-    
+
     private ChannelStates mNineAxisRightState = ChannelStates.CLOSED;
     private ChannelStates mNineAxisLeftState = ChannelStates.CLOSED;
-    
+
     //Flags used for deferred opening of channels
     /** Flag indicating that opening of the RIPECG channel was deferred */
     private boolean mDeferredRIPECGStart = false;
-    
+
     /** Flag indicating that opening of the ALCOHOL channel was deferred */
     private boolean mDeferredALCOHOLStart = false;
-    
+
     /** Flag indicating that opening of the ALCOHOL Accelerometer Right channel was deferred */
     private boolean mDeferredALCOHOLAcclRightStart = false;
     /** Flag indicating that opening of the ALCOHOL Accelerometer Left channel was deferred */
     private boolean mDeferredALCOHOLAcclLeftStart = false;
-    
+
     private boolean mDeferredNineAxisRightStart = false;
     private boolean mDeferredNineAxisLeftStart = false;
-    
+
     /** Flag indicating that opening of the weight scale channel was deferred */
     private boolean mDeferredWeightStart = false;
-    
+
     /** RIPECG device number. */
     private short mDeviceNumberRIPECG;
-    
+
     /** ALCOHOL device number. */
     private short mDeviceNumberALCOHOL;
-    
+
     /** ALCOHOL Accelerometer Right device number. */
     private short mDeviceNumberALCOHOLAcclRight;
-    
+
     /** ALCOHOL Accelerometer Left device number. */
     private short mDeviceNumberALCOHOLAcclLeft;
-    
+
     private short mDeviceNumberNineAxisRight;
     private short mDeviceNumberNineAxisLeft;
-    
+
     /** Weight scale device number. */
     private short mDeviceNumberWGT;
-    
+
     /** Devices must be within this bin to be found during (proximity) search. */
     private byte mProximityThreshold;
-    
+
     //TODO You will want to set a separate threshold for screen off and (if desired) screen on.
     /** Data buffered for event buffering before flush. */
     private short mBufferThreshold;
-    
+
     /** If this application has control of the ANT Interface. */
     private boolean mClaimedAntInterface;
 
@@ -234,15 +258,15 @@ public class AntConnection {
      * The possible RIPECG page toggle bit states.
      */
     private Context mContext;
-    
-//    private Activity mActivity;    
-    
+
+//    private Activity mActivity;
+
     /**
      * Default Constructor
      */
     public AntConnection()
     {
-		if(Log.DEBUG_MONOWAR) Log.m("Monowar_ALL","OK\t: (AntConnection)_Constructor()");			
+		if(Log.DEBUG_MONOWAR) Log.m("Monowar_ALL","OK\t: (AntConnection)_Constructor()");
         //Set initial state values
         mDeferredRIPECGStart = false;
         mRIPECGState = ChannelStates.CLOSED;
@@ -252,12 +276,12 @@ public class AntConnection {
         mALCOHOLAcclRightState = ChannelStates.CLOSED;
         mDeferredALCOHOLAcclLeftStart = false;
         mALCOHOLAcclLeftState = ChannelStates.CLOSED;
-        
+
         mDeferredNineAxisRightStart = false;
         mNineAxisRightState = ChannelStates.CLOSED;
         mDeferredNineAxisLeftStart = false;
         mNineAxisLeftState = ChannelStates.CLOSED;
-        
+
         mDeferredWeightStart = false;
         mContext=InferrenceService.mContext;
         /*Retrieve the ANT state and find out whether the ANT App was interrupted*/
@@ -267,36 +291,36 @@ public class AntConnection {
         AntConnection.setLast_Data_Received_Time(lastReceivedTimeDefault, Constants.MOTE_ALCOHOL_IND);
         AntConnection.setLast_Data_Received_Time(lastReceivedTimeDefault, Constants.MOTE_ALCOHOL_ACCL_RIGHT_IND);
         AntConnection.setLast_Data_Received_Time(lastReceivedTimeDefault, Constants.MOTE_ALCOHOL_ACCL_LEFT_IND);
-        
+
         AntConnection.setLast_Data_Received_Time(lastReceivedTimeDefault, Constants.MOTE_NINE_AXIS_RIGHT_IND);
         AntConnection.setLast_Data_Received_Time(lastReceivedTimeDefault, Constants.MOTE_NINE_AXIS_LEFT_IND);
 
         mClaimedAntInterface = false;
-        
+
         // ANT intent broadcasts.
         statusIntentFilter = new IntentFilter();
         statusIntentFilter.addAction(AntInterfaceIntent.ANT_ENABLED_ACTION);
         statusIntentFilter.addAction(AntInterfaceIntent.ANT_DISABLED_ACTION);
         statusIntentFilter.addAction(AntInterfaceIntent.ANT_RESET_ACTION);
         statusIntentFilter.addAction(AntInterfaceIntent.ANT_INTERFACE_CLAIMED_ACTION);
-        
+
         mAntReceiver = new AntInterface();
     }
-    
+
 	public static long getLast_Data_Received_Time(int ind) {
 		return mAntLastDataReceivedTime[ind];
 	}
 	public static void setLast_Data_Received_Time(long currentTime,int ind) {
 		mAntLastDataReceivedTime[ind]=currentTime;
 	}
-    
+
     /**
      * Creates the connection to the ANT service back-end.
      */
     public boolean start()
     {
         boolean initialised = false;
-        
+
         if(AntInterface.hasAntSupport(mContext))
         {
             if(!mAntReceiver.initService(mContext, mAntServiceListener))
@@ -326,14 +350,14 @@ public class AntConnection {
                         antError();
                     }
                 }
-                
+
                 initialised = true;
             }
         }
-        
+
         return initialised;
     }
-    
+
     /**
      * Requests that the user install the needed service for ant
      */
@@ -343,16 +367,16 @@ public class AntConnection {
  //       installNotification.show();
 
         AntInterface.goToMarket(mContext);
-        
+
 //        mContext.finish();
     }
-    
+
     //Getters and setters
     public AntInterface getAntReceiver()
     {
         return mAntReceiver;
     }
-    
+
     public boolean isServiceConnected()
     {
         return mServiceConnected;
@@ -387,7 +411,7 @@ public class AntConnection {
     {
         this.mDeviceNumberWGT = deviceNumberWGT;
     }
-    
+
     public byte getProximityThreshold()
     {
         return mProximityThreshold;
@@ -407,7 +431,7 @@ public class AntConnection {
     {
         this.mBufferThreshold = bufferThreshold;
     }
-    
+
 
     public ChannelStates getRIPECGState()
     {
@@ -418,14 +442,14 @@ public class AntConnection {
     {
         return mALCOHOLState;
     }
-    
+
     public ChannelStates getALCOHOLAcclRightState() {
         return mALCOHOLAcclRightState;
     }
     public ChannelStates getALCOHOLAcclLeftState() {
         return mALCOHOLAcclLeftState;
     }
-    
+
     public ChannelStates getNineAxisRightState(){
     	return mNineAxisRightState;
     }
@@ -449,7 +473,7 @@ public class AntConnection {
 	public void setALCOHOLAcclLeftState(ChannelStates mALCOHOLAcclLeftState) {
 		this.mALCOHOLAcclLeftState = mALCOHOLAcclLeftState;
 	}
-	
+
 	public void setNineAxisRightState(ChannelStates nineAxisRightState) {
 		this.mNineAxisRightState = nineAxisRightState;
 	}
@@ -533,23 +557,23 @@ public class AntConnection {
         {
             mContext.unregisterReceiver(mAntStatusReceiver);
 			if(Log.DEBUG_MONOWAR) Log.m("Monowar_ALL","OK\t: (AntStateConnection)_ShutDown()_1");
-            
+
         }
         catch(IllegalArgumentException e)
         {
             // Receiver wasn't registered, ignore as that's what we wanted anyway
         }
 		if(Log.DEBUG_MONOWAR) Log.m("Monowar_ALL","OK\t: (AntStateConnection)_ShutDown()_2");
-        
+
         receiveAntRxMessages(false);
 		if(Log.DEBUG_MONOWAR) Log.m("Monowar_ALL","OK\t: (AntStateConnection)_ShutDown()_3");
-        
+
         if(mServiceConnected)
         {
             try
             {
     			if(Log.DEBUG_MONOWAR) Log.m("Monowar_ALL","OK\t: (AntStateConnection)_ShutDown()_4");
-            	
+
                 if(mClaimedAntInterface)
                 {
                     Log.d(TAG, "AntChannelManager.shutDown: Releasing interface");
@@ -557,13 +581,13 @@ public class AntConnection {
 
                     mAntReceiver.releaseInterface();
         			if(Log.DEBUG_MONOWAR) Log.m("Monowar_ALL","OK\t: (AntStateConnection)_ShutDown()_6");
-                    
+
                 }
     			if(Log.DEBUG_MONOWAR) Log.m("Monowar_ALL","OK\t: (AntStateConnection)_ShutDown()_7");
 
                 mAntReceiver.stopRequestForceClaimInterface();
     			if(Log.DEBUG_MONOWAR) Log.m("Monowar_ALL","OK\t: (AntStateConnection)_ShutDown()_8");
-                
+
             }
             catch(AntServiceNotConnectedException e)
             {
@@ -575,7 +599,7 @@ public class AntConnection {
             }
         }
     }
-    
+
 
     /**
      * Class for receiving notifications about ANT service state.
@@ -637,7 +661,7 @@ public class AntConnection {
 //            mCallbackSink.notifyAntStateChanged();
         }
     };
-    
+
     /**
      * Configure the ANT radio to the user settings.
      */
@@ -665,7 +689,7 @@ public class AntConnection {
             }
         }
     }
-    
+
     /**
      * Display to user that an error has occured communicating with ANT Radio.
      */
@@ -673,14 +697,14 @@ public class AntConnection {
     {
         mAntStateText = "ANT Error";
 //        mCallbackSink.errorCallback();
-    }    
+    }
 
     /**
      * Opens a given channel using the proper configuration for the channel's sensor type.
      * @param channel The channel to Open.
      * @param deferToNextReset If true, channel will not open until the next reset.
      */
-    
+
     public void openChannel(byte channel, boolean deferToNextReset)
     {
     	Log.h(TAG, "openChannel( "+channel+", "+deferToNextReset+")");
@@ -688,18 +712,18 @@ public class AntConnection {
     	if(channel==MOTE_ALCOHOL_CHANNEL && Constants.moteActive[Constants.MOTE_ALCOHOL_IND]==false) return;
     	if(channel==MOTE_RIPECG_CHANNEL && Constants.antAddress[Constants.MOTE_RIPECG_IND]=="") return;
     	if(channel==MOTE_ALCOHOL_CHANNEL && Constants.antAddress[Constants.MOTE_ALCOHOL_IND]=="") return;
-    	
+
     	if(channel==MOTE_ALCOHOL_ACCL_RIGHT_CHANNEL && Constants.moteActive[Constants.MOTE_ALCOHOL_ACCL_RIGHT_IND]==false) return;
     	if(channel==MOTE_ALCOHOL_ACCL_RIGHT_CHANNEL && Constants.antAddress[Constants.MOTE_ALCOHOL_ACCL_RIGHT_IND]=="") return;
     	if(channel==MOTE_ALCOHOL_ACCL_LEFT_CHANNEL && Constants.moteActive[Constants.MOTE_ALCOHOL_ACCL_LEFT_IND]==false) return;
     	if(channel==MOTE_ALCOHOL_ACCL_LEFT_CHANNEL && Constants.antAddress[Constants.MOTE_ALCOHOL_ACCL_LEFT_IND]=="") return;
-    	
+
     	if(channel==MOTE_NINE_AXIS_RIGHT_CHANNEL && Constants.moteActive[Constants.MOTE_NINE_AXIS_RIGHT_IND]==false) return;
     	if(channel==MOTE_NINE_AXIS_RIGHT_CHANNEL && Constants.antAddress[Constants.MOTE_NINE_AXIS_RIGHT_IND]=="") return;
-    	
+
     	if(channel==MOTE_NINE_AXIS_LEFT_CHANNEL && Constants.moteActive[Constants.MOTE_NINE_AXIS_LEFT_IND]==false) return;
     	if(channel==MOTE_NINE_AXIS_LEFT_CHANNEL && Constants.antAddress[Constants.MOTE_NINE_AXIS_LEFT_IND]=="") return;
-    	
+
     	closeChannel(channel);
     	if (!deferToNextReset) {
             short deviceNumber = 0;
@@ -707,7 +731,7 @@ public class AntConnection {
             byte TransmissionType = 0; // Set to 0 for wild card search
             short period = 0;
             byte freq = (byte)0x50; // 2457Mhz (ANT+ frequency)
-            
+
             switch (channel) {
                 case MOTE_RIPECG_CHANNEL:
                 	deviceNumber=Short.valueOf(Constants.antAddress[Constants.MOTE_RIPECG_IND],16);
@@ -735,7 +759,7 @@ public class AntConnection {
                 	period = ALCOHOL_ACCL_PERIOD;
                 	mALCOHOLAcclLeftState = ChannelStates.SEARCHING;
                 	break;
-                	
+
                 case MOTE_NINE_AXIS_RIGHT_CHANNEL:
                 	Log.h(TAG, "Hex ID Right : " + Constants.antAddress[Constants.MOTE_NINE_AXIS_RIGHT_IND]);
                 	deviceNumber=Short.valueOf(Constants.antAddress[Constants.MOTE_NINE_AXIS_RIGHT_IND], 16);
@@ -751,7 +775,7 @@ public class AntConnection {
                 	mNineAxisLeftState = ChannelStates.SEARCHING;
                 	break;
             }
-            
+
 //            mCallbackSink.notifyChannelStateChanged(channel);
             // Configure and open channel
             if (!antChannelSetup(
@@ -806,7 +830,7 @@ public class AntConnection {
                 	mDeferredALCOHOLAcclLeftStart = true;
                     mALCOHOLAcclLeftState = ChannelStates.PENDING_OPEN;
                     break;
-                    
+
                 case MOTE_NINE_AXIS_RIGHT_CHANNEL:
                 	mDeferredNineAxisRightStart = true;
                     mNineAxisRightState = ChannelStates.PENDING_OPEN;
@@ -818,9 +842,9 @@ public class AntConnection {
             }
         }
     }
-    
+
     /**
-     * Attempts to cleanly close a specified channel 
+     * Attempts to cleanly close a specified channel
      * @param channel The channel to close.
      */
     public void closeChannel(byte channel)
@@ -858,7 +882,7 @@ public class AntConnection {
            antError();
         }
     }
-    
+
     /**
      * Resets the channel state machines, used in error recovery.
      */
@@ -873,7 +897,7 @@ public class AntConnection {
         mNineAxisRightState = ChannelStates.CLOSED;
         mNineAxisLeftState = ChannelStates.CLOSED;
     }
-    
+
     /** check to see if a channel is open */
     public boolean isChannelOpen(byte channel)
     {
@@ -895,7 +919,7 @@ public class AntConnection {
                 if(mALCOHOLAcclLeftState == ChannelStates.CLOSED || mALCOHOLAcclLeftState == ChannelStates.OFFLINE)
                     return false;
                 break;
-                
+
             case MOTE_NINE_AXIS_RIGHT_CHANNEL:
                 if(mNineAxisRightState == ChannelStates.CLOSED || mNineAxisRightState == ChannelStates.OFFLINE) {
                     return false;
@@ -911,7 +935,7 @@ public class AntConnection {
         }
         return true;
     }
-    
+
     /** request an ANT reset */
     public void requestReset()
     {
@@ -946,7 +970,7 @@ public class AntConnection {
                 mALCOHOLAcclLeftState = ChannelStates.CLOSED;
                 //mCallbackSink.notifyChannelStateChanged(MOTE_ALCOHOL_ACCL_LEFT_CHANNEL);
             }
-            
+
             if(mDeferredNineAxisRightStart) {
                 mDeferredNineAxisRightStart = false;
                 mNineAxisRightState = ChannelStates.CLOSED;
@@ -955,34 +979,34 @@ public class AntConnection {
                 mDeferredNineAxisLeftStart = false;
                 mNineAxisLeftState = ChannelStates.CLOSED;
             }
-            
+
             if(mDeferredWeightStart)
             {
                 mDeferredWeightStart = false;
             }
         }
     }
-    
+
     /** Receives all of the ANT status intents. */
-    private final BroadcastReceiver mAntStatusReceiver = new BroadcastReceiver() 
-    {      
-       public void onReceive(Context context, Intent intent) 
+    private final BroadcastReceiver mAntStatusReceiver = new BroadcastReceiver()
+    {
+       public void onReceive(Context context, Intent intent)
        {
           String ANTAction = intent.getAction();
 
           Log.d(TAG, "enter onReceive: " + ANTAction);
-          if (ANTAction.equals(AntInterfaceIntent.ANT_ENABLED_ACTION)) 
+          if (ANTAction.equals(AntInterfaceIntent.ANT_ENABLED_ACTION))
           {
              Log.i(TAG, "onReceive: ANT ENABLED");
-             
+
              mEnabling = false;
              receiveAntRxMessages(true); // Hillol: This is a fix. Restart and first time opening application do not receive any packet
 //             mCallbackSink.notifyAntStateChanged();
           }
-          else if (ANTAction.equals(AntInterfaceIntent.ANT_DISABLED_ACTION)) 
+          else if (ANTAction.equals(AntInterfaceIntent.ANT_DISABLED_ACTION))
           {
              Log.i(TAG, "onReceive: ANT DISABLED");
-             
+
              mRIPECGState = ChannelStates.CLOSED;
 //             mCallbackSink.notifyChannelStateChanged(MOTE_RIPECG_CHANNEL);
              mALCOHOLState = ChannelStates.CLOSED;
@@ -992,26 +1016,26 @@ public class AntConnection {
              mNineAxisRightState = ChannelStates.CLOSED;
              mNineAxisLeftState = ChannelStates.CLOSED;
              mAntStateText = "Disabled";
-             
+
              mEnabling = false;
-             
+
 //             mCallbackSink.notifyAntStateChanged();
           }
           else if (ANTAction.equals(AntInterfaceIntent.ANT_RESET_ACTION))
           {
              Log.d(TAG, "onReceive: ANT RESET");
-             
+
              if(false == mAntResetSent)
              {
                 //Someone else triggered an ANT reset
                 Log.d(TAG, "onReceive: ANT RESET: Resetting state");
-                
+
                 if(mRIPECGState != ChannelStates.CLOSED)
                 {
                    mRIPECGState = ChannelStates.CLOSED;
 //                   mCallbackSink.notifyChannelStateChanged(MOTE_RIPECG_CHANNEL);
                 }
-                
+
                 if(mALCOHOLState != ChannelStates.CLOSED)
                 {
                    mALCOHOLState = ChannelStates.CLOSED;
@@ -1024,14 +1048,14 @@ public class AntConnection {
                 if(mALCOHOLAcclLeftState != ChannelStates.CLOSED) {
                     mALCOHOLAcclLeftState = ChannelStates.CLOSED;
                 }
-                
+
                 if(mNineAxisRightState != ChannelStates.CLOSED) {
                     mNineAxisRightState = ChannelStates.CLOSED;
                 }
                 if(mNineAxisLeftState != ChannelStates.CLOSED) {
                     mNineAxisLeftState = ChannelStates.CLOSED;
                 }
-                
+
                 mBufferThreshold = 0;
              }
              else
@@ -1058,7 +1082,7 @@ public class AntConnection {
                     openChannel(MOTE_ALCOHOL_ACCL_LEFT_CHANNEL, false);
                     mDeferredALCOHOLAcclLeftStart = false;
                 }
-                
+
                 if(mDeferredNineAxisRightStart) {
                     openChannel(MOTE_NINE_AXIS_RIGHT_CHANNEL, false);
                     mDeferredNineAxisRightStart = false;
@@ -1067,19 +1091,19 @@ public class AntConnection {
                     openChannel(MOTE_NINE_AXIS_LEFT_CHANNEL, false);
                     mDeferredNineAxisLeftStart = false;
                 }
-                
+
                 if(mDeferredWeightStart)
                 {
                     mDeferredWeightStart = false;
                 }
              }
           }
-          else if (ANTAction.equals(AntInterfaceIntent.ANT_INTERFACE_CLAIMED_ACTION)) 
+          else if (ANTAction.equals(AntInterfaceIntent.ANT_INTERFACE_CLAIMED_ACTION))
           {
              Log.i(TAG, "onReceive: ANT INTERFACE CLAIMED");
-             
+
              boolean wasClaimed = mClaimedAntInterface;
-             
+
              // Could also read ANT_INTERFACE_CLAIMED_PID from intent and see if it matches the current process PID.
              try
              {
@@ -1096,11 +1120,11 @@ public class AntConnection {
                      // Another application claimed the ANT Interface...
                      if(wasClaimed)
                      {
-                         // ...and we had control before that.  
+                         // ...and we had control before that.
                          Log.i(TAG, "onReceive: ANT Interface released");
 
                          receiveAntRxMessages(false);
-                         
+
                          mAntStateText = "ANT In Use";
 //                         mCallbackSink.notifyAntStateChanged();
                      }
@@ -1113,7 +1137,7 @@ public class AntConnection {
           }
        }
     };
-    
+
 /*    public static String getHexString(byte[] data)
     {
         if(null == data)
@@ -1129,16 +1153,16 @@ public class AntConnection {
 
         return hexString.toString();
     }
- */   
+ */
     /** Receives all of the ANT message intents and dispatches to the proper handler. */
-    private final BroadcastReceiver mAntMessageReceiver = new BroadcastReceiver() 
-    {      
+    private final BroadcastReceiver mAntMessageReceiver = new BroadcastReceiver()
+    {
        Context mContext;
 
        public void onReceive(Context context, Intent intent) {
           mContext = context;
           long timestamp = System.currentTimeMillis();
-          
+
           String ANTAction = intent.getAction();
 
           Log.d(TAG, "enter onReceive: " + ANTAction);
@@ -1155,22 +1179,22 @@ public class AntConnection {
                      break;
                  case AntMesg.MESG_BROADCAST_DATA_ID:
                  case AntMesg.MESG_ACKNOWLEDGED_DATA_ID:
-                	 
+
 //                     byte channelNum = ANTRxMessage[AntMesg.MESG_DATA_OFFSET];
                      byte channelNum = (byte)(ANTRxMessage[AntMesg.MESG_DATA_OFFSET] & AntDefine.CHANNEL_NUMBER_MASK);
 //               		if(Log.DEBUG_MONOWAR) Log.m("Monowar_ALL","OK\t: here ("+channelNum+")");
-                     
+
               		long curTime=System.currentTimeMillis();
-                     
+
                      switch(channelNum) {
                          case MOTE_RIPECG_CHANNEL:
                             AntConnection.setLast_Data_Received_Time(curTime, Constants.MOTE_RIPECG_IND);
-                        	 
+
                              antDecodeRIPECG(ANTRxMessage, timestamp);
                              break;
                          case MOTE_ALCOHOL_CHANNEL:
                             AntConnection.setLast_Data_Received_Time(curTime, Constants.MOTE_ALCOHOL_IND);
-                        	 
+
                              antDecodeALCOHOL(ANTRxMessage, timestamp);
                              break;
                          case MOTE_ALCOHOL_ACCL_RIGHT_CHANNEL:
@@ -1181,7 +1205,7 @@ public class AntConnection {
                         	 AntConnection.setLast_Data_Received_Time(curTime, Constants.MOTE_ALCOHOL_ACCL_LEFT_IND);
                         	 antDecodeALCOHOL(ANTRxMessage, timestamp);
                         	 break;
-                        	 
+
                          case MOTE_NINE_AXIS_RIGHT_CHANNEL:
                         	 AntConnection.setLast_Data_Received_Time(curTime, Constants.MOTE_NINE_AXIS_RIGHT_IND);
                         	 antDecodeALCOHOL(ANTRxMessage, timestamp);
@@ -1219,7 +1243,7 @@ public class AntConnection {
                              Log.i(TAG, "onRecieve: Received ALCOHOL Accelerometer Left device number: " + deviceNum);
                              mDeviceNumberALCOHOLAcclLeft = deviceNum;
                              break;
-                             
+
                          case MOTE_NINE_AXIS_RIGHT_CHANNEL:
                              Log.i(TAG, "onRecieve: Received Nine Axis Right device number: " + deviceNum);
                              mDeviceNumberNineAxisRight = deviceNum;
@@ -1245,7 +1269,7 @@ public class AntConnection {
              }
           }
        }
-       
+
        /**
         * Handles response and channel event messages
         * @param ANTRxMessage
@@ -1308,7 +1332,7 @@ public class AntConnection {
                                antError();
                            }
                            break;
-                           
+
                        case MOTE_NINE_AXIS_RIGHT_CHANNEL:
                            try {
                                Log.i(TAG, "responseEventHandler: Received search timeout on Nine Axis Right channel");
@@ -1333,8 +1357,8 @@ public class AntConnection {
                    break;
            }
        }
-       
-       
+
+
        /**
         * Decode ANT+ Weight scale messages.
         *
@@ -1348,7 +1372,7 @@ public class AntConnection {
         */
 	private void antDecodeALCOHOL(byte[] ANTRxMessage, long timestamp) {
 		try {
-			Log.d(TAG, "antDecodeALCOHOL start");  
+			Log.d(TAG, "antDecodeALCOHOL start");
 			Log.d(TAG, "antDecodeALCOHOL: Received broadcast");
 
 			if(mALCOHOLState != ChannelStates.CLOSED) {
@@ -1364,7 +1388,7 @@ public class AntConnection {
 				Log.d(TAG, "antDecodeALCOHOL: Tracking data for left hand mote");
 				mALCOHOLAcclLeftState = ChannelStates.TRACKING_DATA;
 			}
-			
+
 			if(mNineAxisRightState != ChannelStates.CLOSED) {
 				Log.d(TAG, "antDecodeALCOHOL: Tracking data for Right hand mote [Nine Axis]");
 				mNineAxisRightState = ChannelStates.TRACKING_DATA;
@@ -1373,7 +1397,7 @@ public class AntConnection {
 				Log.d(TAG, "antDecodeALCOHOL: Tracking data for Left hand mote [Nine Axis]");
 				mNineAxisLeftState = ChannelStates.TRACKING_DATA;
 			}
-             
+
 			// If using a wild card search, request the channel ID
 			if(mDeviceNumberALCOHOL == WILDCARD) {
 				try {
@@ -1424,9 +1448,9 @@ public class AntConnection {
 			byte mChannelNumber = (byte)(ANTRxMessage[AntMesg.MESG_DATA_OFFSET+8] & 0x0F);
 			int[] samples = decodeAutoSenseSamples(ANTRxMessage);
 			//if(Log.DEBUG_MONOWAR) Log.m("Monowar_ALL","OK\t: AntConnection_AL_channel="+mChannelNumber+" data=["+samples[0]+" "+samples[1]+" "+ samples[2]+" "+samples[3]+" "+samples[4]+"]");
-			
+
 			//if(Log.DEBUG_HILLOL) Log.m(TAG,"Channel="+mChannelNumber+", samples=["+samples[0]+" "+samples[1]+" "+ samples[2]+" "+samples[3]+" "+samples[4]+"]");
-			
+
 			if(moteChannelNumber == MOTE_ALCOHOL_CHANNEL) {
 				switch(mChannelNumber) {
 				case ALCOHOL_CHANNEL:
@@ -1562,10 +1586,10 @@ public class AntConnection {
            samples[2] = (short)(( (((short)ANTRxMessage[AntMesg.MESG_DATA_OFFSET+4] & 0x00FF) << 4) | (((short)ANTRxMessage[AntMesg.MESG_DATA_OFFSET+5] & 0x00FF) >>> 4) ) & 0x0FFF);
            samples[3] = (short)(( (((short)ANTRxMessage[AntMesg.MESG_DATA_OFFSET+5] & 0x00FF) << 8) | ((short)ANTRxMessage[AntMesg.MESG_DATA_OFFSET+6] & 0x00FF) ) & 0x0FFF);
            samples[4] = (short)(( (((short)ANTRxMessage[AntMesg.MESG_DATA_OFFSET+7] & 0x00FF) << 4) | (((short)ANTRxMessage[AntMesg.MESG_DATA_OFFSET+8] & 0x00FF) >>> 4) ) & 0x0FFF);
-           
+
            return samples;
        }
-       
+
        private void convertSamplesToTwosComplement(int[] samples) {
     	   for(int i=0; i<samples.length; i++) {
     		   samples[i] = CommonUtil.TwosComplement(samples[i], 12);
@@ -1583,7 +1607,7 @@ public class AntConnection {
     	  final byte[] fixed_send_order = {0,1,0,2,0,7,0,3,0,4,0,7,(byte)0xFF,(byte)0xFF,(byte)0xFF,8};
           {
              Log.d(TAG, "antDecodeALCOHOL: Received broadcast");
-             
+
              if(mRIPECGState != ChannelStates.CLOSED)
              {
                 Log.d(TAG, "antDecodeALCOHOL: Tracking data");
@@ -1591,7 +1615,7 @@ public class AntConnection {
                 mRIPECGState = ChannelStates.TRACKING_DATA;
 //                mCallbackSink.notifyChannelStateChanged(MOTE_RIPECG_CHANNEL);
              }
-             
+
              // If using a wild card search, request the channel ID
              if(mDeviceNumberRIPECG == WILDCARD)
              {
@@ -1611,7 +1635,7 @@ public class AntConnection {
              byte mChannelNumber = fixed_send_order[mSequenceNumber];
              Log.d(TAG, "antDecodeAutoSense: Sequence Number " + mSequenceNumber + " Channel: " + mChannelNumber);
 //    		 if(Log.DEBUG_MONOWAR) Log.m("Monowar_ALL","OK\t: (AntConnection_RE)_channel="+mSequenceNumber);
-             
+
              int[] samples = decodeAutoSenseSamples(ANTRxMessage);
  //   	     setIsReceived(true,Constants.MOTE_RIPECG_IND);
  //   	     setLast_Data_Received_Time(timestamp,Constants.MOTE_RIPECG_IND);
@@ -1628,14 +1652,14 @@ public class AntConnection {
 					Packetizer.getInstance().addPacket(samples,SAMPLE_NO,ChannelToSensorMapping.ACCELY, timestamp);
               	 break;
              case ACCELZ_CHANNEL:
-					Packetizer.getInstance().addPacket(samples,SAMPLE_NO,ChannelToSensorMapping.ACCELZ, timestamp);            	 
+					Packetizer.getInstance().addPacket(samples,SAMPLE_NO,ChannelToSensorMapping.ACCELZ, timestamp);
             	 break;
              case GSR_CHANNEL:
-					Packetizer.getInstance().addPacket(samples,SAMPLE_NO,ChannelToSensorMapping.GSR, timestamp);            	 
-            	 
+					Packetizer.getInstance().addPacket(samples,SAMPLE_NO,ChannelToSensorMapping.GSR, timestamp);
+
             	 break;
              case RIP_CHANNEL:
-					Packetizer.getInstance().addPacket(samples,SAMPLE_NO,ChannelToSensorMapping.RIP, timestamp);            	 
+					Packetizer.getInstance().addPacket(samples,SAMPLE_NO,ChannelToSensorMapping.RIP, timestamp);
             	 break;
              case MISC_CHANNEL:
             	 	Packetizer.getInstance().addPacket(samples, SAMPLE_NO, 8, timestamp);
@@ -1659,16 +1683,16 @@ public class AntConnection {
             		 Log.w(TAG, "Unknown channel " + mChannelNumber);
 //            		 if(Log.DEBUG_MONOWAR) Log.m("Monowar_ALL","OK\t: (AntConnection_RE)_channel="+fixed_send_order[mSequenceNumber]+"data=["+samples[0]+" "+samples[1]+" "+ samples[2]+" "+samples[3]+" "+samples[4]+"]");
              }
-             
+
 //           mCallbackSink.notifyChannelDataChanged(MOTE_RIPECG_CHANNEL);
           }
           Log.d(TAG, "antDecodeALCOHOL end");
        }
        catch(Exception e){}
        }
-       
+
     };
-    
+
     /**
      * ANT Channel Configuration.
      *
@@ -1681,7 +1705,7 @@ public class AntConnection {
      * @param radioFreq the radio freq
      * @param proxSearch the prox search
      * @return true, if successfully configured and opened channel
-     */   
+     */
     private boolean antChannelSetup(byte networkNumber, byte channelNumber, short deviceNumber, byte deviceType, byte txType, short channelPeriod, byte radioFreq, byte proxSearch)
     {
        boolean channelOpen = false;
@@ -1694,24 +1718,24 @@ public class AntConnection {
            mAntReceiver.ANTSetChannelRFFreq(channelNumber, radioFreq);
            mAntReceiver.ANTSetChannelSearchTimeout(channelNumber, (byte)0); // Disable high priority search
            mAntReceiver.ANTSetLowPriorityChannelSearchTimeout(channelNumber,(byte) 12); // Set search timeout to 30 seconds (low priority search)
-           
+
            if(deviceNumber == WILDCARD)
            {
                mAntReceiver.ANTSetProximitySearch(channelNumber, proxSearch);   // Configure proximity search, if using wild card search
            }
 
            mAntReceiver.ANTOpenChannel(channelNumber);
-           
+
            channelOpen = true;
        }
        catch(AntInterfaceException aie)
        {
            antError();
        }
-      
+
        return channelOpen;
     }
-    
+
     /**
      * Enable/disable receiving ANT Rx messages.
      *

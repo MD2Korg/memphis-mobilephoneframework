@@ -1,25 +1,25 @@
 ﻿//Copyright (c) 2010, University of Memphis, Carnegie Mellon University
 //All rights reserved.
 //
-//Redistribution and use in source and binary forms, with or without modification, are permitted provided 
+//Redistribution and use in source and binary forms, with or without modification, are permitted provided
 //that the following conditions are met:
 //
-//    * Redistributions of source code must retain the above copyright notice, this list of conditions and 
+//    * Redistributions of source code must retain the above copyright notice, this list of conditions and
 //      the following disclaimer.
-//    * Redistributions in binary form must reproduce the above copyright notice, this list of conditions 
-//      and the following disclaimer in the documentation and/or other materials provided with the 
+//    * Redistributions in binary form must reproduce the above copyright notice, this list of conditions
+//      and the following disclaimer in the documentation and/or other materials provided with the
 //      distribution.
-//    * Neither the names of the University of Memphis and Carnegie Mellon University nor the names of its 
-//      contributors may be used to endorse or promote products derived from this software without specific 
+//    * Neither the names of the University of Memphis and Carnegie Mellon University nor the names of its
+//      contributors may be used to endorse or promote products derived from this software without specific
 //      prior written permission.
 //
-//THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED 
-//WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A 
-//PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR 
-//ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED 
-//TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) 
-//HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING 
-//NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
+//THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED
+//WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+//PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR
+//ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
+//TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+//HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+//NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 //POSSIBILITY OF SUCH DAMAGE.
 //
 package org.fieldstream.service;
@@ -38,10 +38,10 @@ import android.os.Message;
 import android.os.SystemClock;
 
 /**
- * 
+ *
  * @author Patrick Blitz
  * @author Andrew Raij
- * 
+ *
  */
 public class FeatureRunner {
 	private FeatureCalculation calculation2;
@@ -50,9 +50,9 @@ public class FeatureRunner {
 	private Handler handler;
 
 	private static FeatureRunner INSTANCE = null;
-	
+
 	private static String TAG = "FeatureRunner";
-	
+
 	private FeatureRunner() {
 		calculation2 = FeatureCalculation.getInstance();
 		queue = new ArrayBlockingQueue<FeatureData>(100);
@@ -62,7 +62,7 @@ public class FeatureRunner {
 				    // preparing a looper on current thread
 				    // the current thread is being detected implicitly
 				    Looper.prepare();
-				 				    
+
 				    // now, the handler will automatically bind to the
 				    // Looper that is attached to the current thread
 				    // You don't need to specify the Looper explicitly
@@ -75,7 +75,7 @@ public class FeatureRunner {
 									beginTime = data.timestamps[0];
 									endTime = data.timestamps[data.timestamps.length - 1];
 								}
-								
+
 								if (calculation2.mapping != null
 										&& !calculation2.mapping.isEmpty()) {
 									ArrayList<AbstractFeature> abstractFeatures = calculation2.mapping.get(data.sensorID);
@@ -87,7 +87,7 @@ public class FeatureRunner {
 														data.timestamps, data.sensorID);
 												if (Log.DEBUG) Log.d("FeatureCalc", "Feature "
 														+ ((Integer) f.featureID).toString()
-														+ " for Sensor "+((Integer)data.sensorID).toString() 
+														+ " for Sensor "+((Integer)data.sensorID).toString()
 														+ " has value "
 														+ ((Double) result).toString() + " for "
 														+ data.buffer.length
@@ -106,9 +106,9 @@ public class FeatureRunner {
 									}
 								}
 							}
-						}				    	
+						}
 				    };
-				    				    
+
 				    // After the following line the thread will start
 				    // running the message loop and will not normally
 				    // exit the loop unless a problem happens or you
@@ -122,7 +122,7 @@ public class FeatureRunner {
 		thread.setName("fs_FeatureRunner_"+System.currentTimeMillis());
 		thread.start();
 	}
-	
+
 	public static FeatureRunner getInstance() {
 		if (INSTANCE == null) {
 			INSTANCE = new FeatureRunner();
@@ -130,10 +130,10 @@ public class FeatureRunner {
 		else if (INSTANCE.thread.getState() == Thread.State.TERMINATED) {
 			INSTANCE = new FeatureRunner();
 		}
-		
+
 		return INSTANCE;
 	}
-		
+
 	public synchronized void addBuffer(FeatureData featureData) {
 		while (handler == null) {
 			try {
@@ -143,7 +143,7 @@ public class FeatureRunner {
 				e.printStackTrace();
 			}
 		}
-		
+
 		Message msg=handler.obtainMessage(0, featureData);
 		handler.sendMessage(msg);
 

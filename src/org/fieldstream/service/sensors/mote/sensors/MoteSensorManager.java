@@ -1,24 +1,24 @@
 ﻿//Copyright (c) 2010, University of Memphis
 //All rights reserved.
 //
-//Redistribution and use in source and binary forms, with or without modification, are permitted provided 
+//Redistribution and use in source and binary forms, with or without modification, are permitted provided
 //that the following conditions are met:
 //
-//    * Redistributions of source code must retain the above copyright notice, this list of conditions and 
+//    * Redistributions of source code must retain the above copyright notice, this list of conditions and
 //      the following disclaimer.
-//    * Redistributions in binary form must reproduce the above copyright notice, this list of conditions 
-//      and the following disclaimer in the documentation and/or other materials provided with the 
+//    * Redistributions in binary form must reproduce the above copyright notice, this list of conditions
+//      and the following disclaimer in the documentation and/or other materials provided with the
 //      distribution.
-//    * Neither the name of the University of Memphis nor the names of its contributors may be used to 
+//    * Neither the name of the University of Memphis nor the names of its contributors may be used to
 //      endorse or promote products derived from this software without specific prior written permission.
 //
-//THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED 
-//WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A 
-//PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR 
-//ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED 
-//TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) 
-//HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING 
-//NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
+//THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED
+//WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+//PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR
+//ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
+//TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+//HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+//NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 //POSSIBILITY OF SUCH DAMAGE.
 //
 
@@ -36,7 +36,7 @@ import org.fieldstream.service.sensors.mote.TimeStamping;
 
 /*
  * The mote sensor manager does the following things:
- * <br> Starts/Stops a bluetooth connection that reads data from 
+ * <br> Starts/Stops a bluetooth connection that reads data from
  * 		a AutoSense BlueTooth Bridge node into a Byte Level Queue
  * <br> Starts a reader that reads bytes from the Byte Level queue
  * 		and tries to parse those into tinyos oscope (Stress Project specific) packets
@@ -83,7 +83,7 @@ public class MoteSensorManager {
 
 	public void registerListener(MoteUpdateSubscriber subscriber)
 	{
-		Log.ema_alarm("MoteSensorManager", "MUS: " + subscriber.toString());		
+		Log.ema_alarm("MoteSensorManager", "MUS: " + subscriber.toString());
 		moteUpdateSubsribers.add(subscriber);
 	}
 
@@ -94,10 +94,10 @@ public class MoteSensorManager {
 	}
 
 
-	public void updateSensor(int[] data, int SensorID, long[] timestamps) 
+	public void updateSensor(int[] data, int SensorID, long[] timestamps)
 	{
 		if (SensorID == -1) {
-			Log.d("updateSensor", "Packet from sensor " + SensorID + " ignored");			
+			Log.d("updateSensor", "Packet from sensor " + SensorID + " ignored");
 			return;
 		}
 		//Log.h(TAG, "SensorID = "+SensorID+", data=" + data.length + ", timestamps="+timestamps.length);
@@ -107,7 +107,7 @@ public class MoteSensorManager {
 		//       	if (SensorID == Constants.SENSOR_ECK)   // ECG mote
 		//       		notif.ledARGB = 0xFFFF0000;
 		//           else if (SensorID == Constants.SENSOR_ALCOHOL || SensorID == Constants.SENSOR_GSRWRIST || SensorID == Constants.SENSOR_TEMPWRIST)					// RIP mote
-		//           	notif.ledARGB = 0xFF0000FF;        		
+		//           	notif.ledARGB = 0xFF0000FF;
 
 		//       	notif.ledOnMS = 1;
 		//       } else {
@@ -132,21 +132,21 @@ public class MoteSensorManager {
 			{
 				item.onReceiveData(SensorID, data , timestamps);
 			}
-		}catch(Exception e){		
+		}catch(Exception e){
 			if(Log.DEBUG_MONOWAR) Log.m("Monowar_ALL","EXCEPTION\t: (MSM)_UpdateSensor "+e.toString()+" "+e.getLocalizedMessage()+e.getMessage()+")");
 			if(Log.LOG_DB){DatabaseLogger db=DatabaseLogger.getInstance(this);db.logAnything("DEBUG","EXCEPTION\t: (MSM)_UpdateSensor "+e.toString()+" "+e.getLocalizedMessage()+" "+e.getMessage()+")" , System.currentTimeMillis());}
 		}
 	}
-	///////////////// New "UpdateSensor" Start//////////////////	
+	///////////////// New "UpdateSensor" Start//////////////////
 
-	public void updateSensor(int[] data, int moteID, int ChannelID , long timestamp) 
+	public void updateSensor(int[] data, int moteID, int ChannelID , long timestamp)
 	{
 
 		/*        if (led) {
         	if (moteID % 10 == 1)   // ECG mote
         		notif.ledARGB = 0xFFFF0000;
         	else					// RIP mote
-        		notif.ledARGB = 0xFF0000FF;        		
+        		notif.ledARGB = 0xFF0000FF;
 
         	notif.ledOnMS = 1;
         } else {
@@ -159,7 +159,7 @@ public class MoteSensorManager {
         	nm=( NotificationManager ) InferrenceService.INSTANCE.getSystemService( InferrenceService.NOTIFICATION_SERVICE );
         }
         nm.notify(1, notif);
-		 */        
+		 */
 		for(MoteUpdateSubscriber item : moteUpdateSubsribers)
 		{
 			int SensorID = ChannelToSensorMapping.mapMoteChannelToPhoneSensor(moteID, ChannelID);
@@ -179,7 +179,7 @@ public class MoteSensorManager {
 		}
 		return;
 	}
-	///////////////// New "UpdateSensor" end//////////////////	
+	///////////////// New "UpdateSensor" end//////////////////
 	public int isSensorActive(int ChannelID)
 	{
 		int position = -1;

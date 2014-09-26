@@ -1,24 +1,24 @@
 //All rights reserved.
 //
-//Redistribution and use in source and binary forms, with or without modification, are permitted provided 
+//Redistribution and use in source and binary forms, with or without modification, are permitted provided
 //that the following conditions are met:
 //
-//    * Redistributions of source code must retain the above copyright notice, this list of conditions and 
+//    * Redistributions of source code must retain the above copyright notice, this list of conditions and
 //      the following disclaimer.
-//    * Redistributions in binary form must reproduce the above copyright notice, this list of conditions 
-//      and the following disclaimer in the documentation and/or other materials provided with the 
+//    * Redistributions in binary form must reproduce the above copyright notice, this list of conditions
+//      and the following disclaimer in the documentation and/or other materials provided with the
 //      distribution.
-//    * Neither the names of the University of Memphis and Carnegie Mellon University nor the names of its 
-//      contributors may be used to endorse or promote products derived from this software without specific 
+//    * Neither the names of the University of Memphis and Carnegie Mellon University nor the names of its
+//      contributors may be used to endorse or promote products derived from this software without specific
 //      prior written permission.
 //
-//THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED 
-//WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A 
-//PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR 
-//ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED 
-//TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) 
-//HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING 
-//NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
+//THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED
+//WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+//PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR
+//ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
+//TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+//HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+//NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 //POSSIBILITY OF SUCH DAMAGE.
 //
 package org.fieldstream;
@@ -160,7 +160,7 @@ public class Memphis_FieldStudyActivity extends BaseActivity {
 		loadDeadPeriods();
 		resetAlarmTime(offEnd,offStart);
 		diff=findNearAlarm();
-				
+
 		handler.postDelayed(generateAlarm,diff);
 
 
@@ -182,7 +182,7 @@ public class Memphis_FieldStudyActivity extends BaseActivity {
 		// Now we display formattedDate value in TextView
 
 
-		//time end 
+		//time end
 		//setTitle(R.layout.titlebar);
 		//setTitleColor(Color.RED);
 		/*		final boolean customTitleSupported = requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
@@ -195,19 +195,19 @@ public class Memphis_FieldStudyActivity extends BaseActivity {
 	        myTitleText.setText("========= NEW TITLE ==========");
 	        myTitleText.setBackgroundColor(Color.GREEN);
 	    }
-		 */	    
+		 */
 
 		//		subjectlabel=(TextView)findViewById(R.id.subjectlabel);
 		stressorlabel=(TextView)findViewById(R.id.stressorlabel);
 		endofdaylabel=(TextView)findViewById(R.id.eodlabel);
-		
-		
-		
+
+
+
 		label=(TextView)findViewById(R.id.Label);
 		incentives=(TextView)findViewById(R.id.incentives);
 		InterviewScheduler.INCENTIVE_SCHEME=InterviewScheduler.UNIFORM_AND_BONUS_INCENTIVE_SCHEME;
 
-		if (InterviewScheduler.INCENTIVE_SCHEME == InterviewScheduler.NO_INCENTIVE_SCHEME) 
+		if (InterviewScheduler.INCENTIVE_SCHEME == InterviewScheduler.NO_INCENTIVE_SCHEME)
 			incentives.setVisibility(View.INVISIBLE);
 		// read config in!
 		readConfig();
@@ -322,7 +322,7 @@ public class Memphis_FieldStudyActivity extends BaseActivity {
 
 
 			if (status ==2){
-				//set Next Alarm 
+				//set Next Alarm
 				//handler.removeCallbacks(setAlarm);
 					handler.postDelayed(generateAlarm,findNearAlarm());
 					return;
@@ -352,7 +352,7 @@ public class Memphis_FieldStudyActivity extends BaseActivity {
 					alert_confirm.cancel();
 					status=-2;
 				}
-				if(fail<2){					
+				if(fail<2){
 					status =0;
 					beepCount=0;
 					handler.postDelayed(setAlarm,SECOND_REMINDER);
@@ -390,7 +390,7 @@ public class Memphis_FieldStudyActivity extends BaseActivity {
 	long offStart, offEnd;
 	//	long firstDayStart;
 	void writeConfigToFile(long starttime) {
-		try {			
+		try {
 			File root = Environment.getExternalStorageDirectory();
 			File dir = new File(root+"/"+Constants.CONFIG_DIR);
 			dir.mkdirs();
@@ -399,7 +399,7 @@ public class Memphis_FieldStudyActivity extends BaseActivity {
 			BufferedWriter writer = new BufferedWriter(new FileWriter(setupFile));
 			writer.write("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");
 			writer.write("<fieldstream>\n");
-			writer.write("\t<day>\n");   
+			writer.write("\t<day>\n");
 			writer.write("\t\t<starttime type=\"firstday\" start=\"" + starttime + "\" />\n" );
 			writer.write("\t</day>\n");
 			writer.write("</fieldstream>");
@@ -409,12 +409,12 @@ public class Memphis_FieldStudyActivity extends BaseActivity {
 		catch(Exception e) {
 			// TODO Auto-generated catch block
 			Log.d("SETUP",e.getMessage());
-			e.printStackTrace();			
+			e.printStackTrace();
 
-			Toast.makeText(getApplicationContext(), "Error Saving Network Setup", Toast.LENGTH_SHORT).show();			
-		}   		
+			Toast.makeText(getApplicationContext(), "Error Saving Network Setup", Toast.LENGTH_SHORT).show();
+		}
 
-	}	
+	}
 
 /*	void loadAlarmConfig() {
 		if(Log.DEBUG_MONOWAR) Log.m("Monowar_Alarm","OK\t: Alarm Start");
@@ -436,7 +436,7 @@ public class Memphis_FieldStudyActivity extends BaseActivity {
 			DocumentBuilder builder = factory.newDocumentBuilder();
 			Document dom = builder.parse(setupFile);
 
-			Element xmlroot = dom.getDocumentElement();		
+			Element xmlroot = dom.getDocumentElement();
 			NodeList nodeList=xmlroot.getElementsByTagName("alarm");
 			if(Log.DEBUG_MONOWAR) Log.m("Monowar_Alarm","OK\t: element no="+nodeList.getLength());
 
@@ -491,7 +491,7 @@ public class Memphis_FieldStudyActivity extends BaseActivity {
 			e.printStackTrace();
 		}
 
-		Element xmlroot = dom.getDocumentElement();		
+		Element xmlroot = dom.getDocumentElement();
 
 		NodeList nodeList = xmlroot.getElementsByTagName("starttime");
 		for (int i=0; i < nodeList.getLength(); i++) {
@@ -506,10 +506,10 @@ public class Memphis_FieldStudyActivity extends BaseActivity {
 						//        				firstDayStart = Long.parseLong(start.getNodeValue());
 						Constants.FIRSTDAYSTART=Long.parseLong(start.getNodeValue());
 					}
-				}            		
+				}
 			}
-		}	
-	}	
+		}
+	}
 */
 	void loadDeadPeriods() {
 		File root = Environment.getExternalStorageDirectory();
@@ -540,7 +540,7 @@ public class Memphis_FieldStudyActivity extends BaseActivity {
 			e.printStackTrace();
 		}
 
-		Element xmlroot = dom.getDocumentElement();		
+		Element xmlroot = dom.getDocumentElement();
 
 		NodeList nodeList = xmlroot.getElementsByTagName("period");
 		for (int i=0; i < nodeList.getLength(); i++) {
@@ -554,16 +554,16 @@ public class Memphis_FieldStudyActivity extends BaseActivity {
 				if (type != null && start != null && end != null) {
 					if (type.getNodeValue().equalsIgnoreCase("quiet")) {
 						quietStart = Long.parseLong(start.getNodeValue());
-						quietEnd = Long.parseLong(end.getNodeValue());            				
+						quietEnd = Long.parseLong(end.getNodeValue());
 					}
 					else if (type.getNodeValue().contentEquals("off")) {
 						offStart = Long.parseLong(start.getNodeValue());
-						offEnd = Long.parseLong(end.getNodeValue());            				            				
-					}         			
-				}            		
+						offEnd = Long.parseLong(end.getNodeValue());
+					}
+				}
 			}
-		}	
-	}	
+		}
+	}
 
 	private void readConfig() {
 		loadDeadPeriods();
@@ -586,9 +586,9 @@ public class Memphis_FieldStudyActivity extends BaseActivity {
 			label.setText("h\n");
 			break;
 		case InterviewScheduler.NO_INCENTIVE_SCHEME:
-		case InterviewScheduler.UNIFORM_AND_BONUS_INCENTIVE_SCHEME:			
+		case InterviewScheduler.UNIFORM_AND_BONUS_INCENTIVE_SCHEME:
 			label.setText("\n");
-			break;				
+			break;
 		default:
 			label.setText("error");
 
@@ -596,7 +596,7 @@ public class Memphis_FieldStudyActivity extends BaseActivity {
 //for(int i=0;i<8;i++)
 		stressorlabel.setText("Saliva Alarm Time "+ milisecondToTimePrint(alarmarray[0])+","+ milisecondToTimePrint(alarmarray[1])+","+ milisecondToTimePrint(alarmarray[2])+","+ milisecondToTimePrint(alarmarray[3])+","+ milisecondToTimePrint(alarmarray[4])+","+ milisecondToTimePrint(alarmarray[5])+","+ milisecondToTimePrint(alarmarray[6])+","+ milisecondToTimePrint(alarmarray[7])+"\n");
 
-		
+
 	//	wakesleep.setText("Wakeup Time "+ makeTimeString(alarmarray[0])+ "Sleep Time "+ makeTimeString(alarmarray[7]));
 
 		endofdaylabel.setText("Wakeup Time "+milisecondToTimePrint(alarmarray[0])+", Sleep Time" + milisecondToTimePrint(alarmarray[7]) + "\n");
@@ -614,7 +614,7 @@ public class Memphis_FieldStudyActivity extends BaseActivity {
 		super.onResume();
 		if(Log.DEBUG_MONOWAR) Log.m("Monowar_ALL","OK\t: (FieldStudyActivity)_onResume().........."+inferenceService);
 
-		updateIncentivesDisplay();		
+		updateIncentivesDisplay();
 	}
 
 	private void updateIncentivesDisplay() {
@@ -658,7 +658,7 @@ public class Memphis_FieldStudyActivity extends BaseActivity {
 		//	return format(t.hour) + ":" + pad(t.minute) + (t.hour >=12 ? "pm":"am");
 
 	}
-	
+
 	private static String milisecondToTimePrint(long time) {
 		Time t = new Time();
 		t.set(time);
@@ -686,7 +686,7 @@ public class Memphis_FieldStudyActivity extends BaseActivity {
 
 		for(i=0; i<ALARMNO;i++){
 			if(now<alarmarray[i])
-				break;			
+				break;
 		}
 		if(i==ALARMNO){
 			i=0;
@@ -742,19 +742,19 @@ public class Memphis_FieldStudyActivity extends BaseActivity {
 		alarmarray[1]=alarmarray[0]+ 1*60*1000;
 		alarmarray[2]=alarmarray[1]+ 2*60*1000;
 		alarmarray[3]=alarmarray[2]+ 1*60*1000;
-		
-		
+
+
 		for(int i=4; i<8; i++){
 			if (alarmarray[i]>alarmarray[7]){
 				alarmarray[i]=alarmarray[7];
-				
+
 			}
 		}
-			
+
 
 		for(int i=0; i<8;i++)
 			if(Log.DEBUG_MONOWAR) Log.m("Nusrat_Alarmarray","nusrat "+i+"="+alarmarray[i]);
-		
+
 	}
 	public long getSleepTime(){
 		return alarmarray[7];

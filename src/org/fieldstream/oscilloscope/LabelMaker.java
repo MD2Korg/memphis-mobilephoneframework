@@ -52,10 +52,10 @@ import javax.microedition.khronos.opengles.GL10;
  *
  */
 public class LabelMaker {
-	
+
 	FloatBuffer vertexBuffer;
 	FloatBuffer texCoordBuffer;
-	
+
     /**
      * Create a label maker
      * or maximum compatibility with various OpenGL ES implementations,
@@ -77,12 +77,12 @@ public class LabelMaker {
         mClearPaint.setARGB(0, 0, 0, 0);
         mClearPaint.setStyle(Style.FILL);
         mState = STATE_NEW;
-        
+
         setupTexturedQuad();
     }
 
     void setupTexturedQuad() {
-        
+
 		// 4 bytes in a float * 2 elements per vertex * 4 vertices in the quad
 		int bufferSize = 4 * 3 * 4;
 
@@ -94,21 +94,21 @@ public class LabelMaker {
 		vbb = ByteBuffer.allocateDirect(bufferSize);
 		vbb.order(ByteOrder.nativeOrder());
 		texCoordBuffer = vbb.asFloatBuffer();
-		
+
 		vertexBuffer.put(0);			vertexBuffer.put(0);				vertexBuffer.put(-0.5f);
 		texCoordBuffer.put(0);			texCoordBuffer.put(1);
 
 		vertexBuffer.put(0);			vertexBuffer.put(mStrikeHeight);	vertexBuffer.put(-0.5f);
-		texCoordBuffer.put(0);			texCoordBuffer.put(0);		
-		
+		texCoordBuffer.put(0);			texCoordBuffer.put(0);
+
 		vertexBuffer.put(mStrikeWidth);	vertexBuffer.put(0);				vertexBuffer.put(-0.5f);
 		texCoordBuffer.put(1);			texCoordBuffer.put(1);
-		
+
 		vertexBuffer.put(mStrikeWidth);	vertexBuffer.put(mStrikeHeight);	vertexBuffer.put(-0.5f);
 		texCoordBuffer.put(1);			texCoordBuffer.put(0);
-		
+
     }
-    
+
     /**
      * Call to initialize the class.
      * Call whenever the surface has been created.
@@ -135,7 +135,7 @@ public class LabelMaker {
 
         gl.glTexEnvf(GL10.GL_TEXTURE_ENV, GL10.GL_TEXTURE_ENV_MODE,
                 GL10.GL_REPLACE);
-                    
+
     }
 
     /**
@@ -278,12 +278,12 @@ public class LabelMaker {
             background.draw(mCanvas);
         }
 
-        if (drawText) {        	
+        if (drawText) {
             mCanvas.drawText(text,
                     u + padding.left + centerOffsetWidth,
                     vBase + padding.top + centerOffsetHeight,
                     textPaint);
-            
+
 
         }
 
@@ -390,7 +390,7 @@ public class LabelMaker {
      * @param y
      * @param labelID
      */
-    public void draw(GL10 gl, float x, float y, int labelID, float angle) {    	
+    public void draw(GL10 gl, float x, float y, int labelID, float angle) {
         checkState(STATE_DRAWING, STATE_DRAWING);
         gl.glPushMatrix();
         float snappedX = (float) Math.floor(x);
@@ -400,29 +400,29 @@ public class LabelMaker {
         Label label = mLabels.get(labelID);
         gl.glEnable(GL10.GL_TEXTURE_2D);
 
-		gl.glEnableClientState(GL10.GL_VERTEX_ARRAY);		
+		gl.glEnableClientState(GL10.GL_VERTEX_ARRAY);
 		gl.glEnableClientState(GL10.GL_TEXTURE_COORD_ARRAY);
-		
+
 		vertexBuffer.position(0);
-		gl.glVertexPointer(3, GL10.GL_FLOAT, 0, vertexBuffer); 
-		
+		gl.glVertexPointer(3, GL10.GL_FLOAT, 0, vertexBuffer);
+
 		texCoordBuffer.position(0);
 		gl.glTexCoordPointer(2, GL10.GL_FLOAT, 0, texCoordBuffer);
-		
+
 		gl.glDrawArrays(GL10.GL_TRIANGLE_STRIP, 0, 4);
 		gl.glFinish();
-			
+
 		gl.glDisableClientState(GL10.GL_TEXTURE_COORD_ARRAY);
 		gl.glDisableClientState(GL10.GL_VERTEX_ARRAY);
-        
+
 		gl.glDisable(GL10.GL_TEXTURE_2D);
 //        ((GL11)gl).glTexParameteriv(GL10.GL_TEXTURE_2D,
 //                GL11Ext.GL_TEXTURE_CROP_RECT_OES, label.mCrop, 0);
 //        ((GL11Ext)gl).glDrawTexiOES((int) snappedX, (int) snappedY, 0,
 //                (int) label.width, (int) label.height);
-                
-		
-		
+
+
+
         gl.glPopMatrix();
     }
 

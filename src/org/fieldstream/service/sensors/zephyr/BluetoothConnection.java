@@ -1,25 +1,25 @@
 ﻿//Copyright (c) 2010, University of Memphis, Carnegie Mellon University
 //All rights reserved.
 //
-//Redistribution and use in source and binary forms, with or without modification, are permitted provided 
+//Redistribution and use in source and binary forms, with or without modification, are permitted provided
 //that the following conditions are met:
 //
-//    * Redistributions of source code must retain the above copyright notice, this list of conditions and 
+//    * Redistributions of source code must retain the above copyright notice, this list of conditions and
 //      the following disclaimer.
-//    * Redistributions in binary form must reproduce the above copyright notice, this list of conditions 
-//      and the following disclaimer in the documentation and/or other materials provided with the 
+//    * Redistributions in binary form must reproduce the above copyright notice, this list of conditions
+//      and the following disclaimer in the documentation and/or other materials provided with the
 //      distribution.
-//    * Neither the names of the University of Memphis and Carnegie Mellon University nor the names of its 
-//      contributors may be used to endorse or promote products derived from this software without specific 
+//    * Neither the names of the University of Memphis and Carnegie Mellon University nor the names of its
+//      contributors may be used to endorse or promote products derived from this software without specific
 //      prior written permission.
 //
-//THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED 
-//WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A 
-//PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR 
-//ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED 
-//TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) 
-//HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING 
-//NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
+//THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED
+//WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+//PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR
+//ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
+//TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+//HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+//NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 //POSSIBILITY OF SUCH DAMAGE.
 //
 
@@ -55,7 +55,7 @@ public class BluetoothConnection {
 	private String rawLogFileName = "BT_RAW_LOG";
 	public BluetoothConnection(BlockingQueue<Byte> mByteQueue , String mDeviceAddress)
 	{
-		byteQueue = mByteQueue;		
+		byteQueue = mByteQueue;
 		deviceAddress = mDeviceAddress;
 	}
 
@@ -86,7 +86,7 @@ public class BluetoothConnection {
 			socketNumber = connectToBTDevice(deviceAddress);
 			initRawLog();
 			receiveThread = new ReceiveThread(socketNumber);
-			
+
 			receiveThread.start();
 			new Thread(){
 				public void run()
@@ -134,7 +134,7 @@ public class BluetoothConnection {
 
 					byte[] sendData_TMP = {(byte)0x02,/*STX*/
 							(byte)0x42,/*Message ID*/
-							(byte)0x00,/*DLC*/							
+							(byte)0x00,/*DLC*/
 							(byte)0x00,/*CRC*/
 							(byte)0x03 /*ETX*/
 					};
@@ -153,7 +153,7 @@ public class BluetoothConnection {
 					btSend(sendStr_ACL, socketNumber);
 
 					while(true)
-					{	
+					{
 						TAG = "Lifesign";
 						Log.d(TAG,"-------->>>>>>>>Sending Lifesign and temperature request Packet<<<<<<<<------");
 						btSend(sendStr, socketNumber);
@@ -197,7 +197,7 @@ public class BluetoothConnection {
 			pRaw.close();
 			fosRaw.close();
 			pRaw = null;
-			fosRaw = null;			
+			fosRaw = null;
 		}
 		catch(Exception e)
 		{
@@ -250,7 +250,7 @@ public class BluetoothConnection {
 	}
 
 	// btRecv message handler
-	private Handler receivedMsgHandler = new Handler() 
+	private Handler receivedMsgHandler = new Handler()
 	{
 		@Override
 		public void handleMessage(Message msg)
@@ -366,7 +366,7 @@ public class BluetoothConnection {
 	public native byte[] btRecv(int socket);
 	public native int btSend(String buf, int socket);
 	public native int btDisconnect();
-	static 
+	static
 	{
 		System.loadLibrary("btConnection12");
 	}

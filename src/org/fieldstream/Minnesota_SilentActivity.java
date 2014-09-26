@@ -1,3 +1,27 @@
+//Copyright (c) 2010, University of Memphis, Carnegie Mellon University
+//All rights reserved.
+//
+//Redistribution and use in source and binary forms, with or without modification, are permitted provided
+//that the following conditions are met:
+//
+//    * Redistributions of source code must retain the above copyright notice, this list of conditions and
+//      the following disclaimer.
+//    * Redistributions in binary form must reproduce the above copyright notice, this list of conditions
+//      and the following disclaimer in the documentation and/or other materials provided with the
+//      distribution.
+//    * Neither the names of the University of Memphis and Carnegie Mellon University nor the names of its
+//      contributors may be used to endorse or promote products derived from this software without specific
+//      prior written permission.
+//
+//THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED
+//WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+//PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR
+//ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
+//TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+//HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+//NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+//POSSIBILITY OF SUCH DAMAGE.
+//
 package org.fieldstream;
 
 import org.fieldstream.service.logger.DatabaseLogger;
@@ -21,7 +45,7 @@ public class Minnesota_SilentActivity extends Activity{
 	public int silentTime=-1;
 	private Button backToMain;
 	String message="";
-	AlertDialog alert_sure =null;	
+	AlertDialog alert_sure =null;
 	static final int PICK_SILENT_PERIOD = 1;
 	Button buttonOk;
 	RadioGroup radioSilentGroup;
@@ -32,17 +56,17 @@ public class Minnesota_SilentActivity extends Activity{
 
 	@Override
 	public void onAttachedToWindow() {
-	    super.onAttachedToWindow();		
-	    this.getWindow().setType(WindowManager.LayoutParams.TYPE_KEYGUARD_DIALOG);  
-//	    requestWindowFeature(Window.FEATURE_NO_TITLE);	    
-	    getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);	    
-	}	
+	    super.onAttachedToWindow();
+	    this.getWindow().setType(WindowManager.LayoutParams.TYPE_KEYGUARD_DIALOG);
+//	    requestWindowFeature(Window.FEATURE_NO_TITLE);
+	    getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+	}
 
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,   
-				WindowManager.LayoutParams.FLAG_FULLSCREEN);  
+		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+				WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
 		setContentView(R.layout.minnesota_silent_layout);
 		radioSilentGroup = (RadioGroup) findViewById(R.id.radioSilentGroup);
@@ -71,17 +95,17 @@ public class Minnesota_SilentActivity extends Activity{
 						}
 					});
 					AlertDialog alert = builder.create();
-					alert.show();					
+					alert.show();
 				}
 				else{
-					//				Toast.makeText(Minnesota_SilentActivity.this,""+silentTime, Toast.LENGTH_SHORT).show();				
+					//				Toast.makeText(Minnesota_SilentActivity.this,""+silentTime, Toast.LENGTH_SHORT).show();
 					//				issleep=WAKE;
 					builder_sure.setMessage("Are you sure you want to turn off EMA for "+silentTime+ " minutes?");
 					alert_sure=builder_sure.create();
 					//				alert_confirm=builder.create();
 					alert_sure.show();
 				}
-			}			
+			}
 		});
 		builder = new AlertDialog.Builder(this);
 
@@ -96,7 +120,7 @@ public class Minnesota_SilentActivity extends Activity{
 				db.logAnything4("deadperiod", System.currentTimeMillis(),"quietstart",String.valueOf(System.currentTimeMillis()));
 				db.logAnything4("deadperiod", System.currentTimeMillis(),"quietend",String.valueOf(System.currentTimeMillis()+silentTime*60*1000));
 
-				setResult(PICK_SILENT_PERIOD,intentMessage);				
+				setResult(PICK_SILENT_PERIOD,intentMessage);
 				finish();
 			}
 		})
@@ -106,20 +130,20 @@ public class Minnesota_SilentActivity extends Activity{
 			}
 		});
 
-		this.backToMain = (Button)findViewById(R.id.BackButton);		
+		this.backToMain = (Button)findViewById(R.id.BackButton);
 		backToMain.setOnClickListener(new View.OnClickListener(){
 
 			public void onClick(View v) {
 				Intent intentMessage=new Intent();
 				intentMessage.putExtra("MESSAGE",String.valueOf(silentTime));
-				setResult(PICK_SILENT_PERIOD,intentMessage);				
+				setResult(PICK_SILENT_PERIOD,intentMessage);
 				finish();
 			}}
 				);
 
 		Intent intentMessage=new Intent();
 		intentMessage.putExtra("MESSAGE",String.valueOf(silentTime));
-		setResult(PICK_SILENT_PERIOD,intentMessage);				
+		setResult(PICK_SILENT_PERIOD,intentMessage);
 
 	}
 

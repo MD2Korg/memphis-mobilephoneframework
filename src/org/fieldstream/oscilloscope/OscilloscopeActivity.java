@@ -1,24 +1,24 @@
 ﻿//Copyright (c) 2010, University of Memphis
 //All rights reserved.
 //
-//Redistribution and use in source and binary forms, with or without modification, are permitted provided 
+//Redistribution and use in source and binary forms, with or without modification, are permitted provided
 //that the following conditions are met:
 //
-//    * Redistributions of source code must retain the above copyright notice, this list of conditions and 
+//    * Redistributions of source code must retain the above copyright notice, this list of conditions and
 //      the following disclaimer.
-//    * Redistributions in binary form must reproduce the above copyright notice, this list of conditions 
-//      and the following disclaimer in the documentation and/or other materials provided with the 
+//    * Redistributions in binary form must reproduce the above copyright notice, this list of conditions
+//      and the following disclaimer in the documentation and/or other materials provided with the
 //      distribution.
-//    * Neither the name of the University of Memphis nor the names of its contributors may be used to 
+//    * Neither the name of the University of Memphis nor the names of its contributors may be used to
 //      endorse or promote products derived from this software without specific prior written permission.
 //
-//THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED 
-//WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A 
-//PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR 
-//ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED 
-//TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) 
-//HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING 
-//NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
+//THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED
+//WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+//PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR
+//ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
+//TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+//HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+//NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 //POSSIBILITY OF SUCH DAMAGE.
 //
 
@@ -48,10 +48,10 @@ import android.widget.Spinner;
 import android.opengl.GLSurfaceView;
 
 public class OscilloscopeActivity extends Activity {
-	
+
 	private static String TAG = "OscilloscopeActivity";
 	public static boolean renderingSignals = false;
-	
+
 	private SignalRenderer sr;
 	private OscilloscopeRenderer renderer;
 	private GLSurfaceView oscopeView;
@@ -60,36 +60,36 @@ public class OscilloscopeActivity extends Activity {
 	private HashMap<Integer, Integer> spinnerIndexToSignalID;
 
 	WakeLock wakelock;
-	
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		if(Log.DEBUG) Log.d("Monowar_ALL","OK    : (OscilloscopeAct) - Create");
-		
+
 		super.onCreate(savedInstanceState);
-		requestWindowFeature(Window.FEATURE_NO_TITLE);  
-		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,   
-		                                 WindowManager.LayoutParams.FLAG_FULLSCREEN);  
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
+		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+		                                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
 		setContentView(R.layout.oscilloscope_layout);
 
 		PowerManager pm = (PowerManager)this.getSystemService(POWER_SERVICE);
 		//wakelock = pm.newWakeLock(PowerManager.FULL_WAKE_LOCK | PowerManager.ACQUIRE_CAUSES_WAKEUP, "AbstractInterview");
 		wakelock = pm.newWakeLock(PowerManager.SCREEN_DIM_WAKE_LOCK | PowerManager.ACQUIRE_CAUSES_WAKEUP, "OscilloscopeActivity");
-		
+
 		initSpinner();
-		
+
 		initRenderer();
-		
-		
+
+
 	}
 
 	private void initSpinner() {
 		signalSpinner = (Spinner) findViewById(R.id.OscilloscopeSpinner);
 		spinnerArrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item);
         spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		signalSpinner.setAdapter(spinnerArrayAdapter);			
+		signalSpinner.setAdapter(spinnerArrayAdapter);
 		signalSpinner.setOnItemSelectedListener(signalSpinnerOnItemSelectedListener);
-		
+
 		if(Constants.ENABLE_OSCILLOSCOPE_RENDERING_OPTIMIZATION) {
 			signalSpinner.setOnTouchListener(new View.OnTouchListener() {
 				public boolean onTouch(View v, MotionEvent event) {
@@ -103,16 +103,16 @@ public class OscilloscopeActivity extends Activity {
 			});
 		}
 	}
-	
+
 	private void initRenderer() {
-		oscopeView = (GLSurfaceView) findViewById(R.id.OscilloscopeView);	
+		oscopeView = (GLSurfaceView) findViewById(R.id.OscilloscopeView);
 
 		renderer = new OscilloscopeRenderer();
 		if(sr!=null) {sr.stop();sr=null;}
 		sr = new SignalRenderer();
 		renderer.addSignal(sr);
 		oscopeView.setRenderer(renderer);
-		
+
 		oscopeView.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				Log.h(TAG, "Click in Oscilloscope view. So enable drawing(if in case disabled).");
@@ -123,8 +123,8 @@ public class OscilloscopeActivity extends Activity {
 			}
 		});
 	}
-	
-	
+
+
     @Override
     protected void onPause() {
     	OscilloscopeActivity.renderingSignals = false;
@@ -135,8 +135,8 @@ public class OscilloscopeActivity extends Activity {
 		if(sr!=null) {sr.stop();sr=null;}
         super.onPause();
         oscopeView.onPause();
-		if(Log.DEBUG) Log.d("Monowar_ALL","OK    : (OscilloscopeAct) - Pause");			
-       
+		if(Log.DEBUG) Log.d("Monowar_ALL","OK    : (OscilloscopeAct) - Pause");
+
     }
 
     @Override
@@ -147,7 +147,7 @@ public class OscilloscopeActivity extends Activity {
 		}
         super.onResume();
 
-		spinnerIndexToSignalID = new HashMap<Integer, Integer>();				
+		spinnerIndexToSignalID = new HashMap<Integer, Integer>();
 		addSensorToListIfAvailable(Constants.SENSOR_ECK);
 		addSensorToListIfAvailable(Constants.SENSOR_BODY_TEMP);
 		addSensorToListIfAvailable(Constants.SENSOR_RIP);
@@ -155,7 +155,7 @@ public class OscilloscopeActivity extends Activity {
 		addSensorToListIfAvailable(Constants.SENSOR_ACCELCHESTX);
 		addSensorToListIfAvailable(Constants.SENSOR_ACCELCHESTY);
 		addSensorToListIfAvailable(Constants.SENSOR_ACCELCHESTZ);
-		
+
 		addSensorToListIfAvailable(Constants.SENSOR_NINE_AXIS_RIGHT_ACCL_X);
 		addSensorToListIfAvailable(Constants.SENSOR_NINE_AXIS_RIGHT_ACCL_Y);
 		addSensorToListIfAvailable(Constants.SENSOR_NINE_AXIS_RIGHT_ACCL_Z);
@@ -168,8 +168,8 @@ public class OscilloscopeActivity extends Activity {
 		addSensorToListIfAvailable(Constants.SENSOR_NINE_AXIS_LEFT_GYRO_X);
 		addSensorToListIfAvailable(Constants.SENSOR_NINE_AXIS_LEFT_GYRO_Y);
 		addSensorToListIfAvailable(Constants.SENSOR_NINE_AXIS_LEFT_GYRO_Z);
-		
-//		addSensorToListIfAvailable(Constants.SENSOR_ALCOHOL);   
+
+//		addSensorToListIfAvailable(Constants.SENSOR_ALCOHOL);
 //		addSensorToListIfAvailable(Constants.SENSOR_TEMPWRIST);
 //		addSensorToListIfAvailable(Constants.SENSOR_GSRWRIST);
 //		addSensorToListIfAvailable(Constants.SENSOR_ALCOHOL);
@@ -181,23 +181,23 @@ public class OscilloscopeActivity extends Activity {
 		if (spinnerIndexToSignalID.size() > 0) {
 			sr.setSignal(spinnerIndexToSignalID.get(0));
 		}
-		if(Log.DEBUG) Log.d("Monowar_ALL","OK    : (OscilloscopeAct) - Resume");			
-		
+		if(Log.DEBUG) Log.d("Monowar_ALL","OK    : (OscilloscopeAct) - Resume");
+
 		oscopeView.onResume();
     }
 
 
 	private void addSensorToListIfAvailable(int sensorID) {
-		if (ActivationManager.sensors != null) {		
+		if (ActivationManager.sensors != null) {
 			if (ActivationManager.sensors.containsKey(sensorID)) {
 				if (!spinnerIndexToSignalID.containsValue(sensorID)) {
 					spinnerIndexToSignalID.put(spinnerArrayAdapter.getCount(), sensorID);
 					spinnerArrayAdapter.add(Constants.getSensorDescription(sensorID));
 				}
-			}			
+			}
 		}
 	}
-	
+
 	/* This is called when the app is killed. */
 	@Override
 	protected void onDestroy() {
@@ -206,17 +206,17 @@ public class OscilloscopeActivity extends Activity {
 			sr.stop();sr=null;
 		}
 		wakelock = null;
-		
+
 		super.onDestroy();
 	}
-	
+
 	/* END ANDROID LIFE CYCLE */
 
 
 @SuppressWarnings("unchecked")
-private Spinner.OnItemSelectedListener signalSpinnerOnItemSelectedListener = new Spinner.OnItemSelectedListener() 
+private Spinner.OnItemSelectedListener signalSpinnerOnItemSelectedListener = new Spinner.OnItemSelectedListener()
 {
-	
+
 	public void onItemSelected(AdapterView parent, View v, int position, long id)
 	{
 		renderer.setDrawingEnabled(true);
@@ -225,13 +225,13 @@ private Spinner.OnItemSelectedListener signalSpinnerOnItemSelectedListener = new
 		Log.d(TAG, "Selected signal " + value + ": " + spinnerArrayAdapter.getItem(position));
 		sr.setSignal(value);
 		sr.setSignalLabel(value);
-		
+
 	}
-	
-	public void onNothingSelected(AdapterView parent) 
-	{ 
-		
+
+	public void onNothingSelected(AdapterView parent)
+	{
+
 	}
 };
-	
+
 }

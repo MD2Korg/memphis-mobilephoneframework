@@ -1,25 +1,25 @@
 //Copyright (c) 2010, University of Memphis, Carnegie Mellon University
 //All rights reserved.
 //
-//Redistribution and use in source and binary forms, with or without modification, are permitted provided 
+//Redistribution and use in source and binary forms, with or without modification, are permitted provided
 //that the following conditions are met:
 //
-//    * Redistributions of source code must retain the above copyright notice, this list of conditions and 
+//    * Redistributions of source code must retain the above copyright notice, this list of conditions and
 //      the following disclaimer.
-//    * Redistributions in binary form must reproduce the above copyright notice, this list of conditions 
-//      and the following disclaimer in the documentation and/or other materials provided with the 
+//    * Redistributions in binary form must reproduce the above copyright notice, this list of conditions
+//      and the following disclaimer in the documentation and/or other materials provided with the
 //      distribution.
-//    * Neither the names of the University of Memphis and Carnegie Mellon University nor the names of its 
-//      contributors may be used to endorse or promote products derived from this software without specific 
+//    * Neither the names of the University of Memphis and Carnegie Mellon University nor the names of its
+//      contributors may be used to endorse or promote products derived from this software without specific
 //      prior written permission.
 //
-//THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED 
-//WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A 
-//PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR 
-//ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED 
-//TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) 
-//HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING 
-//NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
+//THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED
+//WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+//PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR
+//ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
+//TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+//HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+//NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 //POSSIBILITY OF SUCH DAMAGE.
 //
 package org.fieldstream;
@@ -82,11 +82,11 @@ public class Memphis_LabStudyActivity extends BaseActivity {
 
 	// exit dialog stuff
 	DatabaseLogger db;
-    
-    
+
+
 	// state variables
 	private boolean starts;
-	
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		start=0;
@@ -96,14 +96,14 @@ public class Memphis_LabStudyActivity extends BaseActivity {
 //		DatabaseLogger.makeActive();
 
 
-		db = DatabaseLogger.getInstance(this);	
+		db = DatabaseLogger.getInstance(this);
     	db.logAnything("labstudy_log", "Program Starts", System.currentTimeMillis());
-		
+
 //		super.onCreate(savedInstanceState);
 
 		requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
-		setContentView(R.layout.memphis_labstuy_layout);   			
-		
+		setContentView(R.layout.memphis_labstuy_layout);
+
 //		setContentView(R.layout.labstudy_layout);
 		getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.titlebar);
 		titleText="Memphis LabStudy";
@@ -115,15 +115,15 @@ public class Memphis_LabStudyActivity extends BaseActivity {
       hSeekBar = (SeekBar)findViewById(R.id.HappySlider);
       hProgressText = (TextView)findViewById(R.id.progress1);
       hTrackingText = (TextView)findViewById(R.id.tracking1);
-      
+
       sSeekBar = (SeekBar)findViewById(R.id.SadSlider);
       sProgressText = (TextView)findViewById(R.id.progress2);
       sTrackingText = (TextView)findViewById(R.id.tracking2);
-     
-      
+
+
       hSeekBar.setOnSeekBarChangeListener(seekBarChangeListener);
      sSeekBar.setOnSeekBarChangeListener(seekBarChangeListener);
-         
+
 //       texti=(TextView) null;
       texth=(TextView)findViewById(R.id.Happy);
 //      texth.setTextColor(Color.BLUE);
@@ -139,12 +139,12 @@ public class Memphis_LabStudyActivity extends BaseActivity {
 //      text5.setTextColor(Color.BLUE);
       text6=(TextView)findViewById(R.id.NO2);
 //      text6.setTextColor(Color.BLUE);
-      
+
       texts=(TextView)findViewById(R.id.Sad);
 //      texts.setTextColor(Color.BLUE);
       text7=(TextView)findViewById(R.id.YES3);
 //      text7.setTextColor(Color.BLUE);
-     
+
           text8=(TextView)findViewById(R.id.YES4);
 //          text8.setTextColor(Color.BLUE);
 
@@ -174,19 +174,19 @@ public class Memphis_LabStudyActivity extends BaseActivity {
       l8.setTextColor(Color.BLACK);
 
 		showDialog(0);
-      
+
 	}
 	 @Override
-	    public void onConfigurationChanged(Configuration newConfig) 
+	    public void onConfigurationChanged(Configuration newConfig)
 	    {
 	        super.onConfigurationChanged(newConfig);
-	    }	
+	    }
 	/* This is called when the app is killed. */
 	@Override
 	public void onResume() {
 		super.onResume();
 	}
-	
+
     protected Dialog onCreateDialog(int id) {
         final CharSequence[] items = {"Practice", "Neutral", "Happy", "Sad", "Smoking"};
 
@@ -197,35 +197,35 @@ public class Memphis_LabStudyActivity extends BaseActivity {
             	if (item == 0) {
                 	db.logAnything("session", "start practice", System.currentTimeMillis());
                 	db.logAnything("labstudy_log", "start practice", System.currentTimeMillis());
-                	
+
             	}
             	else if (item == 1) {
-                	db.logAnything("session", "start neutral video", System.currentTimeMillis());            		
+                	db.logAnything("session", "start neutral video", System.currentTimeMillis());
                 	db.logAnything("labstudy_log", "start neutral video", System.currentTimeMillis());
 
             	}
             	else if (item == 2) {
-                	db.logAnything("session", "start amusement video", System.currentTimeMillis());            		
+                	db.logAnything("session", "start amusement video", System.currentTimeMillis());
                 	db.logAnything("labstudy_log", "start amusement video", System.currentTimeMillis());
 
             	}
             	else if (item == 3){
-                	db.logAnything("session", "start sadness video", System.currentTimeMillis());            		
+                	db.logAnything("session", "start sadness video", System.currentTimeMillis());
                 	db.logAnything("labstudy_log", "start sadness video", System.currentTimeMillis());
 
             	}
             	else if (item == 4){
-                	db.logAnything("session", "start smoking", System.currentTimeMillis());            		
+                	db.logAnything("session", "start smoking", System.currentTimeMillis());
                 	db.logAnything("labstudy_log", "start smoking", System.currentTimeMillis());
 
-            	}            	
-        		handler.postDelayed(triggerRequest, 10000);		
+            	}
+        		handler.postDelayed(triggerRequest, 10000);
             }
         });
-        AlertDialog alert = builder.create();        
-        
+        AlertDialog alert = builder.create();
+
         return alert;
-    }    
+    }
 
 	/* This is called when the app is killed. */
 	@Override
@@ -243,38 +243,38 @@ public class Memphis_LabStudyActivity extends BaseActivity {
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromTouch) {
 //    	if (fromTouch) {
 //	        handler.removeCallbacks(triggerRequest);
-//	        handler.postDelayed(triggerRequest, TIME_UNTIL_REQUEST_LONG_MS);    	
-//	    	
+//	        handler.postDelayed(triggerRequest, TIME_UNTIL_REQUEST_LONG_MS);
+//
 //	    	calculatevalue(seekBar);
-//	    	
-////	    	hProgressText.setText(progessvalue1 + " " + 
+//
+////	    	hProgressText.setText(progessvalue1 + " " +
 ////	                getString(R.string.seekbar_from_touch) + "=" + "True");
 ////	    	hProgressText.setTextColor(Color.BLUE);
-////	    	 sProgressText.setText(progessvalue2 + " " + 
+////	    	 sProgressText.setText(progessvalue2 + " " +
 ////	                 getString(R.string.seekbar_from_touch) + "=" + "True") ;
 ////	    	 sProgressText.setTextColor(Color.BLUE);
-//    	}      
+//    	}
     }
-       
+
     public void onStartTrackingTouch(SeekBar seekBar) {
 //        hTrackingText.setText(getString(R.string.seekbar_tracking_on));
 //        sTrackingText.setText(getString(R.string.seekbar_tracking_on));
-        
+
     }
 
     public void onStopTrackingTouch(SeekBar seekBar) {
 //        hTrackingText.setText(getString(R.string.seekbar_tracking_off));
-//        sTrackingText.setText(getString(R.string.seekbar_tracking_off));       
-        
+//        sTrackingText.setText(getString(R.string.seekbar_tracking_off));
+
 		first = false;
 		if(Log.DEBUG_MONOWAR) Log.m("Monowar_ALL","OK\t: onStopTracking");
         handler.removeCallbacks(triggerRequest);
-        handler.postDelayed(triggerRequest, TIME_UNTIL_REQUEST_LONG_MS);    	    	
+        handler.postDelayed(triggerRequest, TIME_UNTIL_REQUEST_LONG_MS);
     	calculatevalue(seekBar);
-        
+
     }
-    
-    
+
+
 };
 
 
@@ -283,9 +283,9 @@ private static long TIME_UNTIL_REQUEST_SHORT_MS = 30 * 1000;
 
 private Handler handler = new Handler();
 private Runnable triggerRequest = new Runnable() {
-	   public void run() {	     
-       		db.logAnything("buzz", "buzz", System.currentTimeMillis());            		
-       	
+	   public void run() {
+       		db.logAnything("buzz", "buzz", System.currentTimeMillis());
+
 			// vibrate and beep to alert the user to a new interview
 			Vibrator vibrator = (Vibrator)getSystemService(Context.VIBRATOR_SERVICE);
 			ToneGenerator tone = new ToneGenerator(android.media.AudioManager.STREAM_NOTIFICATION, 100);
@@ -295,60 +295,60 @@ private Runnable triggerRequest = new Runnable() {
 
 			String text = "";
 			if (first) {
-				text = "Please rate your emotions now.";		
+				text = "Please rate your emotions now.";
 				first = false;
 			}
 			else {
 				text = "Have your emotions changed?";
 			}
-			
+
 			Toast toast = Toast.makeText(getApplicationContext(), text, Toast.LENGTH_LONG);
 			toast.show();
         	db.logAnything("labstudy_log", "buzz", System.currentTimeMillis());
-			
-		    handler.postDelayed(triggerRequest, TIME_UNTIL_REQUEST_LONG_MS);			
+
+		    handler.postDelayed(triggerRequest, TIME_UNTIL_REQUEST_LONG_MS);
 	   }
 	};
 
     private void calculatevalue(SeekBar seekBar)
-    {    
+    {
     	Log.d("Memphis LabStudy","calculatevalue()");
     	int progessvalue=seekBar.getProgress();
-    	
-    	
-    	 if(progessvalue<=12) 
+
+
+    	 if(progessvalue<=12)
 		     	  progessvalue=0;
-    	     	 
-         if(progessvalue>12 & progessvalue<=30) 
-          progessvalue=20; 	
-        
-         
-         if(progessvalue>30 & progessvalue<=50)  
+
+         if(progessvalue>12 & progessvalue<=30)
+          progessvalue=20;
+
+
+         if(progessvalue>30 & progessvalue<=50)
           progessvalue=40;
-         
-         
-         if(progessvalue>50 & progessvalue<=70) 
+
+
+         if(progessvalue>50 & progessvalue<=70)
           progessvalue=60;
-         
-         
-         if(progessvalue>70 & progessvalue<=90) 
+
+
+         if(progessvalue>70 & progessvalue<=90)
          	progessvalue=80;
-        
-         if(progessvalue>90) 
+
+         if(progessvalue>90)
           progessvalue=100;
-                 
+
          seekBar.setProgress(progessvalue);
-         
+
 
 	    // scale from 0 = NO!!! to 5 = YES!!!
         if (seekBar == this.hSeekBar){
-        	db.logAnything("lab_self_report_happy", Integer.toString(progessvalue/20), System.currentTimeMillis());             
+        	db.logAnything("lab_self_report_happy", Integer.toString(progessvalue/20), System.currentTimeMillis());
         	db.logAnything("labstudy_log", "lab_self_report_happy,"+Integer.toString(progessvalue/20), System.currentTimeMillis());
-        
-        }else{ 
+
+        }else{
         	db.logAnything("lab_self_report_sad", Integer.toString(progessvalue/20), System.currentTimeMillis());
         	db.logAnything("labstudy_log", "lab_self_report_sad,"+Integer.toString(progessvalue/20), System.currentTimeMillis());
-        	
+
         }
     }
 }

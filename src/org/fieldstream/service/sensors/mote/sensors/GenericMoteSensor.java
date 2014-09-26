@@ -1,25 +1,25 @@
 ﻿//Copyright (c) 2010, University of Memphis, Carnegie Mellon University
 //All rights reserved.
 //
-//Redistribution and use in source and binary forms, with or without modification, are permitted provided 
+//Redistribution and use in source and binary forms, with or without modification, are permitted provided
 //that the following conditions are met:
 //
-//    * Redistributions of source code must retain the above copyright notice, this list of conditions and 
+//    * Redistributions of source code must retain the above copyright notice, this list of conditions and
 //      the following disclaimer.
-//    * Redistributions in binary form must reproduce the above copyright notice, this list of conditions 
-//      and the following disclaimer in the documentation and/or other materials provided with the 
+//    * Redistributions in binary form must reproduce the above copyright notice, this list of conditions
+//      and the following disclaimer in the documentation and/or other materials provided with the
 //      distribution.
-//    * Neither the names of the University of Memphis and Carnegie Mellon University nor the names of its 
-//      contributors may be used to endorse or promote products derived from this software without specific 
+//    * Neither the names of the University of Memphis and Carnegie Mellon University nor the names of its
+//      contributors may be used to endorse or promote products derived from this software without specific
 //      prior written permission.
 //
-//THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED 
-//WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A 
-//PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR 
-//ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED 
-//TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) 
-//HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING 
-//NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
+//THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED
+//WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+//PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR
+//ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
+//TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+//HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+//NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 //POSSIBILITY OF SUCH DAMAGE.
 //
 
@@ -49,19 +49,19 @@ public class GenericMoteSensor extends AbstractSensor implements
 	private static final boolean ACCELCHESTSCHEDULER = false;
 	private static final int ACCELCHESTFRAMERATE = 10;
 	private static final int ACCELCHESTWINDOWSIZE = 60 * ACCELCHESTFRAMERATE+40;// +
-	
+
 	private static final boolean NINE_AXIS_SCHEDULER = false;
 	private static final int NINE_AXIS_FRAME_RATE = 10;
 	private static final int NINE_AXIS_WINDOW_SIZE = 60 * NINE_AXIS_FRAME_RATE+40;
-	
+
 	private static final boolean ECGSCHEDULER = false;
 	private static final int ECGFRAMERATE = 64; // 128;
 	private static final int ECGWINDOWSIZE = 60 * ECGFRAMERATE;
-	
+
 	private static final boolean GSRSCHEDULER = false;
 	private static final int GSRFRAMERATE = 10;
-	private static final int GSRWINDOWSIZE = 60 * GSRFRAMERATE +40 ; 
-	
+	private static final int GSRWINDOWSIZE = 60 * GSRFRAMERATE +40 ;
+
 	private static final boolean RIPSCHEDULER = false;
 	private static final int RIPFRAMERATE = 21;
 	private static final int RIPWINDOWSIZE = 60 * RIPFRAMERATE + 20;
@@ -76,63 +76,63 @@ public class GenericMoteSensor extends AbstractSensor implements
 
 	private static final boolean ALCOHOLSCHEDULER = false;
 	private static final int ALCOHOLFRAMERATE = 8;
-	private static final int ALCOHOLWINDOWSIZE = 60 * ALCOHOLFRAMERATE; // 
-	
+	private static final int ALCOHOLWINDOWSIZE = 60 * ALCOHOLFRAMERATE; //
+
 	private static final boolean GSRWRISTSCHEDULER = false;
 	private static final int GSRWRISTFRAMERATE = 8;
-	private static final int GSRWRISTWINDOWSIZE = 60 * GSRWRISTFRAMERATE; // 
-	
+	private static final int GSRWRISTWINDOWSIZE = 60 * GSRWRISTFRAMERATE; //
+
 	private static final boolean TEMPWRISTSCHEDULER = false;
 	private static final int TEMPWRISTFRAMERATE = 8;
-	private static final int TEMPWRISTWINDOWSIZE = 60 * TEMPWRISTFRAMERATE; // 
-	
-	
+	private static final int TEMPWRISTWINDOWSIZE = 60 * TEMPWRISTFRAMERATE; //
+
+
 	private long timeOutDefault = 1 * 60 * 1000;
 	private long timeOut = timeOutDefault;
 	private Handler timeOutHandler;
 	private int currentWindowFill;
 	private SimpleFileLogger sfl;
-	
+
 	File root = Environment.getExternalStorageDirectory();
 	String sflLogFileName = root + "/" + Constants.LOG_DIR + "/GMS_";
-	
+
 	public GenericMoteSensor(int SensorID) {
 		super(SensorID);
 		sensorID=SensorID;
 		if(Log.DEBUG_MONOWAR) Log.m("Monowar_ALL","OK\t: (GMS)_Constructor_SensorID="+sensorID);
-		
+
 		currentWindowFill=0;
 		switch (sensorID) {
-			case Constants.SENSOR_ACCELCHESTX: 
+			case Constants.SENSOR_ACCELCHESTX:
 				initalize(ACCELCHESTSCHEDULER,ACCELCHESTWINDOWSIZE, ACCELCHESTWINDOWSIZE);
 				break;
-			case Constants.SENSOR_ACCELCHESTY: 
+			case Constants.SENSOR_ACCELCHESTY:
 				initalize(ACCELCHESTSCHEDULER,ACCELCHESTWINDOWSIZE, ACCELCHESTWINDOWSIZE);
 				break;
-			
-			case Constants.SENSOR_ACCELCHESTZ: 
+
+			case Constants.SENSOR_ACCELCHESTZ:
 				initalize(ACCELCHESTSCHEDULER,ACCELCHESTWINDOWSIZE, ACCELCHESTWINDOWSIZE);
 				break;
-			
-			case Constants.SENSOR_ECK: 
+
+			case Constants.SENSOR_ECK:
 				initalize(ECGSCHEDULER,ECGWINDOWSIZE, ECGWINDOWSIZE);
 				break;
-			
-			case Constants.SENSOR_GSR: 
+
+			case Constants.SENSOR_GSR:
 				initalize(GSRSCHEDULER, GSRWINDOWSIZE, GSRWINDOWSIZE);
 				break;
-			case Constants.SENSOR_RIP: 
+			case Constants.SENSOR_RIP:
 				initalize(RIPSCHEDULER, RIPWINDOWSIZE, RIPWINDOWSIZE);
-				break;			
-			case Constants.SENSOR_BODY_TEMP: 
+				break;
+			case Constants.SENSOR_BODY_TEMP:
 				initalize(BODYTEMPSCHEDULER, BODYTEMPWINDOWSIZE, BODYTEMPWINDOWSIZE);
 				break;
-			case Constants.SENSOR_AMBIENT_TEMP: 
+			case Constants.SENSOR_AMBIENT_TEMP:
 				initalize(AMBIENTTEMPSCHEDULER, AMBIENTTEMPWINDOWSIZE, AMBIENTTEMPWINDOWSIZE);
-				break;				
-			case Constants.SENSOR_ALCOHOL: 
+				break;
+			case Constants.SENSOR_ALCOHOL:
 				initalize(ALCOHOLSCHEDULER, ALCOHOLWINDOWSIZE, ALCOHOLWINDOWSIZE);
-				break;		
+				break;
 			case Constants.SENSOR_GSRWRIST:
 				initalize(GSRWRISTSCHEDULER, GSRWRISTWINDOWSIZE, GSRWRISTWINDOWSIZE);
 				break;
@@ -154,13 +154,13 @@ public class GenericMoteSensor extends AbstractSensor implements
 				initalize(NINE_AXIS_SCHEDULER, NINE_AXIS_WINDOW_SIZE, NINE_AXIS_WINDOW_SIZE);
 				break;
 		}
-		
+
 		if(Constants.GAM_GMS_LOGGING){
 			sfl = new SimpleFileLogger(sflLogFileName + Integer.toString(sensorID)+"_" + Long.toString(System.currentTimeMillis()));
 		}
 		timeOutHandler = null;
 		timeOutHandler = new Handler();
-		
+
 		if (Log.DEBUG) Log.v(LOGTAG,"instanciating  "+sensorID);
 	}
 
@@ -172,8 +172,8 @@ public class GenericMoteSensor extends AbstractSensor implements
 			if(SensorID == this.sensorID)
 			{
 //				Log.ema_alarm(LOGTAG," MUS: received Data on sensor "+SensorID+" - "+Constants.getSensorDescription(SensorID));
-				
-				if (Log.DEBUG) 
+
+				if (Log.DEBUG)
 				{
 					Log.d(LOGTAG," received Data on sensor "+SensorID+" - "+Constants.getSensorDescription(SensorID));
 				}
@@ -183,14 +183,14 @@ public class GenericMoteSensor extends AbstractSensor implements
 						sfl.log(data[i]+","+timeStamps[i]+"\n");
 					}
 				}
-				
+
 				addValue(data, timeStamps);
 			}
 	}
-	
-	
-//	changed by monowar	
-	
+
+
+//	changed by monowar
+
 	private Runnable timeOutRun = new Runnable() {
 		public void run() {
 			// time out happened
@@ -200,26 +200,26 @@ public class GenericMoteSensor extends AbstractSensor implements
 				Log.d(LOGTAG,"Sensor" +sensorID + "Timeout Happened");
 			}
 			if(currentWindowFill==0) return;
-			
+
 			// request the mote device manager to generate certain number of packets
 			// calculate the number of packets to generate
 			// number of packet in one minute
 			float numberOfSamplesInOneSecond = (float)(getFrameRate(sensorID));
 			// System.out.println(" numberOfPacketsInOneSecond " + numberOfSamplesInOneSecond);
-			
+
 //			float numberOfPacketsInOneSecond = numberOfSamplesInOneSecond / 50 ;
 			// System.out.println(" numberOfPacketsInOneSecond " + numberOfPacketsInOneSecond);
-			
+
 			int numberOfSamplesInOneMinute = (int) ( 60 * numberOfSamplesInOneSecond );
 			//System.out.println(" numberOfPacketsInOneMinute " + numberOfPacketsInOneMinute);
-			
+
 //monowar			int numberOfPacketsToGenerate = numberOfPacketsInOneMinute;
-		
+
 			//System.out.println(numberOfPacketsToGenerate);
 			// now ask the mote device manager to generate some
-			// packets of particular mote type that this sensor belongs to 
+			// packets of particular mote type that this sensor belongs to
 			int moteType = ChannelToSensorMapping.getSensorToMoteTypeMap(sensorID);
-			
+
 			if(Log.DEBUG)
 			{
 //monowar				Log.d("GenericMoteSensor.timeOutRun","generating "+numberOfPacketsToGenerate+" packets for sensor ID = "+sensorID);
@@ -228,12 +228,12 @@ public class GenericMoteSensor extends AbstractSensor implements
 //			MoteDeviceManager.getInstance().onMissingSamplesRequest(sensorID, numberOfSamplesToGenerate);
 		}
 	} ;
-	
-	
+
+
 	private void setUpTimeOutTimer()
 	{
 		// timeOutHandler.removeCallbacks(timeOutRun);
-		
+
 		timeOut = timeOutDefault;
 		timeOutHandler.postDelayed(timeOutRun, timeOut);
 		if(Log.DEBUG)
@@ -241,7 +241,7 @@ public class GenericMoteSensor extends AbstractSensor implements
 			Log.d("GenericMoteSensor","Sensor "+sensorID+" setting up time out timer");
 		}
 	}
-	
+
 	private void cancelTimeOutTimer()
 	{
 		timeOutHandler.removeCallbacks(timeOutRun);
@@ -250,26 +250,26 @@ public class GenericMoteSensor extends AbstractSensor implements
 
 	public void setSensorID(int sensorID) {
 		this.sensorID = sensorID;
-		
+
 	}
 
 	public int getSensorID() {
 		return sensorID;
 	}
-	
-	
+
+
 	@Override
 	public void activate() {
 		Log.ema_alarm("", "MUS: Mote Sensor "+ sensorID+ "active");
 		MoteSensorManager.getInstance().registerListener(this);
 		if (Log.DEBUG) Log.d(LOGTAG,"Mote Sensor "+sensorID+" active!");
 		active=true;
-		
+
 	}
 
 	@Override
 	public void deactivate() {
-//		if (mMoteSensorManager != null) 
+//		if (mMoteSensorManager != null)
 //		{
 //			mMoteSensorManager.unregisterListener(this);
 //		}
@@ -278,7 +278,7 @@ public class GenericMoteSensor extends AbstractSensor implements
 		if(Constants.GAM_GMS_LOGGING)		sfl.closeFileLogger();
 		if (Log.DEBUG) Log.d(LOGTAG,"Mote Sensor "+sensorID+" deactivated!");
 	}
-	
+
 	public MoteSensorManager getmMoteSensorManager() {
 		return mMoteSensorManager;
 	}
@@ -292,57 +292,57 @@ public class GenericMoteSensor extends AbstractSensor implements
 	public static int getFrameRate(int mSensorID)
 	{
 		int frameRate = -1;
-		
+
 		switch(mSensorID)
 		{
 		case Constants.SENSOR_ECK:
 			frameRate = ECGFRAMERATE;
 			break;
-			
+
 		case Constants.SENSOR_RIP:
 			frameRate = RIPFRAMERATE;
 			break;
-			
+
 		case Constants.SENSOR_ACCELCHESTX:
 			frameRate = ACCELCHESTFRAMERATE;
 			break;
-			
+
 		case Constants.SENSOR_ACCELCHESTY:
 			frameRate = ACCELCHESTFRAMERATE;
 			break;
-			
+
 		case Constants.SENSOR_ACCELCHESTZ:
 			frameRate = ACCELCHESTFRAMERATE;
 			break;
-			
+
 		case Constants.SENSOR_AMBIENT_TEMP:
 			frameRate = AMBIENTTEMPFRAMERATE;
 			break;
-			
+
 		case Constants.SENSOR_BODY_TEMP:
 			frameRate = BODYTEMPFRAMERATE;
 			break;
-			
+
 		case Constants.SENSOR_GSR:
 			frameRate = GSRFRAMERATE;
 			break;
-			
+
 		case Constants.SENSOR_ALCOHOL:
 			frameRate = ALCOHOLFRAMERATE;
 			break;
-			
+
 		case Constants.SENSOR_GSRWRIST:
 			frameRate = GSRFRAMERATE;
 			break;
-			
+
 		case Constants.SENSOR_TEMPWRIST:
 			frameRate = BODYTEMPFRAMERATE;
 			break;
-			
+
 		}
 		return frameRate;
 	}
-	
+
 	public static String getLogtag() {
 		return LOGTAG;
 	}

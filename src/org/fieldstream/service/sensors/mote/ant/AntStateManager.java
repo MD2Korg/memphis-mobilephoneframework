@@ -1,24 +1,24 @@
 //Copyright (c) 2010, University of Memphis
 //All rights reserved.
 //
-//Redistribution and use in source and binary forms, with or without modification, are permitted provided 
+//Redistribution and use in source and binary forms, with or without modification, are permitted provided
 //that the following conditions are met:
 //
-//    * Redistributions of source code must retain the above copyright notice, this list of conditions and 
+//    * Redistributions of source code must retain the above copyright notice, this list of conditions and
 //      the following disclaimer.
-//    * Redistributions in binary form must reproduce the above copyright notice, this list of conditions 
-//      and the following disclaimer in the documentation and/or other materials provided with the 
+//    * Redistributions in binary form must reproduce the above copyright notice, this list of conditions
+//      and the following disclaimer in the documentation and/or other materials provided with the
 //      distribution.
-//    * Neither the name of the University of Memphis nor the names of its contributors may be used to 
+//    * Neither the name of the University of Memphis nor the names of its contributors may be used to
 //      endorse or promote products derived from this software without specific prior written permission.
 //
-//THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED 
-//WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A 
-//PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR 
-//ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED 
-//TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) 
-//HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING 
-//NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
+//THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED
+//WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+//PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR
+//ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
+//TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+//HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+//NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 //POSSIBILITY OF SUCH DAMAGE.
 //
 
@@ -47,8 +47,8 @@ public class AntStateManager extends Thread {
 	private AntConnection antConnection=null;
 	static AntStateManager INSTANCE=null;
 //	AntConnectionAlcohol antConnectionAlcohol=null;
-	
-	
+
+
 	DatabaseLogger db;
 
 
@@ -61,7 +61,7 @@ public class AntStateManager extends Thread {
 	private Packetizer reader = null;
 
 	/*
-	 * The address of the 
+	 * The address of the
 	 */
 	//private long lastReceivedPacketTime = -1;
 
@@ -72,14 +72,14 @@ public class AntStateManager extends Thread {
 	}
 	public static AntStateManager getInstance()
 	{
-		if(Log.DEBUG_MONOWAR) Log.m("Monowar_ALL","OK\t: (AntStateManager)_getInstance()");			
-		
+		if(Log.DEBUG_MONOWAR) Log.m("Monowar_ALL","OK\t: (AntStateManager)_getInstance()");
+
 		if(INSTANCE == null)
 		{
 			INSTANCE = new AntStateManager();
 			String msg = "AntStateManager Created";
 			if (Log.DEBUG) Log.d(TAG,msg);
-			
+
 		}
 		return INSTANCE;
 	}
@@ -90,23 +90,23 @@ public class AntStateManager extends Thread {
 		for(int i=0; i<this.isReceived.length; i++) {
 			this.isReceived[i] = NOT_CONNECTED;
 		}
-		
+
 		db = DatabaseLogger.getInstance(this);
 		if(antConnection==null){
 			antConnection=new AntConnection();
 			reader=Packetizer.getInstance();
-			
+
 			antConnection.start();
 		}
 		setName("fs_ANTStateManager_"+System.currentTimeMillis());
 		if(Log.LOG_DB){DatabaseLogger db=DatabaseLogger.getInstance(this);db.logAnything("DEBUG", "OK\t: (AntStateManager)_Constructor()",System.currentTimeMillis());}
 		start();
 	}
-	
+
 	/*
 	 * This function is to stop receiving data from the Ant bridge.
 	 * But this function is problematic. This should not be a problem for
-	 * now, as stopping is not used that often. 
+	 * now, as stopping is not used that often.
 	 */
 	public void stopDown(){
 		try
@@ -115,8 +115,8 @@ public class AntStateManager extends Thread {
 			antConnection.shutDown();
 			if(Log.DEBUG_MONOWAR) Log.m("Monowar_ALL","OK\t: (AntStateManager)_StopDown()_2");
 		}catch(Exception e){
-			if(Log.DEBUG_MONOWAR) Log.m("Monowar_ALL","EXCEPTION\t: (AntStateManager)_StopDown()_1 ("+e.getLocalizedMessage()+")");			
-		
+			if(Log.DEBUG_MONOWAR) Log.m("Monowar_ALL","EXCEPTION\t: (AntStateManager)_StopDown()_1 ("+e.getLocalizedMessage()+")");
+
 		}
 		try{
 
@@ -126,19 +126,19 @@ public class AntStateManager extends Thread {
 				reader.kill();
 			}
 		}catch(Exception e){
-			if(Log.DEBUG_MONOWAR) Log.m("Monowar_ALL","EXCEPTION\t: (AntStateManager)_StopDown()_2 ("+e.getLocalizedMessage()+")");			
+			if(Log.DEBUG_MONOWAR) Log.m("Monowar_ALL","EXCEPTION\t: (AntStateManager)_StopDown()_2 ("+e.getLocalizedMessage()+")");
 		}
 		reader=null;
 		antConnection=null;
 		INSTANCE=null;
 	}
-	
+
 	public void doStateChange()
 	{
 		long curTime=System.currentTimeMillis();
 //		if(Log.DEBUG_MONOWAR) Log.m("Monowar_ALL","OK\t: (AntStateManager)_doStateChange_"+antConnection.getRIPECGState()+" "+antConnection.getALCOHOLState());
-//		if (Log.DEBUG) Log.d("Monowar","Current State: "+curState);	
-		
+//		if (Log.DEBUG) Log.d("Monowar","Current State: "+curState);
+
 		//***********************************************
 		//Constants.moteActive[Constants.MOTE_RIPECG_IND] = false;
 		Constants.moteActive[Constants.MOTE_ALCOHOL_IND] = false; // Hillol: As alcohol is discontinued we are disabling this mote.
@@ -156,7 +156,7 @@ public class AntStateManager extends Thread {
 				case PENDING_OPEN:
 					antConnection.openChannel(AntConnection.MOTE_RIPECG_CHANNEL, false);
 					break;
-				
+
 			}
 		}
 		if(Constants.moteActive[Constants.MOTE_ALCOHOL_IND]){
@@ -172,7 +172,7 @@ public class AntStateManager extends Thread {
 					break;
 			}
 		}
-		
+
 		if(Constants.moteActive[Constants.MOTE_ALCOHOL_ACCL_RIGHT_IND]){
 			//if(antConnection.getALCOHOLAcclRightState()!= ChannelStates.TRACKING_DATA) {
 			//	Log.h(TAG, "Right State: "+ antConnection.getALCOHOLAcclRightState().toString());
@@ -206,7 +206,7 @@ public class AntStateManager extends Thread {
 					break;
 			}
 		}
-		
+
 		if(Constants.moteActive[Constants.MOTE_ALCOHOL_ACCL_LEFT_IND]){
 			//if(antConnection.getALCOHOLAcclLeftState()!= ChannelStates.TRACKING_DATA) {
 			//	Log.h(TAG, "Left State: "+ antConnection.getALCOHOLAcclLeftState().toString());
@@ -239,14 +239,14 @@ public class AntStateManager extends Thread {
 				default:
 					break;
 			}
-			
+
 		}
-		
-		
-		
-		
+
+
+
+
 		if(Constants.moteActive[Constants.MOTE_NINE_AXIS_RIGHT_IND]){
-			
+
 			if(curTime> AntConnection.getLast_Data_Received_Time(Constants.MOTE_NINE_AXIS_RIGHT_IND)+30*1000) {
 				if(curTime - AntStateManager.moteLastTryToReconnectTime[Constants.MOTE_NINE_AXIS_RIGHT_IND] > 10*1000) {
 					// More than 30 second missing means offline
@@ -275,10 +275,10 @@ public class AntStateManager extends Thread {
 				default:
 					break;
 			}
-			
+
 		}
 		if(Constants.moteActive[Constants.MOTE_NINE_AXIS_LEFT_IND]){
-			
+
 			if(curTime> AntConnection.getLast_Data_Received_Time(Constants.MOTE_NINE_AXIS_LEFT_IND)+30*1000) {
 				if(curTime - AntStateManager.moteLastTryToReconnectTime[Constants.MOTE_NINE_AXIS_LEFT_IND] > 10*1000) {
 					// More than 30 second missing means offline
@@ -307,10 +307,10 @@ public class AntStateManager extends Thread {
 				default:
 					break;
 			}
-			
+
 		}
-		
-		
+
+
 		if(curTime> AntConnection.getLast_Data_Received_Time(Constants.MOTE_RIPECG_IND)+1000){
 			isReceived[Constants.MOTE_RIPECG_IND]=NOT_CONNECTED;
 		}
@@ -319,7 +319,7 @@ public class AntStateManager extends Thread {
 			isReceived[Constants.MOTE_ALCOHOL_IND]=NOT_CONNECTED;
 		}
 		else isReceived[Constants.MOTE_ALCOHOL_IND]=CONNECTED;
-		
+
 		if(curTime> AntConnection.getLast_Data_Received_Time(Constants.MOTE_ALCOHOL_ACCL_RIGHT_IND)+1000) {
 			isReceived[Constants.MOTE_ALCOHOL_ACCL_RIGHT_IND]=NOT_CONNECTED;
 		}
@@ -332,7 +332,7 @@ public class AntStateManager extends Thread {
 		else {
 			isReceived[Constants.MOTE_ALCOHOL_ACCL_LEFT_IND]=CONNECTED;
 		}
-		
+
 		if(curTime> AntConnection.getLast_Data_Received_Time(Constants.MOTE_NINE_AXIS_RIGHT_IND)+1000) {
 			isReceived[Constants.MOTE_NINE_AXIS_RIGHT_IND]=NOT_CONNECTED;
 		}
@@ -350,13 +350,13 @@ public class AntStateManager extends Thread {
 	{
 		if(Log.DEBUG_MONOWAR) Log.m("Monowar_ALL","OK\t: (AntStateManager)_run() Start");
 		if(Log.LOG_DB){DatabaseLogger db=DatabaseLogger.getInstance(this);db.logAnything("DEBUG", "OK\t: (AntStateManager)_run() Start",System.currentTimeMillis());}
-		
+
 		long curTime=System.currentTimeMillis();
 		for(int i=0; i<Constants.MOTE_NO; i++) {
 			AntStateManager.moteLastTryToReconnectTime[i] = 0;//curTime;
 		}
 		while(keepAlive)
-		{	
+		{
 			try
 			{
 				doStateChange();
@@ -371,7 +371,7 @@ public class AntStateManager extends Thread {
 				Log.h(TAG, CommonUtil.getExceptionStackTrace(e));
 			} // end catch
 		}
-		if(Log.DEBUG_MONOWAR) Log.m("Monowar_ALL","OK\t: (AntStateManager)_run() Terminate");	
+		if(Log.DEBUG_MONOWAR) Log.m("Monowar_ALL","OK\t: (AntStateManager)_run() Terminate");
 	}
 
 	public void kill()
@@ -381,8 +381,8 @@ public class AntStateManager extends Thread {
 			interrupt();
 		}
 		catch(Exception e){
-			if(Log.DEBUG_MONOWAR) Log.m("Monowar_ALL","Exception\t: (AntStateManager)_kill()"+e.getLocalizedMessage());	
-			
+			if(Log.DEBUG_MONOWAR) Log.m("Monowar_ALL","Exception\t: (AntStateManager)_kill()"+e.getLocalizedMessage());
+
 		}
 	}
 }

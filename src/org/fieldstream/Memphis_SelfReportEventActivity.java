@@ -1,24 +1,24 @@
 //Copyright (c) 2010, University of Memphis
 //All rights reserved.
 //
-//Redistribution and use in source and binary forms, with or without modification, are permitted provided 
+//Redistribution and use in source and binary forms, with or without modification, are permitted provided
 //that the following conditions are met:
 //
-//    * Redistributions of source code must retain the above copyright notice, this list of conditions and 
+//    * Redistributions of source code must retain the above copyright notice, this list of conditions and
 //      the following disclaimer.
-//    * Redistributions in binary form must reproduce the above copyright notice, this list of conditions 
-//      and the following disclaimer in the documentation and/or other materials provided with the 
+//    * Redistributions in binary form must reproduce the above copyright notice, this list of conditions
+//      and the following disclaimer in the documentation and/or other materials provided with the
 //      distribution.
-//    * Neither the name of the University of Memphis nor the names of its contributors may be used to 
+//    * Neither the name of the University of Memphis nor the names of its contributors may be used to
 //      endorse or promote products derived from this software without specific prior written permission.
 //
-//THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED 
-//WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A 
-//PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR 
-//ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED 
-//TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) 
-//HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING 
-//NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
+//THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED
+//WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+//PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR
+//ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
+//TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+//HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+//NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 //POSSIBILITY OF SUCH DAMAGE.
 //
 
@@ -53,7 +53,7 @@ import android.widget.Button;
 public class Memphis_SelfReportEventActivity extends Activity{
 
 	public final static int SELF_YES = 1;
-	
+
 	private Button choiceDrink;
 	private Button choiceSmoke;
 	private Button backToMain;
@@ -62,9 +62,9 @@ public class Memphis_SelfReportEventActivity extends Activity{
 	boolean selfreportdrink = false;
 	boolean selfreportsmoke = false;
 	private final int selfReportLebel=SELF_YES;
-	
+
 	 static String  alarm[]=new String [10];
-	
+
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		this.setContentView(R.layout.memphis_selfreport);
@@ -96,31 +96,31 @@ public class Memphis_SelfReportEventActivity extends Activity{
 			            finish();
 		           }
 		       });
-		
+
 		alert = builder.create();
-		
+
 		backToMain.setOnClickListener(new View.OnClickListener(){
 
 			public void onClick(View v) {
 				finish();
 			}}
 		);
-		
-		
+
+
 		choiceDrink.setOnClickListener(new View.OnClickListener() {
-			
+
 			public void onClick(View v) {
 				selfreportdrink = true;
 				alert.show();
 				Log.d("Button Clicked for reporting new Drinking Event","Before context pushed in Bus");
 				//ContextBus.getInstance().pushNewContext(getDrinkingID(), getLabel(), System.currentTimeMillis(), System.currentTimeMillis());
 				Log.d("Button Clicked for reporting new Drinking Event","After context pushed in Bus");
-				
+
 			}
 		});
-		  
+
 		choiceSmoke.setOnClickListener(new View.OnClickListener() {
-			
+
 			public void onClick(View v) {
 				selfreportsmoke = true;
 				alert.show();
@@ -136,11 +136,11 @@ public class Memphis_SelfReportEventActivity extends Activity{
 	public int getCravingID(){
 		return Constants.MODEL_SELF_CRAVING;
 	}
-	
+
 	public int getSmokingID(){
 		return Constants.MODEL_SELF_SMOKING;
 	}
-	
+
 	public int getLabel(){
 		return selfReportLebel;
 	}

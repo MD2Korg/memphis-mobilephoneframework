@@ -1,25 +1,25 @@
 ﻿//Copyright (c) 2010, University of Memphis, Carnegie Mellon University
 //All rights reserved.
 //
-//Redistribution and use in source and binary forms, with or without modification, are permitted provided 
+//Redistribution and use in source and binary forms, with or without modification, are permitted provided
 //that the following conditions are met:
 //
-//    * Redistributions of source code must retain the above copyright notice, this list of conditions and 
+//    * Redistributions of source code must retain the above copyright notice, this list of conditions and
 //      the following disclaimer.
-//    * Redistributions in binary form must reproduce the above copyright notice, this list of conditions 
-//      and the following disclaimer in the documentation and/or other materials provided with the 
+//    * Redistributions in binary form must reproduce the above copyright notice, this list of conditions
+//      and the following disclaimer in the documentation and/or other materials provided with the
 //      distribution.
-//    * Neither the names of the University of Memphis and Carnegie Mellon University nor the names of its 
-//      contributors may be used to endorse or promote products derived from this software without specific 
+//    * Neither the names of the University of Memphis and Carnegie Mellon University nor the names of its
+//      contributors may be used to endorse or promote products derived from this software without specific
 //      prior written permission.
 //
-//THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED 
-//WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A 
-//PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR 
-//ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED 
-//TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) 
-//HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING 
-//NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
+//THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED
+//WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+//PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR
+//ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
+//TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+//HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+//NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 //POSSIBILITY OF SUCH DAMAGE.
 //
 
@@ -105,25 +105,25 @@ public abstract class AbstractInterview extends Activity {
 	boolean labMode;
 	boolean homeKeyPressed = false;
 	int interviewType;
-		
+
 	// interview content and data
 	IContent content;
 	InterviewData entry;
-	
+
 	// handles timing events
 	Handler handler;
-	
+
 	// handles for the two locking services
 	KeyguardLock keyguard;
 	WakeLock wakelock;
-	
+
 	// monitor service
 	ISchedulerService schedulerService;
 	boolean interviewIsCancelled;
-	
+
 	// incentives manager for payment feedback at end of interview
 	EMAIncentiveManager incentives = null;
-	
+
 	// interview constants
 	static final String START_MESSAGE = "Do you want to start the interview now?";
 	static final String START_STRING = "Start";
@@ -133,7 +133,7 @@ public abstract class AbstractInterview extends Activity {
 	static long START_TIMEOUT = Constants.START_TIMEOUT; //(5 * MINUTE_MILLIS);
 	static long INTERVIEW_TIMEOUT = Constants.INTERVIEW_TIMEOUT; //(5 * MINUTE_MILLIS);
 	static final long END_TIMEOUT = 10000;
-	
+
 	// state constants
 	static final int AT_START = 0;
 	static final int POST_DELAY = 1;
@@ -141,15 +141,15 @@ public abstract class AbstractInterview extends Activity {
 	static final int CONDUCTING = 3;
 	static final int TIMED_OUT = 4;
 	static final int DONE = 5;
-	
+
 	// delay menu constants
 	static final int BREAK_DELAY = 0;
 	static final int CANCEL = 1;
-	
+
 	// phone key constants
 	static final int END_LOCKS_PHONE = 2;
 	static final int END_DISABLED = 0;
-	
+
 	// prompt control
 	static final int VOLUME = 100;
 	static final int PROMPT_INTERVAL = 500;
@@ -165,10 +165,10 @@ public abstract class AbstractInterview extends Activity {
 	public abstract void showResponseView(int isdelay);
 	@Override
 	public void onAttachedToWindow() {
-	    this.getWindow().setType(WindowManager.LayoutParams.TYPE_KEYGUARD_DIALOG);  
+	    this.getWindow().setType(WindowManager.LayoutParams.TYPE_KEYGUARD_DIALOG);
 	    super.onAttachedToWindow();
-	}	
-	
+	}
+
 	void setParameter()
 	{
 		BEEP_COUNT=Constants.BEEP_COUNT; // 240*1=240 -> 4 minute beep
@@ -176,15 +176,15 @@ public abstract class AbstractInterview extends Activity {
 		DELAY_TIME=Constants.USER_DELAY;
 		INTERVIEW_TIMEOUT=Constants.INTERVIEW_TIMEOUT;
 	}
-	
+
     /** Called when the activity is first created. */
-	
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
     	INSTANCE = this;
 //    	remove_allcallback();
         super.onCreate(savedInstanceState);
-        
+
         incentives = InterviewScheduler.getInstance().getIncentiveMangager();
         if (incentives != null) {
 	        incentives.reset(false);
@@ -192,12 +192,12 @@ public abstract class AbstractInterview extends Activity {
 
     	initInterviewState();
         initUI();
-        handler = new Handler();        
-        
+        handler = new Handler();
+
         long time = System.currentTimeMillis();
         context = this;
 //        setContentView(R.layout.interview_layout);
-//        
+//
 //        questionView = (TextView) findViewById(R.id.Question);
 //        responseView = (ListView) findViewById(R.id.List);
 //        //responseList.setFocusable(true);
@@ -207,14 +207,14 @@ public abstract class AbstractInterview extends Activity {
         	// created with some past state, possible recovering from an activity disposed of by
         	// the operating system
         	onRestoreInstanceState(savedInstanceState);
-        } 
+        }
 //        else {
 //        	initInterviewState();
 //	        initUI();
 //	        handler = new Handler();
 ////	        handler.post(updateView);
 ////	        handler.post(launchStartDialog);
-//	        
+//
 //        }
         Intent intent = getIntent();
         debugMode = intent.getBooleanExtra("DEBUG", false);
@@ -228,15 +228,15 @@ public abstract class AbstractInterview extends Activity {
         //responses.setTextFilterEnabled(true);
 
         handler.post(updateView);
-        
+
         if (labMode) {
         	entry.setStartTime(time);
         	entry.setPromptTime(time);
         	state = CONDUCTING;
         	//state = AT_START;
         }
-        
-        
+
+
         // handle recovering the timeout behavior when restoring from interruption
         switch(state) {
         case AT_START:
@@ -245,7 +245,7 @@ public abstract class AbstractInterview extends Activity {
         		// first time through
         		//handler.postDelayed(timeoutInterview, START_TIMEOUT);
         		handler.post(launchStartDialog);
-        		
+
         	} else {
         		// returning from interrupt
         		if (time - promptTime >= START_TIMEOUT) {
@@ -307,9 +307,9 @@ public abstract class AbstractInterview extends Activity {
 //        	handler.post(launchStartDialog);
 //        }
 
-        
+
     }
-    
+
     /* This is called immediately after onCreate() when the app is started
 	 * or after the app comes back from a pause.
 	 */
@@ -322,11 +322,11 @@ public abstract class AbstractInterview extends Activity {
 		wakelock.acquire();
 		Log.i("Interview", "onResume");
 		super.onResume();
-		
+
 	}
 
 	/* This is called when the app goes into the background. */
-	
+
 	@Override
 	protected void onPause() {
 		Log.i("Interview", "onPause");
@@ -340,13 +340,13 @@ public abstract class AbstractInterview extends Activity {
 			wakelock.release();
 		}
 		Log.ema_alarm("", "ema inside pause 1");
-		
+
 		// make sure the interview is finished and not being interrupted
 		if (state != DONE && state != TIMED_OUT && homeKeyPressed) {
 			Log.ema_alarm("", "ema inside pause 2");
 			// the interview has been interrupted by some other task
 			if (Log.DEBUG) Log.d("onPause", "MSG: interview interrupted!");
-			
+
 			if (schedulerService != null) {
 				try {
 					schedulerService.interviewInterrupted(savedState);
@@ -367,7 +367,7 @@ public abstract class AbstractInterview extends Activity {
 
 			homeKeyPressed = false;
 		}
-		
+
 		super.onPause();
 	}
 
@@ -387,7 +387,7 @@ public abstract class AbstractInterview extends Activity {
 		unbindSchedulerService();
 		super.onDestroy();
 	}
-	
+
 	@Override
 	// this callback indicates that a user action has caused focus to be lost
 	protected void onUserLeaveHint() {
@@ -396,7 +396,7 @@ public abstract class AbstractInterview extends Activity {
 		homeKeyPressed = true;
 		super.onUserLeaveHint();
 	}
-	
+
 	@Override
 	protected void onSaveInstanceState(Bundle savedInstanceState) {
 	  // Save UI state changes to the savedInstanceState.
@@ -414,10 +414,10 @@ public abstract class AbstractInterview extends Activity {
 		savedInstanceState.putBoolean("debugMode", debugMode);
 		savedInstanceState.putInt("interviewType", interviewType);
 		// etc.
-		
+
 		// keep a pointer to the bundle in case I need it later
 		savedState = savedInstanceState;
-		
+
 	}
 
 	@Override
@@ -438,34 +438,34 @@ public abstract class AbstractInterview extends Activity {
 	/* END ANDROID LIFE CYCLE */
 
 	/* BEGIN INITIALIZATION METHODS */
-	
+
 	private void initInterviewState() {
 		// init interview state
 		currQuestion = 0;
 		state = AT_START;
 		promptTimes = PROMPT_REPEAT;
-		
+
 		interviewIsCancelled = false;
-		
+
 		// init interview data
 //		content = new InterviewContent();
 		content=InterviewContent.getInstance();
 		entry = new InterviewData(content.getNumberQuestions(false), content.getNumberDelayQuestions());
-		
+
 //		lastSelected = new LinkedList<Integer>();
 //		lastRow = new LinkedList<Long>();
-		
+
 //		// init the keyguard lock manager
 		KeyguardManager mgr = (KeyguardManager)this.getSystemService(KEYGUARD_SERVICE);
 		keyguard = mgr.newKeyguardLock("EMA_Interview");
-		
+
 		PowerManager pm = (PowerManager)this.getSystemService(POWER_SERVICE);
 		//wakelock = pm.newWakeLock(PowerManager.FULL_WAKE_LOCK | PowerManager.ACQUIRE_CAUSES_WAKEUP, "AbstractInterview");
-		wakelock = pm.newWakeLock(PowerManager.SCREEN_DIM_WAKE_LOCK | PowerManager.ACQUIRE_CAUSES_WAKEUP, "AbstractInterview");	
+		wakelock = pm.newWakeLock(PowerManager.SCREEN_DIM_WAKE_LOCK | PowerManager.ACQUIRE_CAUSES_WAKEUP, "AbstractInterview");
 	}
-	
+
 	//abstract void initInterviewContents();
-	
+
 	/*
 	 * Adds click event listeners to the next and back buttons
 	 */
@@ -479,9 +479,9 @@ public abstract class AbstractInterview extends Activity {
 //				if (!responseList.hasFocus() && !back.hasFocus() && !next.hasFocus())
 //					arg0.requestFocus();
 //			}
-//			
+//
 //		});
-		
+
 		// layout stuff
 //		layout.setOnFocusChangeListener(new OnFocusChangeListener() {
 //
@@ -490,9 +490,9 @@ public abstract class AbstractInterview extends Activity {
 //					layout.requestFocus();
 //				}
 //			}
-//			
+//
 //		});
-		
+
 		// set up a the response list adapter and click listener
 //		ArrayList<String> list = new ArrayList<String>();
 //		responseAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_list_item_checked, list);
@@ -509,16 +509,16 @@ public abstract class AbstractInterview extends Activity {
 //				System.out.println("response " + arg2);
 //				nextButton.setVisibility(View.VISIBLE);
 //			}
-//			
+//
 //		});
-		
-		
+
+
 		// set up the next button visibility and click listener
 		//next.setVisibility(View.INVISIBLE);
 		nextButton.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
 				Serializable selection = selectedResponse();
-										
+
 					if (state == POST_DELAY) {
 						try {
 							long time = System.currentTimeMillis();
@@ -527,16 +527,16 @@ public abstract class AbstractInterview extends Activity {
 
 			        		handler.removeCallbacks(timeoutInterview);
 			        		handler.postDelayed(timeoutInterview, INTERVIEW_TIMEOUT);
-										                
+
 							currQuestion++;
 							if (currQuestion >= content.getNumberDelayQuestions()) {
-								
+
 								state = CONDUCTING;
 								currQuestion = 0;
 								entry.setDelayStop(System.currentTimeMillis());
 	//			                questionView.setVisibility(View.VISIBLE);
-				                promptTimes = PROMPT_REPEAT;				                
-				                
+				                promptTimes = PROMPT_REPEAT;
+
 				                if (content.hasResponses(currQuestion)) {
 				                	if (incentives != null) {
 				                		if (incentives.isPerQuestion()) {
@@ -556,7 +556,7 @@ public abstract class AbstractInterview extends Activity {
 									}
 								}
 							}
-									
+
 			                //handler.removeCallbacks(timeoutInterview);
 			                //handler.postAtTime(timeoutInterview, SystemClock.uptimeMillis() + INTERVIEW_TIMEOUT);
 			                handler.post(updateView);
@@ -564,13 +564,13 @@ public abstract class AbstractInterview extends Activity {
 			                //if (wakelock.isHeld())
 			                //	wakelock.release();
 						} catch (NumberFormatException e) {}
-					
+
 					} else {
 						String amount = "";
 						long time = System.currentTimeMillis();
 						System.out.println("selected: "+selection +" @ " + time);
 						entry.setResponse(currQuestion, selection, time);
-						
+
 		        		handler.removeCallbacks(timeoutInterview);
 		        		handler.postDelayed(timeoutInterview, INTERVIEW_TIMEOUT);
 
@@ -591,11 +591,11 @@ public abstract class AbstractInterview extends Activity {
 //							// selection is not an integer value
 //						}
 						currQuestion++;
-						
+
 						while (!content.isQuestionActive(currQuestion, entry) && currQuestion < content.getNumberQuestions(false)) {
 							currQuestion++;
 						}
-						
+
 						backButton.setVisibility(View.VISIBLE);
 						if (currQuestion >= content.getNumberQuestions(false)) {
 							// finished with the interview
@@ -604,13 +604,13 @@ public abstract class AbstractInterview extends Activity {
 							entry.setStatus(EMALogConstants.COMPLETE);
 							handler.removeCallbacks(timeoutInterview);
 							handler.postDelayed(timeoutInterview, END_TIMEOUT);
-							
+
 					    	if (incentives != null) {
 					    		if (!incentives.isPerQuestion()) {
 					    			incentives.markIncentive("__", true);
 					    		}
 					    	}
-						} 
+						}
 						else {
 			                if (content.hasResponses(currQuestion)) {
 			                	if (incentives != null) {
@@ -622,12 +622,12 @@ public abstract class AbstractInterview extends Activity {
 			                }
 						}
 					}
-				
+
 				handler.post(updateView);
 			}
-			
+
 		});
-		
+
 		// set up the back button visibility and click listener
 		//back.setVisibility(View.INVISIBLE);
 		backButton.setOnClickListener(new OnClickListener() {
@@ -638,7 +638,7 @@ public abstract class AbstractInterview extends Activity {
 					currQuestion = content.getNumberDelayQuestions() - 1;
 				}
 				else if (currQuestion > 0) {
-				
+
 					if (state == POST_DELAY) {
 						currQuestion--;
 					}
@@ -651,16 +651,16 @@ public abstract class AbstractInterview extends Activity {
 				backUsed = true;
 				//System.out.println("Current Question = " + currQuestion);
 				handler.post(updateView);
-				
+
 			}
-			
+
 		});
-		
+
 	}
-	
+
 	// override the keydown event listener to capture keypresses
 	// disables all keys except HOME, END and POWER. END is handled by
-	// changing the system settings for end button behavior, home and 
+	// changing the system settings for end button behavior, home and
 	// power need to be researched...
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
@@ -687,7 +687,7 @@ public abstract class AbstractInterview extends Activity {
 	    }
 	    return super.onKeyDown(keyCode, event);
 	}
-	
+
 	/* Creates the menu items */
 	public boolean onCreateOptionsMenu(Menu menu) {
 	    if (state == DELAYED) {
@@ -720,7 +720,7 @@ public abstract class AbstractInterview extends Activity {
 //				delayMenu = null;
 //			}
 //	    	if(true) return true;
-	    	
+
 	    	entry.setDelayStop(System.currentTimeMillis());
 //		 	   if(Log.DEBUG_MONOWAR) Log.m("Monowar_ALL","interview status: Break_Delay 1");
 
@@ -729,12 +729,12 @@ public abstract class AbstractInterview extends Activity {
 
 	        handler.post(startInterview);
 //		 	   if(Log.DEBUG_MONOWAR) Log.m("Monowar_ALL","interview status: Break_Delay 3");
-	        
+
 
 			entry.setDelayStop(System.currentTimeMillis());
 			Log.i("launchStartDialog", "set delay stop time");
 
-	        
+
 	        return true;
 	    case CANCEL:
 //	    	delayMenu = null;
@@ -752,10 +752,10 @@ public abstract class AbstractInterview extends Activity {
 		handler.removeCallbacks(startInterview);
 
 	}
-*/	
-	
+*/
+
 	/* BEGIN RUNNABLES USED FOR INTERIEW TIMING AND CONTROL FLOW */
-	
+
 	/*
 	 * This runnable is used to run the prompting behavior of the application
 	 */
@@ -769,18 +769,18 @@ public abstract class AbstractInterview extends Activity {
 			//			tone.startTone(ToneGenerator.TONE_CDMA_ABBR_ALERT);
 
 			tone.release();
-			
+
 			handler.removeCallbacks(setAlarm);
 			beepCount++;
-			if(beepCount<BEEP_COUNT)			
+			if(beepCount<BEEP_COUNT)
 				handler.postDelayed(this, BEEP_DURATION);
 		}
 	};
-	
+
 	private Runnable promptUser = new Runnable() {
 		public void run() {
 		 	   Log.mm("Monowar_ALL","interview: promptUser");
-			
+
 			if (Constants.BUZZ) {
 				// vibrate and beep to alert the user to a new interview
 //				startAlarm();
@@ -793,11 +793,11 @@ public abstract class AbstractInterview extends Activity {
 				tone.startTone(ToneGenerator.TONE_CDMA_ONE_MIN_BEEP);
 //				tone.startTone(ToneGenerator.TONE_CDMA_ONE_MIN_BEEP,5000);
 			}
-			
+
    			entry.setPromptTime(System.currentTimeMillis());
 			//questionView.setVisibility(View.INVISIBLE);
 			//questionView.setText("");
-			
+
 			// prompt repeat control
    			Log.mm("", "interview: prompttimes="+promptTimes);
 			if ((state == AT_START  || state==DELAYED || state==POST_DELAY) && --promptTimes > 0) {
@@ -807,28 +807,28 @@ public abstract class AbstractInterview extends Activity {
 				beepCount=0;
 				handler.postDelayed(setAlarm,BEEP_DURATION);
    			}
-			
+
 		}
 	};
-	
+
 	private Runnable startInterview = new Runnable() {
 		public void run() {
 
 			entry.setStartTime(System.currentTimeMillis());
 	        currQuestion = 0;
 			Log.ema_alarm("Monowar_ALL","startInterview: interview status: "+state);
-	        
+
 	        if (incentives != null) {
 		  	     if (!incentives.isPerQuestion()) {
 	    			incentives.requestIncentive("__", entry.getStartTime()-entry.getPromptTime());
 		  	     }
-	        }	  	   	        
-	        
+	        }
+
 	        if (state == DELAYED) {
 	        	Log.ema_alarm("", "interview: startinterview (DELAYED)");
 //	     	   promptTimes=PROMPT_REPEAT;
 //	     	   handler.post(promptUser);
-	     	   state = POST_DELAY;	     	   	     	   
+	     	   state = POST_DELAY;
 	   	 	   displayStartView();
 	        } else {
 	     	   state = CONDUCTING;
@@ -845,23 +845,23 @@ public abstract class AbstractInterview extends Activity {
 //	 	   if(Log.DEBUG_MONOWAR) Log.m("Monowar_ALL","interview status: promptuser -after");
 
 	 	   questionView.setVisibility(View.VISIBLE);
-	 	   
+
 	 	   handler.postDelayed(updateView, 3000);
 //	 	   if(Log.DEBUG_MONOWAR) Log.m("Monowar_ALL","interview status: postdelayed 1 -after");
-	 	   
+
 	 	   handler.postDelayed(timeoutInterview, INTERVIEW_TIMEOUT);
 
 //	 	   if(Log.DEBUG_MONOWAR) Log.m("Monowar_ALL","interview status: postdelayed 2 -after");
 
 		}
-	};	
+	};
 	/*
 	 * This runnable object is posted to launch the start dialog box
 	 */
 	private Runnable launchStartDialog = new Runnable() {
 		public void run() {
 		 	Log.ema_alarm("Monowar_ALL","interview: launchStartDialog, Prompttimes="+promptTimes);
-			
+
 			AlertDialog.Builder builder = new AlertDialog.Builder(context);
 			builder.setMessage(START_MESSAGE)
 			       .setCancelable(false)
@@ -913,7 +913,7 @@ public abstract class AbstractInterview extends Activity {
 
 			                //			                vibrator.cancel(); 	//new
 //			                tone.stopTone(); 	//new
-			                
+
 			                state = DELAYED;
 			                handler.removeCallbacks(promptUser);
 			                handler.post(updateView);
@@ -932,7 +932,7 @@ public abstract class AbstractInterview extends Activity {
 
 			//handler.post(updateView);
 			startDialog.show();
-			
+
 			if (promptTimes > 0)
 				handler.postDelayed(promptUser, 500);
 			handler.postDelayed(timeoutInterview, START_TIMEOUT);
@@ -944,8 +944,8 @@ public abstract class AbstractInterview extends Activity {
 	private static int TEXT_SIZE = 17;
 	private static int HIGHLIGHTED_TEXT_SIZE = 19;
 
-	
-	
+
+
 	protected void updateIncentiveView() {
 		if (incentives == null || InterviewScheduler.INCENTIVE_SCHEME==InterviewScheduler.NO_INCENTIVE_SCHEME) {
 			incentiveView.setVisibility(View.INVISIBLE);
@@ -963,9 +963,9 @@ public abstract class AbstractInterview extends Activity {
 	        if (incentives.isIncentiveVisible()) {
 	        	incentiveView.setVisibility(View.VISIBLE);
 
-				if (content.hasResponses(currQuestion)) 
-					incentiveCurrentView.setText("This Question: " + NumberFormat.getCurrencyInstance().format(incentives.getCurrentIncentive()) + " ");										
-				
+				if (content.hasResponses(currQuestion))
+					incentiveCurrentView.setText("This Question: " + NumberFormat.getCurrencyInstance().format(incentives.getCurrentIncentive()) + " ");
+
 				if (incentives.incentiveEarned("" + currQuestion)) {
 					incentiveTotalView.setTextSize(HIGHLIGHTED_TEXT_SIZE);
 	//				incentiveCurrentView.setTextSize(HIGHLIGHTED_TEXT_SIZE);
@@ -980,19 +980,19 @@ public abstract class AbstractInterview extends Activity {
 					incentiveCurrentView.setBackgroundColor(0xFFFFFFFF);
 					incentiveView.setBackgroundColor(0xFFFFFFFF);
 				}
-	        } 
-	        else { 
+	        }
+	        else {
 	        	incentiveView.setVisibility(View.INVISIBLE);
 	        }
-			
+
 			break;
 		case POST_DELAY:
 	        if (incentives.isIncentiveVisible()) {
 	        	incentiveView.setVisibility(View.VISIBLE);
 
-				if (content.hasDelayResponses(currQuestion)) 
-					incentiveCurrentView.setText("This Question: " + NumberFormat.getCurrencyInstance().format(incentives.getCurrentIncentive()) + " ");								
-				
+				if (content.hasDelayResponses(currQuestion))
+					incentiveCurrentView.setText("This Question: " + NumberFormat.getCurrencyInstance().format(incentives.getCurrentIncentive()) + " ");
+
 				if (incentives.incentiveEarned("DELAY" + currQuestion)) {
 					incentiveTotalView.setTextSize(HIGHLIGHTED_TEXT_SIZE);
 		//			incentiveCurrentView.setTextSize(HIGHLIGHTED_TEXT_SIZE);
@@ -1024,14 +1024,14 @@ public abstract class AbstractInterview extends Activity {
 		default:
 			//shouldn't get here
 
-		}		
+		}
 	}
-	
-	public void displayStartView() {		
+
+	public void displayStartView() {
 		questionView.setVisibility(View.VISIBLE);
 		Log.mm("Monowar_ALL","interview: displaystartview - start");
-		
-		if (incentives != null) {		
+
+		if (incentives != null) {
 			String award="???\n\nWe'll tell you what you earned after the interview.";
 			if (incentives.isIncentiveVisible()) {
 				award = "" + NumberFormat.getCurrencyInstance().format(incentives.getCurrentIncentive());
@@ -1040,33 +1040,33 @@ public abstract class AbstractInterview extends Activity {
 				questionView.setText("\n\n\nEach question you answer in this interview will earn you " + award + ".");
 			}
 			else {
-				questionView.setText("Please wait...questions will appear shortly...");	
+				questionView.setText("Please wait...questions will appear shortly...");
 			}
-		
+
 		}
 		else {
 			questionView.setText("Please wait...questions will appear shortly...");
 		}
-		
+
 		hideResponseView();
 		backButton.setVisibility(View.INVISIBLE);
-		nextButton.setVisibility(View.INVISIBLE);				
+		nextButton.setVisibility(View.INVISIBLE);
 		if(Log.DEBUG_MONOWAR) Log.m("Monowar_ALL","interview: displaystartview - end");
-		
+
 	}
-	
+
 	/*
 	 * This runnable object is posted to update the display after back or next is clicked
 	 */
 	private Runnable updateView = new Runnable() {
 		public void run() {
 		 	   if(Log.DEBUG_MONOWAR) Log.m("Monowar_ALL","interview: updateview");
-			
+
 			// clear current UI state
 //			responseAdapter.clear();
 //			responseView.clearChoices();
 			clearResponseView();
-				
+
 			// update display according to the current state
 			switch (state) {
 			case AT_START:
@@ -1084,7 +1084,7 @@ public abstract class AbstractInterview extends Activity {
 //					for (int i=0; i< len; i++) {
 //						responseAdapter.add(res[i]);
 //					}
-//					
+//
 ////					if (backUsed) {
 ////						backUsed = false;
 ////						int sel = lastSelected.remove().intValue();
@@ -1093,17 +1093,17 @@ public abstract class AbstractInterview extends Activity {
 ////							View last = responseList.getChildAt(sel);
 ////							responseList.performItemClick(last, sel, row);
 ////						} else {
-////							
+////
 ////						}
 ////					}
 //					nextButton.setVisibility(View.INVISIBLE);
 //				} else {
-//					
+//
 //					nextButton.setVisibility(View.VISIBLE);
 //				}
 				// set visibility of view elements
 				questionView.setVisibility(View.VISIBLE);
-				
+
 				// if we had delay questions previously
 				if (currQuestion > 0 || entry.getDelayStart() > 0) {
 					backButton.setVisibility(View.VISIBLE);
@@ -1113,14 +1113,14 @@ public abstract class AbstractInterview extends Activity {
 				if (currQuestion >= content.getNumberQuestions(false)) {
 					hideResponseView();
 				} else {
-					showResponseView(1);	
+					showResponseView(1);
 				}
 				break;
 			case POST_DELAY:
 				questionView.setText(content.getDelayQuestion(currQuestion));
 			 	Log.ema_alarm("Monowar_ALL","interview status: CASE - POST_DELAY 3 "+currQuestion+" free?="+content.isQuestionFreeResponse(currQuestion));
 				updateResponseView(content.getDelayResponses(currQuestion));
-				
+
 
 				questionView.setVisibility(View.VISIBLE);
 				if (currQuestion > 0) {
@@ -1131,7 +1131,7 @@ public abstract class AbstractInterview extends Activity {
 				if (currQuestion >= content.getNumberDelayQuestions()) {
 					hideResponseView();
 				} else {
-					showResponseView(0);	
+					showResponseView(0);
 				}
 				break;
 			case DELAYED:
@@ -1143,7 +1143,7 @@ public abstract class AbstractInterview extends Activity {
 				break;
 			case TIMED_OUT:
 			 	   if(Log.DEBUG_MONOWAR) Log.m("Monowar_ALL","interview status: CASE - TIMED_OUT");
-				
+
 				String interviewTotal;
 				String questionAmount;
 				String total;
@@ -1151,18 +1151,18 @@ public abstract class AbstractInterview extends Activity {
 					interviewTotal = "" + NumberFormat.getCurrencyInstance().format(incentives.getCurrentInterviewTotal());
 					questionAmount = "" + NumberFormat.getCurrencyInstance().format(incentives.getCurrentIncentive());
 					total = "" + NumberFormat.getCurrencyInstance().format(incentives.getTotalEarned());
-					
+
 					if (incentives.isPerQuestion()) {
-						questionView.setText("The interview has timed out.\n\n\nYou earned " 
+						questionView.setText("The interview has timed out.\n\n\nYou earned "
 								+ questionAmount + " per question for a total of "+ interviewTotal + " for this interview.\n\n" +
 										"Overall, you have earned " + total + " for all of your interviews. Thank You!");
 					}
 					else {
-						questionView.setText("The interview has timed out.");					
+						questionView.setText("The interview has timed out.");
 					}
 				}
 				else {
-					questionView.setText("The interview has timed out.");					
+					questionView.setText("The interview has timed out.");
 				}
 				hideResponseView();
 				backButton.setVisibility(View.INVISIBLE);
@@ -1173,25 +1173,25 @@ public abstract class AbstractInterview extends Activity {
 					interviewTotal = "" + NumberFormat.getCurrencyInstance().format(incentives.getCurrentInterviewTotal());
 					questionAmount = "" + NumberFormat.getCurrencyInstance().format(incentives.getCurrentIncentive());
 					total = "" + NumberFormat.getCurrencyInstance().format(incentives.getTotalEarned());
-					
+
 					if (incentives.isPerQuestion()) {
-					
-						questionView.setText("Interview completed.\n\n\nYou earned " 
+
+						questionView.setText("Interview completed.\n\n\nYou earned "
 								+ questionAmount + " per question for a total of "+ interviewTotal + " for this interview.\n\n" +
-										"Overall, you have earned " + total + " for all of your interviews.\n\nThank You!");				
+										"Overall, you have earned " + total + " for all of your interviews.\n\nThank You!");
 					}
 					else {
-						questionView.setText("Interview completed.\n\n\nYou earned " 
+						questionView.setText("Interview completed.\n\n\nYou earned "
 								+ interviewTotal + " for this interview.\n\n" +
-										"Overall, you have earned " + total + " for all of your interviews.\n\nThank You!");				
+										"Overall, you have earned " + total + " for all of your interviews.\n\nThank You!");
 					}
-					
+
 					hideResponseView();
 				}
 				else {
 					questionView.setText("Interview Completed.  Thank you!");
 				}
-				
+
 				backButton.setVisibility(View.INVISIBLE);
 				nextButton.setVisibility(View.INVISIBLE);
 				break;
@@ -1199,20 +1199,20 @@ public abstract class AbstractInterview extends Activity {
 				//shouldn't get here
 				questionView.setText("Unknown state reached!!!!!!");
 			}
-			
+
 			updateIncentiveView();
-		}  
+		}
 	};
-	
+
 	/*
 	 * This runnable handles all the timeout events for the interview
 	 */
-	
+
 	private Runnable timeoutInterview = new Runnable() {
 		public void run() {
 		 	   if(Log.DEBUG_MONOWAR) Log.m("Monowar_ALL","interview: timeoutInterview");
         	   handler.removeCallbacks(setAlarm);
-			
+
 //			vibrator.cancel();	//new
 //			tone.stopTone();	//new
 			handler.removeCallbacks(timeoutInterview);
@@ -1234,7 +1234,7 @@ public abstract class AbstractInterview extends Activity {
 				if (currQuestion > 0)
 					//entry.setAbandoned();
 					entry.setStatus(EMALogConstants.ABANDONED);
-				else 
+				else
 					entry.setStatus(EMALogConstants.MISSED);
 			case DONE:
 			default:
@@ -1261,23 +1261,23 @@ public abstract class AbstractInterview extends Activity {
 					wakelock.release();
 				// final finish the interview activity
 				finish();
-				break;	
+				break;
 			}
 		}
 	};
-   
-		
+
+
 	/* END RUNNABLES USED FOR INTERIEW TIMING AND CONTROL FLOW */
-	
+
 	/* BIND TO THE MONITOR SERVICE TO KEEP ME AWAKE */
-	
+
 	private void bindSchedulerService() {
 		Intent intent = new Intent(getBaseContext(), InterviewScheduler.class);
 		//intent.setClassName("edu.cmu.ices.stress.phone.monitor", "edu.cmu.ices.stress.phone.monitor.MonitorService");
 		bindService(intent, schedulerConnection, 0);
 		if (Log.DEBUG) Log.d("bindSchedulerService", "Bound to the scheduler service");
 	}
-	
+
 	private void unbindSchedulerService() {
 		if (schedulerService != null) {
 			try {
@@ -1289,13 +1289,13 @@ public abstract class AbstractInterview extends Activity {
 		// unbind the scheduler service
 		unbindService(schedulerConnection);
 		if (Log.DEBUG) Log.d("unbindSchedulerService", "Unbound the scheduler service");
-			
-		
+
+
 	}
-	
-	/* 
-	 * Connection to the scheduler service 
-	 */	
+
+	/*
+	 * Connection to the scheduler service
+	 */
 	private ServiceConnection schedulerConnection = new ServiceConnection() {
 
 		public void onServiceConnected(ComponentName name, IBinder service) {
@@ -1313,22 +1313,22 @@ public abstract class AbstractInterview extends Activity {
 		}
 
 		public void onServiceDisconnected(ComponentName name) {
-			
+
 			schedulerService = null;
 			if (Log.DEBUG) Log.d("AbstractInterview", "Disconnected from scheduler service");
 		}
 	};
-	
+
 	private IInterviewCancellationCallback.Stub canceller = new IInterviewCancellationCallback.Stub() {
-		
+
 		public void cancelInterview() throws RemoteException {
-			
+
 			// TODO integrate cancellation check in the activity destruction process
 			interviewIsCancelled = true;
 			if (wakelock.isHeld())
 				wakelock.release();
 			finish();
-			
+
 		}
 	};
 }

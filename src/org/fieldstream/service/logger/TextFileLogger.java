@@ -1,25 +1,25 @@
 ﻿//Copyright (c) 2010, University of Memphis, Carnegie Mellon University
 //All rights reserved.
 //
-//Redistribution and use in source and binary forms, with or without modification, are permitted provided 
+//Redistribution and use in source and binary forms, with or without modification, are permitted provided
 //that the following conditions are met:
 //
-//    * Redistributions of source code must retain the above copyright notice, this list of conditions and 
+//    * Redistributions of source code must retain the above copyright notice, this list of conditions and
 //      the following disclaimer.
-//    * Redistributions in binary form must reproduce the above copyright notice, this list of conditions 
-//      and the following disclaimer in the documentation and/or other materials provided with the 
+//    * Redistributions in binary form must reproduce the above copyright notice, this list of conditions
+//      and the following disclaimer in the documentation and/or other materials provided with the
 //      distribution.
-//    * Neither the names of the University of Memphis and Carnegie Mellon University nor the names of its 
-//      contributors may be used to endorse or promote products derived from this software without specific 
+//    * Neither the names of the University of Memphis and Carnegie Mellon University nor the names of its
+//      contributors may be used to endorse or promote products derived from this software without specific
 //      prior written permission.
 //
-//THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED 
-//WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A 
-//PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR 
-//ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED 
-//TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) 
-//HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING 
-//NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
+//THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED
+//WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+//PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR
+//ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
+//TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+//HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+//NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 //POSSIBILITY OF SUCH DAMAGE.
 //
 
@@ -42,12 +42,12 @@ import android.os.Handler;
 import android.os.HandlerThread;
 
 public class TextFileLogger extends AbstractLogger {
-	
+
 	String tag;
 	String data;
 	private BufferedWriter out;
 	private Handler myhandel;
-	
+
 	public TextFileLogger(String DIRNAME, boolean automaticLogging){
 		super(automaticLogging);
 		tag="phone";
@@ -57,7 +57,7 @@ public class TextFileLogger extends AbstractLogger {
 		mythread.setPriority(Thread.MIN_PRIORITY);
 		mythread.start();
 		myhandel = new Handler(mythread.getLooper());
-		
+
 		try {
 			File dir = new File(DIRNAME);
 			if (!dir.exists()) {
@@ -66,7 +66,7 @@ public class TextFileLogger extends AbstractLogger {
 
 			if ((new File(DIRNAME)).canWrite()) {
 				String FILENAME = "log_" + tag +"_"+String.valueOf(curtime)+ ".txt";
-				
+
 				File acclog = new File(DIRNAME, FILENAME);
 				FileWriter writer = new FileWriter(acclog, true);
 
@@ -90,12 +90,12 @@ public class TextFileLogger extends AbstractLogger {
 //		mythread.getLooper().quit();
 //		mythread.stop();
 		mythread = null;
-		
+
 		super.close();
 	}
 	private HandlerThread mythread;
 	private LogRunner logRunner;
-	
+
 	class LogRunner implements Runnable {
 		private BufferedWriter out;
 		public LogRunner(BufferedWriter out) {
@@ -108,7 +108,7 @@ public class TextFileLogger extends AbstractLogger {
 		public long lastTimestamp;
 		public int startNewData;
 		public int endNewData;
-		
+
 		public void run() {
 			if (SensorID!=0) {
 				StringBuilder string = new StringBuilder("Sensors"+SensorID+";");
@@ -121,7 +121,7 @@ public class TextFileLogger extends AbstractLogger {
 					start = startNewData;
 					end = endNewData;
 				}
-				
+
 				for (int i=start;i<end;i++) {
 					string.append(data[i]).append(",").append(timestamp[i]).append(";");
 				}
@@ -129,7 +129,7 @@ public class TextFileLogger extends AbstractLogger {
 				logString=string.toString();
 				SensorID=0;
 			}
-		
+
 			try{
 				out.write(logString + "\n");
 			}
@@ -138,13 +138,13 @@ public class TextFileLogger extends AbstractLogger {
 						+ e.getMessage());
 			}
 		}
-	};  
-	
+	};
+
 	public void logData(String data){
 		//TODO faster way?
 		if(logRunner==null) return;
 		logRunner.logString = data;
-		
+
 		if (myhandel!=null) {
 		myhandel.post(logRunner);
 		}
@@ -153,11 +153,11 @@ public class TextFileLogger extends AbstractLogger {
 	}
 	public void logFeatureData(int featureID, long timestampBegin, long timestampEnd, double value) {
 		logData("Feature"+featureID+";"+value+"@"+timestampBegin + "-" + timestampEnd);
-		
+
 	}
 	public void logModelData(int modelID, int label, long startTime, long endTime) {
 		logData("Model"+modelID+";"+label+"@"+startTime + "-" + endTime);
-		
+
 	}
 	public void logSensorData(int sensorID, long[] timestamps, int[] buffer, int startNewData, int endNewData) {
 		// TODO Auto-generated method stub
@@ -183,29 +183,29 @@ public class TextFileLogger extends AbstractLogger {
 
 		String logString;
 		logString = "EMA;" + "triggerType=" + triggerType + ", status=" + status + ", activeContexts=" + emaContext +
-		  			", promptTime=" + prompt + ", delayDuration=" + delayDuration + 
-		  			", delayResponses=" + delayResponses.toString() + ", delayResponseTimes=" + responseTimes.toString() + ", startTime=" + start + 
+		  			", promptTime=" + prompt + ", delayDuration=" + delayDuration +
+		  			", delayResponses=" + delayResponses.toString() + ", delayResponseTimes=" + responseTimes.toString() + ", startTime=" + start +
 		  			"responses=" + responses.toString() + ", responseTimes=" + responseTimes.toString();
-		
+
 		logData(logString);
 	}
-	
+
 	@Override
 	public void logUIData(String data) {
-		logData(data.concat(";"+System.currentTimeMillis()));		
+		logData(data.concat(";"+System.currentTimeMillis()));
 	}
 
 	@Override
 	public void logPerformance(int location, long timestamp, String logString) {
-		//never does anything, as this is only useful for DB logging		
+		//never does anything, as this is only useful for DB logging
 	}
 
 	@Override
 	public void logIncentiveEarned(int incentiveID, String comment, long timestamp, float amount, float total) {
 		String logString;
-		logString = "Incentive;" + "timestamp=" + timestamp + ", id=" + incentiveID + ", comment=" + comment + ", lastEarned=" + amount + 
+		logString = "Incentive;" + "timestamp=" + timestamp + ", id=" + incentiveID + ", comment=" + comment + ", lastEarned=" + amount +
 		  			", totalEarned=" + total;
-		
+
 		logData(logString);
 	}
 	@Override
@@ -213,11 +213,11 @@ public class TextFileLogger extends AbstractLogger {
 		// TODO Auto-generated method stub
 		return 0;
 	}
-	
+
 	public void logResume(long timestamp) {
 		String logString;
 		logString = "Resume;" + "timestamp=" + timestamp;
-		
+
 		logData(logString);
 	}
 
@@ -226,8 +226,8 @@ public class TextFileLogger extends AbstractLogger {
 		// TODO Auto-generated method stub
 		String logString;
 		logString = name + ";" + "timestamp=" + timestamp + ", entry=" + value;
-		
+
 		logData(logString);
-		
-	}	
+
+	}
 }

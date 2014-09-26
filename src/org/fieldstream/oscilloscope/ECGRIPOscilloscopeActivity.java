@@ -1,24 +1,24 @@
 ﻿//Copyright (c) 2010, University of Memphis
 //All rights reserved.
 //
-//Redistribution and use in source and binary forms, with or without modification, are permitted provided 
+//Redistribution and use in source and binary forms, with or without modification, are permitted provided
 //that the following conditions are met:
 //
-//    * Redistributions of source code must retain the above copyright notice, this list of conditions and 
+//    * Redistributions of source code must retain the above copyright notice, this list of conditions and
 //      the following disclaimer.
-//    * Redistributions in binary form must reproduce the above copyright notice, this list of conditions 
-//      and the following disclaimer in the documentation and/or other materials provided with the 
+//    * Redistributions in binary form must reproduce the above copyright notice, this list of conditions
+//      and the following disclaimer in the documentation and/or other materials provided with the
 //      distribution.
-//    * Neither the name of the University of Memphis nor the names of its contributors may be used to 
+//    * Neither the name of the University of Memphis nor the names of its contributors may be used to
 //      endorse or promote products derived from this software without specific prior written permission.
 //
-//THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED 
-//WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A 
-//PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR 
-//ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED 
-//TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) 
-//HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING 
-//NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
+//THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED
+//WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+//PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR
+//ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
+//TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+//HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+//NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 //POSSIBILITY OF SUCH DAMAGE.
 //
 
@@ -41,29 +41,29 @@ import android.widget.Spinner;
 import android.opengl.GLSurfaceView;
 
 public class ECGRIPOscilloscopeActivity extends Activity {
-	
+
 	private static String TAG = "OscilloscopeActivity";
 	SignalRenderer sr_ecg=null,sr_rip=null;
 	private OscilloscopeRenderer renderer;
 	private GLSurfaceView oscopeView;
-	
+
 	WakeLock wakelock;
-	
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		requestWindowFeature(Window.FEATURE_NO_TITLE);  
-		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,   
-		                                 WindowManager.LayoutParams.FLAG_FULLSCREEN);  
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
+		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+		                                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
 		setContentView(R.layout.oscilloscope_layout);
 
 		PowerManager pm = (PowerManager)this.getSystemService(POWER_SERVICE);
 		wakelock = pm.newWakeLock(PowerManager.FULL_WAKE_LOCK | PowerManager.ACQUIRE_CAUSES_WAKEUP, "OscilloscopeActivity");
 		//wakelock = pm.newWakeLock(PowerManager.SCREEN_DIM_WAKE_LOCK | PowerManager.ACQUIRE_CAUSES_WAKEUP, "OscilloscopeActivity");
-		
+
 		initSpinner();
-		initRenderer();		
+		initRenderer();
 	}
 
 	// don't need the spinner
@@ -71,9 +71,9 @@ public class ECGRIPOscilloscopeActivity extends Activity {
 		Spinner signalSpinner = (Spinner) findViewById(R.id.OscilloscopeSpinner);
 		signalSpinner.setVisibility(View.GONE);
 	}
-	
+
 	private void initRenderer() {
-		oscopeView = (GLSurfaceView) findViewById(R.id.OscilloscopeView);	
+		oscopeView = (GLSurfaceView) findViewById(R.id.OscilloscopeView);
 
 		renderer = new OscilloscopeRenderer();
 		if(sr_ecg!=null) {sr_ecg.stop();sr_ecg=null;}
@@ -91,18 +91,18 @@ public class ECGRIPOscilloscopeActivity extends Activity {
 		sr_rip.setSignal(Constants.SENSOR_RIP);
 		sr_rip.setSignalLabel(Constants.getId(Constants.FEATURE_RESP_RATE, Constants.SENSOR_VIRTUAL_INHALATION));
 		renderer.addSignal(sr_rip);
-		
-		oscopeView.setRenderer(renderer);	
+
+		oscopeView.setRenderer(renderer);
 	}
-	
-	
+
+
     @Override
-    protected void onPause() { 
+    protected void onPause() {
     	sr_ecg.stop();
     	sr_rip.stop();
     	sr_ecg=null;
     	sr_rip=null;
-        super.onPause();        
+        super.onPause();
     	wakelock.release();
         oscopeView.onPause();
     }
@@ -115,14 +115,14 @@ public class ECGRIPOscilloscopeActivity extends Activity {
     }
 
 
-	
+
 //	/* This is called when the app is killed. */
 //	@Override
 //	protected void onDestroy() {
 //		super.onDestroy();
 //	}
-	
+
 	/* END ANDROID LIFE CYCLE */
 
-	
+
 }

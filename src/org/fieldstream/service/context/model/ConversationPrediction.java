@@ -1,24 +1,24 @@
 ﻿//Copyright (c) 2010, University of Memphis
 //All rights reserved.
 //
-//Redistribution and use in source and binary forms, with or without modification, are permitted provided 
+//Redistribution and use in source and binary forms, with or without modification, are permitted provided
 //that the following conditions are met:
 //
-//    * Redistributions of source code must retain the above copyright notice, this list of conditions and 
+//    * Redistributions of source code must retain the above copyright notice, this list of conditions and
 //      the following disclaimer.
-//    * Redistributions in binary form must reproduce the above copyright notice, this list of conditions 
-//      and the following disclaimer in the documentation and/or other materials provided with the 
+//    * Redistributions in binary form must reproduce the above copyright notice, this list of conditions
+//      and the following disclaimer in the documentation and/or other materials provided with the
 //      distribution.
-//    * Neither the name of the University of Memphis nor the names of its contributors may be used to 
+//    * Neither the name of the University of Memphis nor the names of its contributors may be used to
 //      endorse or promote products derived from this software without specific prior written permission.
 //
-//THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED 
-//WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A 
-//PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR 
-//ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED 
-//TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) 
-//HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING 
-//NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
+//THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED
+//WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+//PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR
+//ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
+//TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+//HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+//NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 //POSSIBILITY OF SUCH DAMAGE.
 //
 
@@ -110,12 +110,12 @@ public class ConversationPrediction {
 					else return QUIET;
 			else
 				if(median_bduration <= 5) return SMOKING;
-				else 
+				else
 					if(mean_ieratio <= 0.672582)
 						if(secondbest_inhalation <= 87)
 							if(secondbest_inhalation <= 81)
 								if(median_exhalation <= 167) return SPEAKING;
-								else 
+								else
 									if(mean_firstDiff <= 59.4) return SMOKING;
 									else
 										if(median_firstDiff <= 153) return SPEAKING;
@@ -126,7 +126,7 @@ public class ConversationPrediction {
 									if(secondbest_exhalation <= 265) return SPEAKING;
 									else return SMOKING;
 						else return SPEAKING;
-					else 
+					else
 						if(median_stretch <= 654) return SMOKING;
 						else return SPEAKING;
 		else
@@ -136,7 +136,7 @@ public class ConversationPrediction {
 			else return SMOKING;
 	}
 	//here for training the tree, sliding window for 600 samples are used...trained using array version of the offline processing
-	public int getLablelSpeakingSmokingSilentFromArrayVersion(double percentile_inhal, double std_inhal, double mean_exhal, double mean_ie,  
+	public int getLablelSpeakingSmokingSilentFromArrayVersion(double percentile_inhal, double std_inhal, double mean_exhal, double mean_ie,
 			double meadian_ie, double mean_bd,double secondBest_bd, double std_strch)
 	{
 		if(mean_exhal <= 126.125)
@@ -149,14 +149,14 @@ public class ConversationPrediction {
 		      if(mean_ie <= 0.665843)
 		         if(percentile_inhal <= 50)
 		            if(mean_exhal <= 132.4) return SMOKING;
-		            else 
+		            else
 		               if(meadian_ie <= 0.2226) return SMOKING;
 		               else return SPEAKING;
 		         else
 		            if(meadian_ie <= 0.4888) return SMOKING;
 		            else return SPEAKING;
 		      else return QUIET;
-		   else 
+		   else
 		      if(secondBest_bd <= 20)
 		         if(mean_bd <= 1.666667) return SPEAKING;
 		         else return SMOKING;

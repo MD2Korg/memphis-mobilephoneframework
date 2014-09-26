@@ -1,25 +1,25 @@
 //Copyright (c) 2010, University of Memphis, Carnegie Mellon University
 //All rights reserved.
 //
-//Redistribution and use in source and binary forms, with or without modification, are permitted provided 
+//Redistribution and use in source and binary forms, with or without modification, are permitted provided
 //that the following conditions are met:
 //
-//    * Redistributions of source code must retain the above copyright notice, this list of conditions and 
+//    * Redistributions of source code must retain the above copyright notice, this list of conditions and
 //      the following disclaimer.
-//    * Redistributions in binary form must reproduce the above copyright notice, this list of conditions 
-//      and the following disclaimer in the documentation and/or other materials provided with the 
+//    * Redistributions in binary form must reproduce the above copyright notice, this list of conditions
+//      and the following disclaimer in the documentation and/or other materials provided with the
 //      distribution.
-//    * Neither the names of the University of Memphis and Carnegie Mellon University nor the names of its 
-//      contributors may be used to endorse or promote products derived from this software without specific 
+//    * Neither the names of the University of Memphis and Carnegie Mellon University nor the names of its
+//      contributors may be used to endorse or promote products derived from this software without specific
 //      prior written permission.
 //
-//THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED 
-//WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A 
-//PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR 
-//ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED 
-//TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) 
-//HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING 
-//NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
+//THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED
+//WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+//PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR
+//ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
+//TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+//HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+//NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 //POSSIBILITY OF SUCH DAMAGE.
 //
 
@@ -63,7 +63,7 @@ public class AlarmScheduler{
 	static long previous_salivatime=-1;
 
 	public static Context context=null;
-	int status ; 
+	int status ;
 	public boolean alarm_on=false;
 	AlertDialog.Builder builder_confirm;
 	AlertDialog alert_confirm =null;
@@ -86,7 +86,7 @@ public class AlarmScheduler{
 
 	public static AlarmScheduler getInstance(Context holder) {
 		if (INSTANCE == null) {
-			context=holder;			
+			context=holder;
 			INSTANCE = new AlarmScheduler();
 		}
 		return INSTANCE;
@@ -138,7 +138,7 @@ public class AlarmScheduler{
 	}
 	public void setNextAlarm()
 	{
-		long diff=findNearAlarm();		 
+		long diff=findNearAlarm();
 		Log.ema_alarm("","Next Alarm:"+(diff/(1000*60))+" minute");
 		handler.postDelayed(generateAlarm,diff);
 
@@ -180,13 +180,13 @@ public class AlarmScheduler{
 				if(status==STATUS_START) {
 					alert_collect.cancel();
 					status=-1;
-					
+
 				}
 				else if (status==STATUS_COLLECT) {
 					alert_confirm.cancel();
 					status=-2;
 				}
-				if(fail<Constants.REPEATALARM){					
+				if(fail<Constants.REPEATALARM){
 					status =STATUS_START;
 					beepCount=0;
 					handler.postDelayed(runAlarm,Constants.DIFF_BETWEEN_ALARM*1000);
@@ -200,7 +200,7 @@ public class AlarmScheduler{
 
 	public long findNearAlarm(){
 		long curtime=System.currentTimeMillis();
-		int who=-1;		 
+		int who=-1;
 		for(int day=0;;day++){
 			alarms=ReadWriteConfigFiles.getInstance(this).loadAlarms(day);
 			for(int i=0;i<alarms.length;i++)
@@ -239,5 +239,5 @@ public class AlarmScheduler{
 				setNextAlarm();
 			}
 		}
-	};	
+	};
 }

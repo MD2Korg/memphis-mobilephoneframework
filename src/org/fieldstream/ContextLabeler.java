@@ -1,24 +1,24 @@
 //All rights reserved.
 //
-//Redistribution and use in source and binary forms, with or without modification, are permitted provided 
+//Redistribution and use in source and binary forms, with or without modification, are permitted provided
 //that the following conditions are met:
 //
-//* Redistributions of source code must retain the above copyright notice, this list of conditions and 
+//* Redistributions of source code must retain the above copyright notice, this list of conditions and
 //  the following disclaimer.
-//* Redistributions in binary form must reproduce the above copyright notice, this list of conditions 
-//  and the following disclaimer in the documentation and/or other materials provided with the 
+//* Redistributions in binary form must reproduce the above copyright notice, this list of conditions
+//  and the following disclaimer in the documentation and/or other materials provided with the
 //  distribution.
-//* Neither the names of the University of Memphis and Carnegie Mellon University nor the names of its 
-//  contributors may be used to endorse or promote products derived from this software without specific 
+//* Neither the names of the University of Memphis and Carnegie Mellon University nor the names of its
+//  contributors may be used to endorse or promote products derived from this software without specific
 //  prior written permission.
 //
-//THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED 
-//WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A 
-//PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR 
-//ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED 
-//TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) 
-//HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING 
-//NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
+//THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED
+//WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+//PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR
+//ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
+//TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+//HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+//NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 //POSSIBILITY OF SUCH DAMAGE.
 //
 package org.fieldstream;
@@ -73,7 +73,7 @@ public class ContextLabeler extends BaseActivity {
 
 	public final String CONFIG_DIR = "FieldStream/config";
 	public final String CONFIG_FILENAME="labels.xml";
-	
+
 	private List<Button> listClickedButtons = new ArrayList<Button>();
 
 
@@ -127,7 +127,7 @@ public class ContextLabeler extends BaseActivity {
 			DocumentBuilder builder = factory.newDocumentBuilder();
 			Document dom = builder.parse(labelConfigFile);
 
-			Element xmlroot = dom.getDocumentElement();		
+			Element xmlroot = dom.getDocumentElement();
 			NodeList nodeList;
 			nodeList = xmlroot.getElementsByTagName("button");
 			int numberOfItems=nodeList.getLength();
@@ -149,7 +149,7 @@ public class ContextLabeler extends BaseActivity {
 		long timeStamp = System.currentTimeMillis();
 		label=label+timeStamp;
 	}
-	
+
 	public String getToggleButtonText(String buttonText) {
 		if(buttonText.toLowerCase().endsWith("start")) {
 			int index = buttonText.toLowerCase().lastIndexOf("start");
@@ -163,7 +163,7 @@ public class ContextLabeler extends BaseActivity {
 		}
 		return buttonText;
 	}
-	
+
 	public void toggleButtonText(Button b) {
 		String buttonText=(String) b.getText();
 		if(buttonText.toLowerCase().endsWith("start")) {
@@ -183,13 +183,13 @@ public class ContextLabeler extends BaseActivity {
 			setButtonGreen(b);
 		}
 	}
-	
+
 	public void vibratePhone() {
 		Vibrator v = (Vibrator) this.getSystemService(Context.VIBRATOR_SERVICE);
 		// Vibrate for 500 milliseconds
 		v.vibrate(500);
 	}
-	
+
 	public void onClickButton(View v, Button b) {
 		vibratePhone();
 		String buttonText=(String) b.getText();
@@ -208,7 +208,7 @@ public class ContextLabeler extends BaseActivity {
 								text.setText(sMessage);
 								toggleButtonText(lastClickedButton);
 								listClickedButtons.remove(indexToRemove);
-								
+
 								Toast toast = Toast.makeText(getApplicationContext(), sMessage, Toast.LENGTH_SHORT);
 								toast.show();
 							}
@@ -245,17 +245,17 @@ public class ContextLabeler extends BaseActivity {
 			Toast.makeText(getApplicationContext(), text.getText()+" button is pressed", Toast.LENGTH_SHORT).show();
 		}
 	}
-	
+
 	public void setButtonGreen(Button b) {
 		//b.setBackgroundColor(Color.GREEN);
-		Drawable d = b.getBackground();  
+		Drawable d = b.getBackground();
         PorterDuffColorFilter filter = new PorterDuffColorFilter(Color.GREEN, Mode.SRC_ATOP);
         d.setColorFilter(filter);
 	}
-	
+
 	public void setButtonRed(Button b) {
 		//b.setBackgroundColor(Color.RED);
-		Drawable d = b.getBackground();  
+		Drawable d = b.getBackground();
         PorterDuffColorFilter filter = new PorterDuffColorFilter(Color.RED, Mode.SRC_ATOP);
         d.setColorFilter(filter);
 	}
@@ -263,7 +263,7 @@ public class ContextLabeler extends BaseActivity {
 	public void addButtonToLayout(String buttonName) {
 
 		TableLayout tl = (TableLayout)findViewById(R.id.MarkingTableLayout);
-		
+
 		TableLayout.LayoutParams tableRowParams=new TableLayout.LayoutParams(TableLayout.LayoutParams.FILL_PARENT,TableLayout.LayoutParams.FILL_PARENT);
 
         int leftMargin=5;
@@ -271,8 +271,8 @@ public class ContextLabeler extends BaseActivity {
         int rightMargin=5;
         int bottomMargin=5;
 
-		tableRowParams.setMargins(leftMargin, topMargin, rightMargin, bottomMargin);		
-		
+		tableRowParams.setMargins(leftMargin, topMargin, rightMargin, bottomMargin);
+
 		int nChildren=tl.getChildCount();
 		if(nChildren>0)
 		{
@@ -298,7 +298,7 @@ public class ContextLabeler extends BaseActivity {
 				row.addView(new TextView(this));
 				row.addView(new TextView(this));
 				row.addView(b);
-				return;				
+				return;
 			}
 
 		}
@@ -325,7 +325,7 @@ public class ContextLabeler extends BaseActivity {
 		/* Add row to TableLayout. */
 		//tl.addView(tr,new TableLayout.LayoutParams(LayoutParams.FILL_PARENT,LayoutParams.WRAP_CONTENT));
 		tl.addView(tr,tableRowParams);
-		
+
 //		TableRow tr1 = new TableRow(this);
 //		//int children=tr.getChildCount();
 //		tr1.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT,LayoutParams.WRAP_CONTENT));
@@ -365,7 +365,7 @@ public class ContextLabeler extends BaseActivity {
 		super.onResume();
 		if(Log.DEBUG_MONOWAR) Log.m("Monowar_ALL","OK\t: (FieldStudyActivity)_onResume().........."+inferenceService);
 
-		//updateIncentivesDisplay();		
+		//updateIncentivesDisplay();
 	}
 
 	public void markTimestampWithLabel(String str)
@@ -472,7 +472,7 @@ public class ContextLabeler extends BaseActivity {
 		}
 	}
 	/**
-	 * 
+	 *
 	 * @param str longer string
 	 * @param pattern shorter string
 	 * @param replace the content for replacement

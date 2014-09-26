@@ -1,25 +1,25 @@
 ﻿//Copyright (c) 2010, University of Memphis, Carnegie Mellon University
 //All rights reserved.
 //
-//Redistribution and use in source and binary forms, with or without modification, are permitted provided 
+//Redistribution and use in source and binary forms, with or without modification, are permitted provided
 //that the following conditions are met:
 //
-//    * Redistributions of source code must retain the above copyright notice, this list of conditions and 
+//    * Redistributions of source code must retain the above copyright notice, this list of conditions and
 //      the following disclaimer.
-//    * Redistributions in binary form must reproduce the above copyright notice, this list of conditions 
-//      and the following disclaimer in the documentation and/or other materials provided with the 
+//    * Redistributions in binary form must reproduce the above copyright notice, this list of conditions
+//      and the following disclaimer in the documentation and/or other materials provided with the
 //      distribution.
-//    * Neither the names of the University of Memphis and Carnegie Mellon University nor the names of its 
-//      contributors may be used to endorse or promote products derived from this software without specific 
+//    * Neither the names of the University of Memphis and Carnegie Mellon University nor the names of its
+//      contributors may be used to endorse or promote products derived from this software without specific
 //      prior written permission.
 //
-//THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED 
-//WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A 
-//PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR 
-//ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED 
-//TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) 
-//HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING 
-//NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
+//THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED
+//WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+//PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR
+//ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
+//TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+//HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+//NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 //POSSIBILITY OF SUCH DAMAGE.
 //
 
@@ -41,7 +41,7 @@ import org.fieldstream.service.sensors.mote.PacketLoss;
 
 //import edu.cmu.ices.stress.phone.service.logger.Log;
 /**
- * This Class has two modes. One connects to the mote subsystem to receive updates for the ECG one connects to the replay server. 
+ * This Class has two modes. One connects to the mote subsystem to receive updates for the ECG one connects to the replay server.
  * @author mahbub
  *
  */
@@ -49,21 +49,21 @@ public class  InhalationVirtualSensorNew extends AbstractSensor implements Senso
 
 	private static final int FRAMERATE = 60;
 	//private static final int WINDOW_DURATION=30;
-	
+
 	private static final int missingIndicator=PacketLoss.MISSING_TOKEN_RIP; //-1 in the array indicates that the data is missing
 	//private static final float MISSINGRATETHRESHOLD=20/100; //20% missing rate is allowed
 
-	
+
 	private static final int WINDOW_DURATION=60;
 	private static final int PVWINDOWSIZE = WINDOW_DURATION*FRAMERATE;
 	private static final Boolean PVSCHEDULER = false;
 	/**
-	 * decide if the Replay sensor or the mote RIP sensor should be used! 
+	 * decide if the Replay sensor or the mote RIP sensor should be used!
 	 */
 	//private static final Boolean REPLAY_SENSOR = true;
 	private static final Boolean REPLAY_SENSOR = false;
 	/**
-	 *typically duration of respiration period is more or less four seconds. 
+	 *typically duration of respiration period is more or less four seconds.
 	 */
 	private static int numberOfConsecutiveEmptyRealPeaks=0;
 	/**
@@ -76,11 +76,11 @@ public class  InhalationVirtualSensorNew extends AbstractSensor implements Senso
 	 * all peaks should be over this value
 	 *threshold value is adaptive
 	 */
-	public static int peakThreshold=2550;								
+	public static int peakThreshold=2550;
 	/**
 	 * minimum distance between two real peaks, in terms of the number of samples
 	 */
-	public static final int durationThreshold=100;	
+	public static final int durationThreshold=100;
 
 	public static final int numberOfPeakThreshold=WINDOW_DURATION*FRAMERATE/durationThreshold;
 	public static final double quantile=65.0;
@@ -90,7 +90,7 @@ public class  InhalationVirtualSensorNew extends AbstractSensor implements Senso
 	 * default value is false. that means at the starting of calculation, it finds valley first.
 	 */
 
-	private InhalRunner runner = new InhalRunner(); 
+	private InhalRunner runner = new InhalRunner();
 
 	private Object lock = new Object();
 	/**
@@ -180,7 +180,7 @@ public class  InhalationVirtualSensorNew extends AbstractSensor implements Senso
 								}
 								else if (calculate.length<timestamps.length) {
 									float fakeIndex = 0;
-									float factor = timestamps.length/((float)calculate.length - 1);	
+									float factor = timestamps.length/((float)calculate.length - 1);
 									timestampsNew[0]=timestamps[0];
 									for (int i=1; i<calculate.length;i++) {
 										fakeIndex = i * factor;
@@ -209,7 +209,7 @@ public class  InhalationVirtualSensorNew extends AbstractSensor implements Senso
 					}
 				}
 			}
-		}	
+		}
 	};
 	private Thread InhalationThread;
 	private InhalationVirtualSensorNew INSTANCE;
@@ -225,16 +225,16 @@ public class  InhalationVirtualSensorNew extends AbstractSensor implements Senso
 		//		}
 
 		INSTANCE = this;
-		initalize(PVSCHEDULER,PVWINDOWSIZE, PVWINDOWSIZE);	
-	}	
+		initalize(PVSCHEDULER,PVWINDOWSIZE, PVWINDOWSIZE);
+	}
 	@Override
 	public void activate() {
 		active = true;
 		runner.active = true;
 		InhalationThread = new Thread(runner);
 		InhalationThread.setName("virtual_"+System.currentTimeMillis());
-		InhalationThread.start();	
-		//		if (REPLAY_SENSOR) { 
+		InhalationThread.start();
+		//		if (REPLAY_SENSOR) {
 		//			SensorBus.getInstance().subscribe(this);
 		//		} else {
 		//			MoteSensorManager.getInstance().registerListener(this);
@@ -262,7 +262,7 @@ public class  InhalationVirtualSensorNew extends AbstractSensor implements Senso
 		if (REPLAY_SENSOR) {
 			InferrenceService.INSTANCE.fm.deactivateSensor(Constants.SENSOR_REPLAY_RESP);
 		} else {
-			InferrenceService.INSTANCE.fm.deactivateSensor(Constants.SENSOR_RIP);	
+			InferrenceService.INSTANCE.fm.deactivateSensor(Constants.SENSOR_RIP);
 		}
 
 		active = false;
@@ -284,9 +284,9 @@ public class  InhalationVirtualSensorNew extends AbstractSensor implements Senso
 				runner.timestamps=toSendTimestamps;
 				runner.startNewData=startNewData;
 				runner.endData=endNewData;
-				lock.notify();	
+				lock.notify();
 			}
-		}		
+		}
 	}
 	/**
 	 * called from the Runner thread to actually send the new buffer to the AbstractSensor
@@ -313,7 +313,7 @@ public class  InhalationVirtualSensorNew extends AbstractSensor implements Senso
 //				}
 			//long[] timeStamps = new long[data.length];
 			//Arrays.fill(timeStamps, 0, data.length, timestamp);
-			addValue(data, timeStamps);	
+			addValue(data, timeStamps);
 			//Log.d("RealPeakValleyVirtualSensor", "raw value = " + data[0]);
 			//comment out-mahbub
 			//Log.d("RealPeakValleyVirtualSensor", "length of data array = " + data[0]);
@@ -335,7 +335,7 @@ public class  InhalationVirtualSensorNew extends AbstractSensor implements Senso
 	public void receiveBuffer(int sensorID, int[] data, long[] timestamps,
 			int startNewData, int endNewData) {
 		if (sensorID==Constants.SENSOR_REPLAY_RESP) {
-			addValue(data, timestamps);		
+			addValue(data, timestamps);
 		}
 		if(sensorID==Constants.SENSOR_RIP)		//date: 20th January 2011: now it receives data from the sensor bus
 		{
@@ -355,4 +355,3 @@ public class  InhalationVirtualSensorNew extends AbstractSensor implements Senso
 		}
 	}
 }
-

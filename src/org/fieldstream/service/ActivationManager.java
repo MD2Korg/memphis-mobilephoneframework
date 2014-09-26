@@ -1,25 +1,25 @@
 ﻿//Copyright (c) 2010, University of Memphis, Carnegie Mellon University
 //All rights reserved.
 //
-//Redistribution and use in source and binary forms, with or without modification, are permitted provided 
+//Redistribution and use in source and binary forms, with or without modification, are permitted provided
 //that the following conditions are met:
 //
-//    * Redistributions of source code must retain the above copyright notice, this list of conditions and 
+//    * Redistributions of source code must retain the above copyright notice, this list of conditions and
 //      the following disclaimer.
-//    * Redistributions in binary form must reproduce the above copyright notice, this list of conditions 
-//      and the following disclaimer in the documentation and/or other materials provided with the 
+//    * Redistributions in binary form must reproduce the above copyright notice, this list of conditions
+//      and the following disclaimer in the documentation and/or other materials provided with the
 //      distribution.
-//    * Neither the names of the University of Memphis and Carnegie Mellon University nor the names of its 
-//      contributors may be used to endorse or promote products derived from this software without specific 
+//    * Neither the names of the University of Memphis and Carnegie Mellon University nor the names of its
+//      contributors may be used to endorse or promote products derived from this software without specific
 //      prior written permission.
 //
-//THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED 
-//WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A 
-//PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR 
-//ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED 
-//TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) 
-//HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING 
-//NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
+//THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED
+//WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+//PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR
+//ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
+//TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+//HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+//NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 //POSSIBILITY OF SUCH DAMAGE.
 //
 package org.fieldstream.service;
@@ -55,11 +55,11 @@ import android.os.Environment;
 
 /**
  * This Class is the currently combined Feature and Context Manager, managing all context models and their associated features
- * 
- * Makes extensive use of the Constants class to identify sensor/feature pairs that are needed. 
- * All Features needed by a model are split up in the corresponding feature calculation and the sensor. 
- * Depending on this, all necessary features are than started and stopped as needed 
- * 
+ *
+ * Makes extensive use of the Constants class to identify sensor/feature pairs that are needed.
+ * All Features needed by a model are split up in the corresponding feature calculation and the sensor.
+ * Depending on this, all necessary features are than started and stopped as needed
+ *
  * @author Patrick Blitz
  * @author Andrew Raij
 - *
@@ -70,8 +70,8 @@ public class ActivationManager implements ContextSubscriber {
  * List that contains all available sensors
  */
 	private DatabaseLogger db;
-	
-	public static HashMap<Integer,AbstractMote> motes;	
+
+	public static HashMap<Integer,AbstractMote> motes;
 	public static HashMap<Integer,AbstractSensor> sensors;
 	public static HashMap<Integer,AbstractFeature> features;
 	public static HashMap<Integer, ArrayList<Integer>> modelToSFMapping;
@@ -88,21 +88,21 @@ public class ActivationManager implements ContextSubscriber {
  */
 	public static ArrayList<Integer> SFlist;
 //	private FeatureCalculation featureCalculation;
-	
+
 	static private ActivationManager INSTANCE = null;
-		
+
 	//this was not present in the statemanager before.
 	public static ActivationManager getInstance()
 	{
 		if(Log.DEBUG_MONOWAR) Log.m("Monowar_ALL","OK\t: (ActivationManager)_getInstance()");
-		
+
 		if(INSTANCE == null)
 		{
 			INSTANCE = new ActivationManager();
 		}
 		return INSTANCE;
-	}	
-	
+	}
+
 	private ActivationManager() {
 		if(Log.DEBUG_MONOWAR) Log.m("Monowar_ALL","OK\t: (ActivationManager)_Constructor");
 
@@ -112,12 +112,12 @@ public class ActivationManager implements ContextSubscriber {
 		sensors = new HashMap<Integer, AbstractSensor>();
 		motes = new HashMap<Integer, AbstractMote>();
 		sensorFeature = new HashMap<Integer, ArrayList<Integer>>();
-		features = new HashMap<Integer, AbstractFeature>();	
-//		if(Log.MONOWAR) Log.d("Monowar_ALL","OK    : ActivationManager_Object_Created Time: "+System.currentTimeMillis());			
+		features = new HashMap<Integer, AbstractFeature>();
+//		if(Log.MONOWAR) Log.d("Monowar_ALL","OK    : ActivationManager_Object_Created Time: "+System.currentTimeMillis());
 //		if(Log.ERRORDB){DatabaseLogger db=DatabaseLogger.getInstance(this);db.logAnything("DEBUG", "OK    : ActivationManager_Object_Created", System.currentTimeMillis());}
-		
+
 	}
-	
+
 
 	private void addFeatures(ArrayList<Integer> newFeatures) {
 		if (newFeatures!= null && !newFeatures.isEmpty()) {
@@ -143,7 +143,7 @@ public class ActivationManager implements ContextSubscriber {
 				} else {
 					ArrayList<Integer> tmp = new ArrayList<Integer>();
 					tmp.add(feature);
-					sensorFeature.put(sensor, tmp);	
+					sensorFeature.put(sensor, tmp);
 				}
 				// add all new feature/sensor combinations to the mapping list for the feature Calculation
 				if (newSensorFeature.containsKey(sensor)) {
@@ -166,7 +166,7 @@ public class ActivationManager implements ContextSubscriber {
 //	private void addFeatures(Integer newFeature) {
 //		if (newFeature!= null) {
 //			HashMap<Integer, ArrayList<AbstractFeature>> newSensorFeature = FeatureCalculation.mapping;
-//			
+//
 //
 //				int sensor = Constants.parseSensorId(newFeature);
 //				int feature = Constants.parseFeatureId(newFeature);
@@ -184,7 +184,7 @@ public class ActivationManager implements ContextSubscriber {
 //				} else {
 //					ArrayList<Integer> tmp = new ArrayList<Integer>();
 //					tmp.add(feature);
-//					sensorFeature.put(sensor, tmp);	
+//					sensorFeature.put(sensor, tmp);
 //				}
 //				// add all new feature/sensor combinations to the mapping list for the feature Calculation
 //				if (newSensorFeature.containsKey(sensor)) {
@@ -196,13 +196,13 @@ public class ActivationManager implements ContextSubscriber {
 //					tmp.add(features.get(feature));
 //					newSensorFeature.put(sensor, tmp);
 //				}
-//			
+//
 //			featureCalculation.setMap(newSensorFeature);
 //		}
 //	}
 
 	/**
-	 * 
+	 *
 	 * @param model
 	 * @return
 	 */
@@ -210,7 +210,7 @@ public class ActivationManager implements ContextSubscriber {
 		ArrayList<Integer> newSF = new ArrayList<Integer>();
 		modelToSFMapping.put(model, newFeatures);
 		for (int i = 0;i<newFeatures.size();i++) {
-			if (!SFlist.contains(newFeatures.get(i))){ 
+			if (!SFlist.contains(newFeatures.get(i))){
 				SFlist.add(newFeatures.get(i));
 				newSF.add(newFeatures.get(i));
 			}
@@ -218,23 +218,23 @@ public class ActivationManager implements ContextSubscriber {
 		if (!newSF.isEmpty()) {
 			addFeatures(newSF);
 			return newSF;
-		} 
+		}
 		return null;
 	}
-	
+
 	/**
 	 * activate a specific model. Automatically starts/activates all needed sensors and features
 	 * @param modelID the IntegerID of a Model as defined in {@link Constants}
 	 */
 	public void activate(int modelID) {
 		try{
-		if (!models.containsKey(modelID)) { 
+		if (!models.containsKey(modelID)) {
 			db.logAnything("activation", "activate model"+modelID, System.currentTimeMillis());
 			models.put(modelID, Factory.modelFactory(modelID));
-			
+
 			// load sensors for this model
 			ArrayList<Integer> newFeatures = updateFeatureList(modelID, models.get(modelID).getUsedFeatures());
-			
+
 			Log.i("StateManager","loading Model "+((Integer)modelID).toString());
 		}
 		}
@@ -268,7 +268,7 @@ public class ActivationManager implements ContextSubscriber {
 			Field field = Constants.class.getField(moteName);
 			int moteID = field.getInt(null);
 			if(Log.DEBUG_MONOWAR) Log.m("Monowar_ALL","OK\t: (ActivationManager)_activateMote motename="+moteName+" mote ID="+moteID);
-		
+
 			Constants.moteActive[moteID]=true;
 		} catch (SecurityException e) {
 			// TODO Auto-generated catch block
@@ -284,14 +284,14 @@ public class ActivationManager implements ContextSubscriber {
 			e.printStackTrace();
 		}
 	}
-	
+
 	/**
 	 * deactivate a specific model. All Features and sensors that are only needed by this model will be turned off/deactivated
 	 * @param modelID the IntegerID of a Model as defined in {@link Constants}
 	 */
 	public void deactivate(int modelID) {
 //		ArrayList<Integer> modelsToRemove = new ArrayList<Integer>();
-		
+
 		if (models.containsKey(modelID)) {
 			db.logAnything("activation", "deactivate model"+modelID, System.currentTimeMillis());
 			// get list of SF to deactivte
@@ -315,48 +315,48 @@ public class ActivationManager implements ContextSubscriber {
 		}
 		if (Log.DEBUG) Log.d("StateManager","unloading Model "+((Integer)modelID).toString());
 	}
-		
+
 	public void activateMote(int moteType) {
 		if(Log.DEBUG_MONOWAR) Log.m("Monowar_ALL","OK\t: (ActivationManager)_activateMote motetype="+moteType+" mote size="+motes.size());
 		if(!motes.containsKey(moteType)) {
 			motes.put(moteType, Factory.moteFactory(moteType));
 			motes.get(moteType).activate();
-			
+
 		}
 	}
-	
+
 	public void deactivateMote(int moteType) {
 		if(Log.DEBUG_MONOWAR) Log.m("Monowar_ALL","OK\t: (ActivationManager)_deactivateMote motetype="+moteType+" mote size="+motes.size());
-		
+
 		if(motes.containsKey(moteType))
 		{
 			motes.get(moteType).deactivate();
 			motes.remove(moteType);
 		}
 	}
-	
+
 	boolean initialized = false;
 
 	public void init() {
 		if(Log.DEBUG_MONOWAR) Log.m("Monowar_ALL","OK\t: (ActivationManager)_init()");
-		
+
 		if (initialized)
 			return;
 
 //		featureCalculation = FeatureCalculation.getInstance();
-		
-		ContextBus.getInstance().subscribe(this);		
+
+		ContextBus.getInstance().subscribe(this);
 		db = DatabaseLogger.getInstance(this);
-		
+
 		loadConfigFromFile();
-		
+
 		initialized = true;
 	}
-	
+
 	public void destroy() {
 		if (!initialized)
 			return;
-		
+
 		ContextBus.getInstance().unsubscribe(this);
 		DatabaseLogger.releaseInstance(this);
 		HashMap<Integer, ModelCalculation> tempModels = new HashMap<Integer, ModelCalculation>();
@@ -365,34 +365,34 @@ public class ActivationManager implements ContextSubscriber {
 			deactivate(model);
 		}
 	    Iterator k =sensors.keySet().iterator();
-	    
-	    while(k.hasNext()){	    	
+
+	    while(k.hasNext()){
 	    	int sensorid=(Integer) k.next();
 //	    for (int sensorid:ab){
 			if(Log.DEBUG_MONOWAR) Log.m("Monowar_ALL","OK\t: (ActivationManager)_destroy()_sensorid:"+sensorid);
 			this.deactivateSensor(sensorid);
 		    k =sensors.keySet().iterator();
-			
+
 		}
 
-	    k =motes.keySet().iterator();	    
-	    
+	    k =motes.keySet().iterator();
+
 	    while(k.hasNext()){
 	    	int moteid=(Integer) k.next();
 			if(Log.DEBUG_MONOWAR) Log.m("Monowar_ALL","OK\t: (ActivationManager)_destroy()_moteid="+moteid+"size="+motes.size());
-	    	
+
 //		for (int moteid:motes.keySet()){
 			this.deactivateMote(moteid);
 		    k =motes.keySet().iterator();
-			
+
 		}
-		
+
 //		featureCalculation.finalize();
 //		featureCalculation=null;
 		db = null;
 		initialized = false;
 		if(Log.DEBUG_MONOWAR) Log.m("Monowar_ALL","OK\t: (ActivationManager)_destroy()_end");
-		
+
 	}
 	/**
 	 * dynamicly add/delete a sensor / feature combination (from a model),<br /> the model has to be loaded already
@@ -409,9 +409,9 @@ public class ActivationManager implements ContextSubscriber {
 					addFeature(modelID, featureSensorID);
 				}
 			}
-			
+
 		}
-		
+
 	}
 //TODO: this functions seems wrong, it unloads all sensors even if they are still needed by other features!
 	private void unloadFeatures(ArrayList<Integer> tosStop) {
@@ -436,7 +436,7 @@ public class ActivationManager implements ContextSubscriber {
 					}
 				}
 				// add all new feature/sensor combinations to the mapping list for the feature Calculation
-				
+
 				if (newSensorFeature.containsKey(sensor)) {
 					if (newSensorFeature.get(sensor).size()<2) {
 						newSensorFeature.remove(sensor);
@@ -444,7 +444,7 @@ public class ActivationManager implements ContextSubscriber {
 						newSensorFeature.get(sensor).removeAll(Arrays.asList(new Integer[]{feature}));
 					}
 				}
-				
+
 				if (sensors.containsKey(sensor) && !sensorFeature.containsKey(sensor)) {
 					sensors.get(sensor).deactivate();
 					sensors.remove(sensor);
@@ -452,9 +452,9 @@ public class ActivationManager implements ContextSubscriber {
 
 			}
 //			featureCalculation.setMap(newSensorFeature);
-			
+
 		}
-		
+
 	}
 
 	/**
@@ -471,14 +471,14 @@ public class ActivationManager implements ContextSubscriber {
 			if(sensor!=null){
 				sensors.put(sensorid, sensor);
 				sensors.get(sensorid).activate();
-			}			
+			}
 			Log.d("ActivationManager", "activated sensor " + sensorid);
-		}		
+		}
 		else {
 			Log.d("ActivationManager", "tried to activate sensor " + sensorid + "but already activcated");
 		}
 	}
-    
+
     public void deactivateSensor(int sensorid) {
             if (sensors.containsKey(sensorid)) {
                     if (sensorFeature.get(sensorid).isEmpty()) {
@@ -487,7 +487,7 @@ public class ActivationManager implements ContextSubscriber {
                     }
             }
     }
-    
+
 	public void activateSensor(String sensorName) {
 		try {
 			Field field = Constants.class.getField(sensorName);
@@ -506,8 +506,8 @@ public class ActivationManager implements ContextSubscriber {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	}    
-    
+	}
+
 	/**
 	 * publish a new ground truth label (from EMA for example) to the model
 	 * @param modelStress
@@ -520,21 +520,21 @@ public class ActivationManager implements ContextSubscriber {
 		}
 	}
 
-	
-	// code for 
+
+	// code for
 
 	private HashMap<Integer, HashMap<Integer, ArrayList<Integer> > > activationTriggers = new HashMap<Integer, HashMap<Integer, ArrayList<Integer> > >();
 	private HashMap<Integer, HashMap<Integer, ArrayList<Integer> > > deactivationTriggers = new HashMap<Integer, HashMap<Integer, ArrayList<Integer> > >();
 	private HashMap<Integer, int[]> contextBuffers = new HashMap<Integer, int[]>();
-	private HashMap<Integer, Integer> contextBuffersIndex = new HashMap<Integer, Integer>(); 
+	private HashMap<Integer, Integer> contextBuffersIndex = new HashMap<Integer, Integer>();
 	private HashMap<Integer, Integer> lastContext = new HashMap<Integer, Integer>();
 
-	
-	
+
+
 	// MJRTY linear time majority function, from Boyer and Moore
 	private int majority(int[] contexts) {
 		int maj = -1, cnt = 0;
-				
+
 		for (int i=0; i<contexts.length; i++) {
 			// buffer hasn't been filled yet
 			if (contexts[i] == -1) {
@@ -551,13 +551,13 @@ public class ActivationManager implements ContextSubscriber {
 				}
 			}
 		}
-		return maj;		
+		return maj;
 	}
 
-	
+
 	public void receiveContext(int modelID, int label, long startTime,
 			long endTime) {
-		
+
 		// add the latest label to the context buffer;
 		int[] buffer = contextBuffers.get(modelID);
 		if (buffer != null) {
@@ -566,11 +566,11 @@ public class ActivationManager implements ContextSubscriber {
 			index++;
 			if (index == buffer.length) {
 				index = 0;
-			}			
+			}
 			contextBuffersIndex.put(modelID, index);
-			
+
 			// compute the majority from the buffer
-			int context = majority(buffer);	
+			int context = majority(buffer);
 			if (context != -1 && context != lastContext.get(modelID)) {
 				checkActivationRules(modelID, context);
 				checkDeactivationRules(modelID, context);
@@ -588,7 +588,7 @@ public class ActivationManager implements ContextSubscriber {
 			HashMap<Integer, ArrayList<Integer> > modelRules = deactivationTriggers.get(modelID);
 			if (modelRules.containsKey(context)) {
 				ArrayList<Integer> rules = modelRules.get(context);
-				
+
 				for (Integer modelToDeactivate : rules) {
 					Log.d("ActivationManager", "Deactivating model " + modelToDeactivate);
 					this.deactivate(modelToDeactivate);
@@ -606,7 +606,7 @@ public class ActivationManager implements ContextSubscriber {
 			HashMap<Integer, ArrayList<Integer> > modelRules = activationTriggers.get(modelID);
 			if (modelRules.containsKey(context)) {
 				ArrayList<Integer> rules = modelRules.get(context);
-				
+
 				for (Integer modelToActivate : rules) {
 					Log.d("ActivationManager", "Activating model " + modelToActivate);
 					this.activate(modelToActivate);
@@ -615,8 +615,8 @@ public class ActivationManager implements ContextSubscriber {
 		}
 	}
 
-	
-	void loadConfigFromFile() {		
+
+	void loadConfigFromFile() {
 		File root = Environment.getExternalStorageDirectory();
 
 		File dir = new File(root+"/"+Constants.CONFIG_DIR);
@@ -625,7 +625,7 @@ public class ActivationManager implements ContextSubscriber {
 		File setupFile = new File(dir, Constants.ACTIVATION_CONFIG_FILENAME);
 		if (!setupFile.exists())
 			return;
-		
+
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         DocumentBuilder builder = null;
 		try {
@@ -644,26 +644,26 @@ public class ActivationManager implements ContextSubscriber {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-        
-        Element xmlroot = dom.getDocumentElement();		
-        
+
+        Element xmlroot = dom.getDocumentElement();
+
         NodeList nodeList = xmlroot.getElementsByTagName("startup");
         if (nodeList.getLength() > 0) {
         	Element element = (Element)nodeList.item(0);
         	loadStartupConfig(element);
         }
-        
+
         nodeList = xmlroot.getElementsByTagName("runtime");
         if (nodeList.getLength() > 0) {
         	Element element = (Element)nodeList.item(0);
         	loadRuntimeRules(element);
         }
-        
+
         printActiveModels();
         printActiveSensors();
         printRuntimeRules();
 	}
-	
+
 	void loadStartupConfig(Element startupElement) {
 		// load models
 		for(int i=0;i<Constants.MOTE_NO;i++)
@@ -679,7 +679,7 @@ public class ActivationManager implements ContextSubscriber {
         for (int i=0; i < nodeList.getLength(); i++) {
         	Element element = (Element)nodeList.item(i);
         	String modelToActivate = element.getFirstChild().getNodeValue();
-        	this.activateModel(modelToActivate);        	
+        	this.activateModel(modelToActivate);
         }
 
 		// load sensors
@@ -687,11 +687,11 @@ public class ActivationManager implements ContextSubscriber {
         for (int i=0; i < nodeList.getLength(); i++) {
         	Element element = (Element)nodeList.item(i);
         	String sensorToActivate = element.getFirstChild().getNodeValue();
-        	this.activateSensor(sensorToActivate);        	
-        }        
+        	this.activateSensor(sensorToActivate);
+        }
 	}
-	
-	
+
+
 	void loadRuntimeRules(Element runtimeRules) {
 
         NodeList ruleList = runtimeRules.getElementsByTagName("trigger");
@@ -702,12 +702,12 @@ public class ActivationManager implements ContextSubscriber {
         	String modelTrigger = rule.getAttribute("model");
         	String outputTrigger = rule.getAttribute("output");
         	String majorityBufferSize = rule.getAttribute("majority_buffer_size");
-        	
+
         	// extract the actions triggered by model and output
         	NodeList actions = rule.getChildNodes();
         	for (int j=0; j < actions.getLength(); j++) {
         		Node action = actions.item(j);
-        		
+
         		if (action.getNodeName().equals("activate")) {
         			String modelToActivate = action.getFirstChild().getNodeValue();
         			addActivationRule(modelTrigger, outputTrigger, modelToActivate, majorityBufferSize, true);
@@ -719,13 +719,13 @@ public class ActivationManager implements ContextSubscriber {
         		else {
         			//ignore #text
         		}
-        	}	
+        	}
         }
 	}
 
 	private void addActivationRule(int modelTrigger, int outputTrigger,
 			int modelToActivate, boolean activate) {
-		
+
 		HashMap<Integer, HashMap<Integer, ArrayList<Integer> > > triggers = null;
 
 		if (activate) {
@@ -734,7 +734,7 @@ public class ActivationManager implements ContextSubscriber {
 		else {
 			triggers = deactivationTriggers;
 		}
-		
+
 		HashMap<Integer, ArrayList<Integer> > outputTriggers = triggers.get(modelTrigger);
 		if (outputTriggers == null) {
 			outputTriggers = new HashMap<Integer, ArrayList<Integer> >();
@@ -750,10 +750,10 @@ public class ActivationManager implements ContextSubscriber {
 		if (!modelsToActivate.contains(modelToActivate)) {
 			modelsToActivate.add(modelToActivate);
 		}
-		
-		
+
+
 	}
-	
+
 	private void addActivationRule(String mt, String ot,
 			String mta, String mbs, boolean activate) {
 
@@ -777,24 +777,24 @@ public class ActivationManager implements ContextSubscriber {
 			e.printStackTrace();
 		}
 
-		
+
 		if (modelTrigger == -1 || outputTrigger == -1 || modelToActivate == -1)
 			return;
-		
+
 		// if this is the first time we've seen this model as a trigger
 		if (!lastContext.containsKey(modelTrigger)) {
 			lastContext.put(modelTrigger, -1);
 			int[] buffer = new int[majBufferSize];
 			Arrays.fill(buffer, -1);
 			contextBuffers.put(modelTrigger, buffer);
-			contextBuffersIndex.put(modelTrigger, 0);			
+			contextBuffersIndex.put(modelTrigger, 0);
 		}
-		
+
 		addActivationRule(modelTrigger, outputTrigger, modelToActivate, activate);
-		
+
 	}
-	
-	
+
+
 	void printActiveModels() {
 		for (int m : models.keySet()) {
 			Log.d("ActivationManager", "model " + m + " active");
@@ -804,9 +804,9 @@ public class ActivationManager implements ContextSubscriber {
 	void printActiveSensors() {
 		for (int s : sensors.keySet()) {
 			Log.d("ActivationManager", "sensor " + s + " active");
-		}		
+		}
 	}
-	
+
 	void printRuntimeRules() {
 		for (int triggerModel : activationTriggers.keySet()) {
 			for (int triggerOutput : activationTriggers.get(triggerModel).keySet()) {
@@ -815,7 +815,7 @@ public class ActivationManager implements ContextSubscriber {
 					str += action + " ";
 				}
 				str += "] when " + triggerModel + " produces " + triggerOutput;
-				
+
 				Log.d("ActivationManager", str);
 			}
 		}

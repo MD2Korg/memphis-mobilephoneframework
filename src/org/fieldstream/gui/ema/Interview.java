@@ -1,25 +1,25 @@
 ﻿//Copyright (c) 2010, University of Memphis, Carnegie Mellon University
 //All rights reserved.
 //
-//Redistribution and use in source and binary forms, with or without modification, are permitted provided 
+//Redistribution and use in source and binary forms, with or without modification, are permitted provided
 //that the following conditions are met:
 //
-//    * Redistributions of source code must retain the above copyright notice, this list of conditions and 
+//    * Redistributions of source code must retain the above copyright notice, this list of conditions and
 //      the following disclaimer.
-//    * Redistributions in binary form must reproduce the above copyright notice, this list of conditions 
-//      and the following disclaimer in the documentation and/or other materials provided with the 
+//    * Redistributions in binary form must reproduce the above copyright notice, this list of conditions
+//      and the following disclaimer in the documentation and/or other materials provided with the
 //      distribution.
-//    * Neither the names of the University of Memphis and Carnegie Mellon University nor the names of its 
-//      contributors may be used to endorse or promote products derived from this software without specific 
+//    * Neither the names of the University of Memphis and Carnegie Mellon University nor the names of its
+//      contributors may be used to endorse or promote products derived from this software without specific
 //      prior written permission.
 //
-//THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED 
-//WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A 
-//PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR 
-//ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED 
-//TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) 
-//HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING 
-//NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
+//THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED
+//WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+//PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR
+//ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
+//TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+//HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+//NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 //POSSIBILITY OF SUCH DAMAGE.
 //
 
@@ -53,7 +53,7 @@ import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
 
 public class Interview extends AbstractInterview {
-	
+
 	ArrayAdapter<String> responseListAdapter;
 	ArrayList<String> list;
 
@@ -65,24 +65,24 @@ public class Interview extends AbstractInterview {
     	setParameter();
     	context = this;
     	// configure the layout for this interview type
-		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,   
-				WindowManager.LayoutParams.FLAG_FULLSCREEN);  
+		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+				WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
     	setContentView(R.layout.interview_layout);
         layout = (RelativeLayout) findViewById(R.id.ButtonLayout);
         questionView = (TextView) findViewById(R.id.Question);
         //responseView = (View) findViewById(R.id.EMAResponseList);
-        
-        
-        
+
+
+
         incentiveView = (View) findViewById(R.id.EMAIncentive);
         incentiveCurrentView = (TextView) findViewById(R.id.EMAIncentiveCurrent);
         incentiveTotalView = (TextView) findViewById(R.id.EMAIncentiveTotalEarned);
-        
+
         //responseList.setFocusable(true);
         backButton = (Button) findViewById(R.id.BackButton);
         nextButton = (Button) findViewById(R.id.NextButton);
-    	
+
     	// instantiate content before calling super or else null pointer creating entry
     	//content = AutoSenseStudyInterviewContent.getInstance();
     	content = InterviewContent.getInstance();
@@ -94,9 +94,9 @@ public class Interview extends AbstractInterview {
 
 		public void afterTextChanged(Editable s) {
 			int len = freeResponseView.getText().length();
-			
+
 			Log.d("incentive", "afterTextChanged called!");
-			
+
 			String incentiveID;
 			if (state == POST_DELAY) {
 				incentiveID = "DELAY" + currQuestion;
@@ -104,7 +104,7 @@ public class Interview extends AbstractInterview {
 			else {
 				incentiveID = "" + currQuestion;
 			}
-			
+
 			if (len == 0) {
 				nextButton.setVisibility(View.INVISIBLE);
 				if (incentives != null)
@@ -119,20 +119,20 @@ public class Interview extends AbstractInterview {
 						incentives.markIncentive(incentiveID, true);
 				Log.d("AbstractIncentive", "true");
 			}
-			
+
 			updateIncentiveView();
 		}
 
 		public void beforeTextChanged(CharSequence s, int start, int count,
 				int after) {
-			
+
 		}
 
 		public void onTextChanged(CharSequence s, int start, int before,
 				int count) {
 		}
 	};
-    
+
     public void initResponseView() {
     	// list view
     	ArrayList<String> list = new ArrayList<String>();
@@ -151,7 +151,7 @@ public class Interview extends AbstractInterview {
 				System.out.println("response " + arg2 + ", row: " + arg3);
 
 				Log.d("incentive", "onItemClick called!  My caller is " + arg2);
-				
+
 				String incentiveID;
 				if (state == POST_DELAY) {
 					incentiveID = "DELAY" + currQuestion;
@@ -185,11 +185,11 @@ public class Interview extends AbstractInterview {
 							numChecked+=1;
 					}
 					Log.d("AbstractIncentive", "multiple - num items checked = " + numChecked);
-					
+
 					if (numChecked == 0) {
 						if (incentives!=null)
 							if (incentives.isPerQuestion())
-								incentives.markIncentive(incentiveID, false);					
+								incentives.markIncentive(incentiveID, false);
 						nextButton.setVisibility(View.INVISIBLE);
 						Log.d("AbstractIncentive", "multiple - false");
 					}
@@ -199,52 +199,52 @@ public class Interview extends AbstractInterview {
 								incentives.markIncentive(incentiveID, true);
 						nextButton.setVisibility(View.VISIBLE);
 						Log.d("AbstractIncentive", "multiple - true");
-					}					
+					}
 				}
 				updateIncentiveView();
-			}			
+			}
 		});
 		// freeform view
-		freeResponseView = (EditText) findViewById(R.id.EMAFreeResponse);		
+		freeResponseView = (EditText) findViewById(R.id.EMAFreeResponse);
 		freeResponseView.addTextChangedListener(tw);
     }
-    
+
     public Serializable selectedResponse() {
     	if (responseView == listResponseView) {
 	    	SparseBooleanArray selections = listResponseView.getCheckedItemPositions();
 	//    	int maxSelection = ((ListView)responseView).getAdapter().getCount() - 1;
 	    	//if (Log.DEBUG) Log.d("Interview, selectedResponse()","selection=" + selection + " num=" + numSelections);
-	
+
 	    	Integer res = new Integer(0);
 	    	for (int i=0; i < selections.size(); i++) {
 	    		int key = selections.keyAt(i);
 	    		if (selections.get(key)) {
 			    	int value = 1;
-		    		for (int j=0; j < key; j++)	{   
+		    		for (int j=0; j < key; j++)	{
 		    			value *= 2;
 		    		}
 		    		res += value;
 	    		}
 	    	}
 //			if(Log.DEBUG_MONOWAR) Log.m("Monowar_ALL","Multiple - "+selections.size()+" "+res);
-	    	
+
 	    	return res;
     	}
     	else if (responseView == freeResponseView){
     		String res = freeResponseView.getText().toString();
     		return res;
     	}
-        	
+
 //    	if (selections >= 0 || responseAdapter.isEmpty()) {
 //			res = new Integer(maxSelection - selection);
 //		}
     	return null;
     }
-    
+
     public void clearResponseView() {
     	responseListAdapter.clear();
     	listResponseView.clearChoices();
-    	
+
 		freeResponseView.removeTextChangedListener(tw);
     	freeResponseView.setText("");
 		freeResponseView.addTextChangedListener(tw);
@@ -264,7 +264,7 @@ public class Interview extends AbstractInterview {
 			mgr.showSoftInput(freeResponseView, InputMethodManager.SHOW_FORCED);
 //			mgr.showSoftInputFromInputMethod(freeResponseView.getWindowToken(), InputMethodManager.SHOW_FORCED);
 //			mgr.toggleSoftInput(InputMethodManager.SHOW_IMPLICIT,InputMethodManager.HIDE_IMPLICIT_ONLY);
-									
+
 			String response = (String) entry.getResponse(currQuestion);
 			if (response != null) {
 				freeResponseView.removeTextChangedListener(tw);
@@ -283,10 +283,10 @@ public class Interview extends AbstractInterview {
 			listResponseView.setVisibility(View.VISIBLE);
 			freeResponseView.setVisibility(View.INVISIBLE);
 			responseView = listResponseView;
-			
+
 			InputMethodManager mgr = (InputMethodManager) freeResponseView.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
 			mgr.hideSoftInputFromInputMethod(freeResponseView.getWindowToken(), InputMethodManager.HIDE_IMPLICIT_ONLY);
-			
+
 			int len = res.length;
 			for (int i=0; i< len; i++) {
 				responseListAdapter.add(res[i]);
@@ -301,7 +301,7 @@ public class Interview extends AbstractInterview {
 			}
 			// reset the adapter for the list view so that the scroll postition resets to the top
 			((ListView)responseView).setAdapter(responseListAdapter);
-			
+
 			Integer response = 0;
 			if (state == POST_DELAY) {
 				 response = (Integer) entry.getDelayResponse(currQuestion);
@@ -322,16 +322,16 @@ public class Interview extends AbstractInterview {
 					}
 				}
 				nextButton.setVisibility(View.VISIBLE);
-			} 
+			}
 			else {
 				nextButton.setVisibility(View.INVISIBLE);
-			}			
+			}
 		} else {
 			nextButton.setVisibility(View.VISIBLE);
 //			if (backUsed) backUsed = false;
 		}
     }
-    
+
     public void hideResponseView() {
     	listResponseView.setVisibility(View.INVISIBLE);
     	freeResponseView.setVisibility(View.INVISIBLE);
@@ -340,7 +340,7 @@ public class Interview extends AbstractInterview {
 	public void showResponseView(int isdelay) {
 		if(isdelay==0){
 			listResponseView.setVisibility(View.VISIBLE);
-			freeResponseView.setVisibility(View.INVISIBLE);						
+			freeResponseView.setVisibility(View.INVISIBLE);
 		}
 		else if (content.isQuestionFreeResponse(currQuestion)) {
 			freeResponseView.setVisibility(View.VISIBLE);
@@ -348,7 +348,7 @@ public class Interview extends AbstractInterview {
 		}
 		else {
 			listResponseView.setVisibility(View.VISIBLE);
-			freeResponseView.setVisibility(View.INVISIBLE);			
+			freeResponseView.setVisibility(View.INVISIBLE);
 		}
 	}
 }

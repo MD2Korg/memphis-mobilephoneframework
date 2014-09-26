@@ -1,3 +1,27 @@
+//Copyright (c) 2010, University of Memphis, Carnegie Mellon University
+//All rights reserved.
+//
+//Redistribution and use in source and binary forms, with or without modification, are permitted provided
+//that the following conditions are met:
+//
+//    * Redistributions of source code must retain the above copyright notice, this list of conditions and
+//      the following disclaimer.
+//    * Redistributions in binary form must reproduce the above copyright notice, this list of conditions
+//      and the following disclaimer in the documentation and/or other materials provided with the
+//      distribution.
+//    * Neither the names of the University of Memphis and Carnegie Mellon University nor the names of its
+//      contributors may be used to endorse or promote products derived from this software without specific
+//      prior written permission.
+//
+//THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED
+//WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+//PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR
+//ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
+//TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+//HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+//NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+//POSSIBILITY OF SUCH DAMAGE.
+//
 package org.fieldstream.service.sensor.virtual;
 
 //Spline.java: Adapted from www.cs.umbc.edu/~squire/download/Spline.java
@@ -23,7 +47,7 @@ public class SplineInterpolation
 		//   d   = vector of S'''(x[i]+)/6 values (i < n).
 		//   x = xx
 		//   f = ff
-		// Local variables:   
+		// Local variables:
 		double fp1, fpn, h, p;
 		final double zero = 0.0, two = 2.0, three = 3.0;
 //		DecimalFormat f1 = new DecimalFormat("00.00000");
@@ -297,7 +321,7 @@ public class SplineInterpolation
 //		double ff[] = new double[n];
 //		double s, t;
 //		DecimalFormat f1 = new DecimalFormat("00.00000");
-//		// Assign values for data arrays x and f. 
+//		// Assign values for data arrays x and f.
 //		System.out.println("Spline.java function definition");
 //		for(int i=0; i<n; i++)
 //		{
@@ -306,7 +330,7 @@ public class SplineInterpolation
 //			System.out.println("i="+i+", x[i]="+f1.format(xx[i])+
 //					", f(x[i])="+f1.format(ff[i]));
 //		}
-//		// Calculate coefficients defining the cubic spline. 
+//		// Calculate coefficients defining the cubic spline.
 //		SplineInterpolation s11 = new SplineInterpolation(xx, ff);
 //		System.out.println("interpolated values");
 //		for(int i=0; i<41; i++)
@@ -317,6 +341,6 @@ public class SplineInterpolation
 //		}
 //		t = s11.integrate();
 //		System.out.println("integral="+t);
-//		System.out.println("expect  =1.183433"); 
+//		System.out.println("expect  =1.183433");
 //	} // end main
 } // end class Spline

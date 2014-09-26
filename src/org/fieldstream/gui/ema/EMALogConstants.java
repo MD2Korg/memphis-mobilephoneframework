@@ -1,25 +1,25 @@
 ﻿//Copyright (c) 2010, University of Memphis, Carnegie Mellon University
 //All rights reserved.
 //
-//Redistribution and use in source and binary forms, with or without modification, are permitted provided 
+//Redistribution and use in source and binary forms, with or without modification, are permitted provided
 //that the following conditions are met:
 //
-//    * Redistributions of source code must retain the above copyright notice, this list of conditions and 
+//    * Redistributions of source code must retain the above copyright notice, this list of conditions and
 //      the following disclaimer.
-//    * Redistributions in binary form must reproduce the above copyright notice, this list of conditions 
-//      and the following disclaimer in the documentation and/or other materials provided with the 
+//    * Redistributions in binary form must reproduce the above copyright notice, this list of conditions
+//      and the following disclaimer in the documentation and/or other materials provided with the
 //      distribution.
-//    * Neither the names of the University of Memphis and Carnegie Mellon University nor the names of its 
-//      contributors may be used to endorse or promote products derived from this software without specific 
+//    * Neither the names of the University of Memphis and Carnegie Mellon University nor the names of its
+//      contributors may be used to endorse or promote products derived from this software without specific
 //      prior written permission.
 //
-//THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED 
-//WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A 
-//PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR 
-//ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED 
-//TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) 
-//HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING 
-//NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
+//THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED
+//WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+//PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR
+//ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
+//TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+//HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+//NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 //POSSIBILITY OF SUCH DAMAGE.
 //
 
@@ -42,22 +42,22 @@ public class EMALogConstants {
 	public static final String RESPONSES = "RESPONSES";
 	public static final String RESPONSE_TIMES = "RESPONSE_TIMES";
 	public static final String DELAY_RESPONSE_TIMES = "DELAY RESPONSE TIMES";
-	public static final String DELAY_RESPONSES = "DELAY RESPONSES";			
-	
+	public static final String DELAY_RESPONSES = "DELAY RESPONSES";
+
 	// ema status constants
 	public static final int COMPLETE = 0;
 	public static final int ABANDONED = 1;
 	public static final int MISSED = 2;
-	
+
 	public final static HashMap<Integer, String> emaStatusDescriptions = new HashMap<Integer, String>() {
 		{
 			put(COMPLETE, "Completed");
 			put(ABANDONED, "Abandoned midway through interview");
 			put(MISSED, "Ignored or not noticed by user");
 		}
-	};			
-	
-	
+	};
+
+
 	// launch type constants
 	public static final int TYPE_PERIODIC = 0;
 	public static final int TYPE_CONTEXT_TIME = 1;
@@ -66,7 +66,7 @@ public class EMALogConstants {
 	public static final int TYPE_INTERRUPTED_BY_CONTEXT_TIME = 4;
 	public static final int TYPE_INTERRUPTED_BY_CONTEXT_CHANGE = 5;
 	public static final int TYPE_EOD = 6;
-	
+
 	public final static HashMap<Integer, String> emaTriggerDescriptions = new HashMap<Integer, String>() {
 		{
 			put(TYPE_PERIODIC, "Periodic");
@@ -77,5 +77,5 @@ public class EMALogConstants {
 			put(TYPE_INTERRUPTED_BY_CONTEXT_CHANGE, "Interrupted by context change");
 			put(TYPE_EOD, "EOD");
 		}
-	};	
+	};
 }

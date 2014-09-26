@@ -1,25 +1,25 @@
 ﻿//Copyright (c) 2010, University of Memphis, Carnegie Mellon University
 //All rights reserved.
 //
-//Redistribution and use in source and binary forms, with or without modification, are permitted provided 
+//Redistribution and use in source and binary forms, with or without modification, are permitted provided
 //that the following conditions are met:
 //
-//    * Redistributions of source code must retain the above copyright notice, this list of conditions and 
+//    * Redistributions of source code must retain the above copyright notice, this list of conditions and
 //      the following disclaimer.
-//    * Redistributions in binary form must reproduce the above copyright notice, this list of conditions 
-//      and the following disclaimer in the documentation and/or other materials provided with the 
+//    * Redistributions in binary form must reproduce the above copyright notice, this list of conditions
+//      and the following disclaimer in the documentation and/or other materials provided with the
 //      distribution.
-//    * Neither the names of the University of Memphis and Carnegie Mellon University nor the names of its 
-//      contributors may be used to endorse or promote products derived from this software without specific 
+//    * Neither the names of the University of Memphis and Carnegie Mellon University nor the names of its
+//      contributors may be used to endorse or promote products derived from this software without specific
 //      prior written permission.
 //
-//THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED 
-//WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A 
-//PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR 
-//ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED 
-//TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) 
-//HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING 
-//NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
+//THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED
+//WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+//PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR
+//ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
+//TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+//HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+//NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 //POSSIBILITY OF SUCH DAMAGE.
 //
 
@@ -72,11 +72,11 @@ import android.text.format.DateFormat;
 
 /**
  * A class that handles all data logging from sensors, features, and models (contexts)
- * 
+ *
  * All data should be timestamped in terms of milliseconds from the epoch (January 1, 1970 00:00:00 GMT).
- * 
+ *
  * Will NOT log any sensor/feature/model listed in Constants.DATALOG_FILTER
- */				
+ */
 
 
 
@@ -90,7 +90,7 @@ public class DatabaseLogger extends AbstractLogger  {
 	private static int thread_count=0;
 	private static final String TAG = "DataLoggerService";
 	private HandlerThread mythread;
-	private Handler myhandel;	
+	private Handler myhandel;
 	private static TextFileLogger txtfilelog=null;
 	private FileOutputStream fout;
 	private PrintStream printStrm;
@@ -143,7 +143,7 @@ public class DatabaseLogger extends AbstractLogger  {
 			refHolders = null;
 		}
 	}
-	 */	
+	 */
 
 
 
@@ -182,8 +182,8 @@ public class DatabaseLogger extends AbstractLogger  {
 				// create EMA metadata table
 				String create = "CREATE TABLE " + "EMA_metadata_" + filename +
 						" (_id INTEGER PRIMARY KEY, table_name TEXT, trigger_types TEXT, status_types TEXT, delay_questions_desc, delay_responses_desc TEXT, questions_desc TEXT, responses_desc TEXT);";
-				db.execSQL(create);				
-				tableExistsCache.put("EMA_metadata_"+filename, true);			 			    
+				db.execSQL(create);
+				tableExistsCache.put("EMA_metadata_"+filename, true);
 			}
 		}
 
@@ -209,10 +209,10 @@ public class DatabaseLogger extends AbstractLogger  {
 	}
 
 	/**
-	 * 
-	 * Opens the database if it exists.  Otherwise, it creates a new 
+	 *
+	 * Opens the database if it exists.  Otherwise, it creates a new
 	 * database and sets up the metadata tables
-	 */	
+	 */
 	protected void initDB() {
 		String pathToFile = dbDirectory +"/" + dbFilename;
 		tableExistsCache = new HashMap<String, Boolean>();
@@ -223,11 +223,11 @@ public class DatabaseLogger extends AbstractLogger  {
 				dir.mkdirs();
 			}
 
-			db = SQLiteDatabase.openDatabase(pathToFile, null, SQLiteDatabase.OPEN_READWRITE | SQLiteDatabase.CREATE_IF_NECESSARY); 
+			db = SQLiteDatabase.openDatabase(pathToFile, null, SQLiteDatabase.OPEN_READWRITE | SQLiteDatabase.CREATE_IF_NECESSARY);
 
-			if (!tableExists("sensor_metadata")) {	
+			if (!tableExists("sensor_metadata")) {
 				// create sensors metadata table
-				String create = "CREATE TABLE " + "sensor_metadata" + 
+				String create = "CREATE TABLE " + "sensor_metadata" +
 						" (_id INTEGER PRIMARY KEY, table_name TEXT, sensor_desc TEXT);";
 				db.execSQL(create);
 				tableExistsCache.put("sensor_metadata", true);
@@ -237,39 +237,39 @@ public class DatabaseLogger extends AbstractLogger  {
 				// create features metadata table
 				String create = "CREATE TABLE " + "feature_metadata" +
 						" (_id INTEGER PRIMARY KEY, table_name TEXT, sensor_desc TEXT, feature_desc TEXT);";
-				db.execSQL(create);			
-				tableExistsCache.put("feature_metadata", true);			    
+				db.execSQL(create);
+				tableExistsCache.put("feature_metadata", true);
 			}
 
 			if (!tableExists("model_metadata")) {
 				// create models metadata table
 				String create = "CREATE TABLE " + "model_metadata" +
 						" (_id INTEGER PRIMARY KEY, table_name TEXT, model_desc TEXT, model_outputs TEXT);";
-				db.execSQL(create);				
-				tableExistsCache.put("model_metadata", true);			    
+				db.execSQL(create);
+				tableExistsCache.put("model_metadata", true);
 			}
 
 			if (!tableExists("incentives_metadata")) {
 				// create incentives metadata table
 				String create = "CREATE TABLE " + "incentives_metadata" +
 						" (_id INTEGER PRIMARY KEY, table_name TEXT, incentive_desc TEXT, total_earned DOUBLE);";
-				db.execSQL(create);				
-				tableExistsCache.put("incentives_metadata", true);			 			    
-			}			
+				db.execSQL(create);
+				tableExistsCache.put("incentives_metadata", true);
+			}
 
 		} catch (SQLiteException ex) {
-			Log.e(TAG, "Problem initializing DB: " + ex.getLocalizedMessage());			
+			Log.e(TAG, "Problem initializing DB: " + ex.getLocalizedMessage());
 		}
 
 		if (Log.DEBUG) Log.d(TAG, "DB ready");
-	}		
+	}
 
 
 
 	/**
 	 * Checks if the specified table exists
-	 * @param tableName The unique id of the table.  
-	 */	
+	 * @param tableName The unique id of the table.
+	 */
 	protected Boolean tableExists(String tableName) {
 		if (db == null)
 			return false;
@@ -288,7 +288,7 @@ public class DatabaseLogger extends AbstractLogger  {
 		}
 
 		return exists;
-	}	
+	}
 
 
 	// SENSOR LOGGING
@@ -297,12 +297,12 @@ public class DatabaseLogger extends AbstractLogger  {
 	/**
 	 * Creates a table for the specified sensor.  This should only get called if the table does not exist already.
 	 * @param tableName The unique id of the sensor (from Constants).
-	 */		
+	 */
 	protected Boolean createSensorTable(int sensorID) {
 		/*		if (db == null)
 			return null;
 
-		String tableName = "sensor" + sensorID;		
+		String tableName = "sensor" + sensorID;
 
 		try {
 			// add the table to metadata
@@ -312,26 +312,26 @@ public class DatabaseLogger extends AbstractLogger  {
 			values.put("sensor_desc", Constants.getSensorDescription(Constants.parseSensorId(sensorID)));
 			db.insertOrThrow("sensor_metadata", null, values);
 
-			// create the table 
-			String create = "CREATE TABLE " + tableName + 
+			// create the table
+			String create = "CREATE TABLE " + tableName +
 					" (_id INTEGER PRIMARY KEY, start_timestamp INTEGER, end_timestamp INTEGER, num_samples INTEGER, timestamps BLOB, samples BLOB);";
 
 			db.execSQL(create);
 
-			tableExistsCache.put(tableName, true);	    
+			tableExistsCache.put(tableName, true);
 		}
 		catch (SQLiteException e) {
 			Log.e(TAG, "Could not create sensor table " + tableName + ": " + e.getMessage());
-		}	    
-		 */		return null;		
+		}
+		 */		return null;
 	}
 
 	/**
 	 * Reads data in the DB from the specified sensor.  This enables context inferencing algorithms
-	 * to use older data no longer available in the feature/sensor/context buffers. 
+	 * to use older data no longer available in the feature/sensor/context buffers.
 	 * @param sensorID The unique id of the sensor (from Constants).
 	 * @param startTime, endTime The returned cursor will contain data in between (and including) startTime and endTime.
-	 */			
+	 */
 	public Cursor readSensorData(int sensorID, long startTime, long endTime) {
 		/*		if (db == null)*/
 		return null;
@@ -345,7 +345,7 @@ public class DatabaseLogger extends AbstractLogger  {
 		where +=  " OR end_timestamp BETWEEN '" + Long.toString(startTime) + "' AND '" + Long.toString(endTime) + "'";
 		Cursor c = db.query(tableName, columns, where, null, null, null, null);
 
-		return c;		
+		return c;
 		 */	}
 	public Cursor readdataquality(int sensorID, long startTime, long endTime) {
 		if (db == null)
@@ -358,7 +358,7 @@ public class DatabaseLogger extends AbstractLogger  {
 		String[] columns = {"timestamp", "entry"};
 		String where = "timestamp BETWEEN '" + Long.toString(startTime) + "' AND '" + Long.toString(endTime) + "'";
 		Cursor c = db.query(tableName, columns, where, null, null, null, null);
-		return c;		
+		return c;
 	}
 
 
@@ -375,7 +375,7 @@ public class DatabaseLogger extends AbstractLogger  {
 		where +=  " OR end_timestamp BETWEEN '" + Long.toString(startTime) + "' AND '" + Long.toString(endTime) + "'";
 		Cursor c = db.query(tableName, columns, where, null, null, null, null);
 
-		return c;		
+		return c;
 	}
 	 */
 	/* (non-Javadoc)
@@ -385,7 +385,7 @@ public class DatabaseLogger extends AbstractLogger  {
 		if(sensorID>=30 && sensorID<=37 || sensorID==26)
 			txtfilelog.logSensorData(sensorID, timestamps, buffer, startNewData, endNewData);
 		/*		if (timestamps.length <=0 || buffer.length <= 0)
-			return;		
+			return;
 		if (Constants.DATALOG_FILTER.contains(sensorID))
 			return;
 		if (db == null)
@@ -395,9 +395,9 @@ public class DatabaseLogger extends AbstractLogger  {
 		//ignores to save to DB file since these are saved in TOS file. We avoid duplication of data here to keep the file size small.
 		if(sensorID==12 || sensorID==21 || sensorID==27 || sensorID==11 || sensorID==13 || sensorID==14 || sensorID==18 || sensorID==19 || sensorID==20)
 			return;
-		//			if(Log.DEBUG_MONOWAR) Log.d("Monowar_ALL","OK    : (DBLOGGER count="+count[sensorID]+")ID="+sensorID+" DLength="+buffer.length+" STime="+timestamps[0]);			
+		//			if(Log.DEBUG_MONOWAR) Log.d("Monowar_ALL","OK    : (DBLOGGER count="+count[sensorID]+")ID="+sensorID+" DLength="+buffer.length+" STime="+timestamps[0]);
 
-		String tableName = "sensor" + sensorID;				
+		String tableName = "sensor" + sensorID;
 
 		// check if the table for this data exists
 		if (!tableExists(tableName)) {
@@ -411,8 +411,8 @@ public class DatabaseLogger extends AbstractLogger  {
 		 */	}
 
 	/**
-	 * A class that makes sensor logging occur in a new thread 
-	 */				
+	 * A class that makes sensor logging occur in a new thread
+	 */
 	/*	class SensorLogRunner implements Runnable {
 		private String tableName;
 		private long[] timestamps;
@@ -422,7 +422,7 @@ public class DatabaseLogger extends AbstractLogger  {
 
 		/**
 	 * Constructor
-	 */						
+	 */
 	/*		public SensorLogRunner(String tableName, long[] timestamps, int[] buffer, int startNewData, int endNewData) {
 			this.tableName = tableName;
 			this.timestamps = timestamps;
@@ -434,7 +434,7 @@ public class DatabaseLogger extends AbstractLogger  {
 
 		/**
 	 * Handles logging
-	 */						
+	 */
 	/*	public synchronized void run() {
 			long id = -1;
 
@@ -448,7 +448,7 @@ public class DatabaseLogger extends AbstractLogger  {
 				else {
 					start = startNewData;
 					end = endNewData;
-				}				
+				}
 				ContentValues values = new ContentValues();
 				values.put("num_samples", end - start);
 				values.put("start_timestamp", timestamps[start]);
@@ -465,7 +465,7 @@ public class DatabaseLogger extends AbstractLogger  {
 					id = db.insertOrThrow(tableName, null, values);
 					if(id<=0) {
 						if(Log.DEBUG_MONOWAR ) Log.m("Monowar_ALL","Exception: table="+tableName+" DSize="+buffer.length+" STime="+timestamps[0]);
-						if(Log.LOG_DB){DatabaseLogger db=DatabaseLogger.getInstance(this);db.logAnything("All_Sensor", "Exception: table="+tableName+" DSize="+buffer.length+" STime="+timestamps[0],System.currentTimeMillis());}	
+						if(Log.LOG_DB){DatabaseLogger db=DatabaseLogger.getInstance(this);db.logAnything("All_Sensor", "Exception: table="+tableName+" DSize="+buffer.length+" STime="+timestamps[0],System.currentTimeMillis());}
 					}
 					else {
 						if(Log.DEBUG_MONOWAR && (tableName.endsWith("12")||tableName.endsWith("21")||tableName.endsWith("27"))) Log.m("Monowar_ALL","(DatabaseLogger) table="+tableName+"ID="+id+" DSize="+buffer.length+" STime="+timestamps[0]);
@@ -475,7 +475,7 @@ public class DatabaseLogger extends AbstractLogger  {
 			}
 			catch (SQLiteException e) {
 				Log.e(TAG, "Could not write sensor sample to table " + tableName + ": " + e.getMessage());
-				if(Log.DEBUG_MONOWAR) Log.d("Monowar_ALL","Could not write sensor sample to table " + tableName + ": " + e.getMessage());				
+				if(Log.DEBUG_MONOWAR) Log.d("Monowar_ALL","Could not write sensor sample to table " + tableName + ": " + e.getMessage());
 			}
 		}
 	}
@@ -506,7 +506,7 @@ public class DatabaseLogger extends AbstractLogger  {
 			output[8*j + 7] = (byte)input[i];
 
 		}
-		//		if(Log.MONOWAR && end-start>1200) Log.d("Monowar_ALL","OK    : (DBLOGGER):start+"+start+"end="+end+","+input[0]+","+input[1]+","+input[2]+","+input[end-1]);			
+		//		if(Log.MONOWAR && end-start>1200) Log.d("Monowar_ALL","OK    : (DBLOGGER):start+"+start+"end="+end+","+input[0]+","+input[1]+","+input[2]+","+input[end-1]);
 
 		return output;
 	}
@@ -520,7 +520,7 @@ public class DatabaseLogger extends AbstractLogger  {
 
 	public static final long byteArrayToLong(byte [] b) {
 		return (b[0] << 56) + ((b[1] & 0xFF) << 48) + ((b[2] & 0xFF) << 40) + (b[3] & 0xFF << 32) + (b[4] & 0xFF << 24) + (b[5] & 0xFF << 16) + (b[6] & 0xFF << 8) + (b[7] & 0xFF);
-	}	
+	}
 
 	// FEATURE LOGGING
 	// ---------------
@@ -528,42 +528,42 @@ public class DatabaseLogger extends AbstractLogger  {
 	/**
 	 * Creates a table for the specified sensor-feature pair.  This should only get called if the table does not exist already.
 	 * @param featureID The unique id of the feature-sensor (from Constants).
-	 */		
+	 */
 	protected Boolean createFeatureTable(int featureID) {
 		if (db == null)
 			return null;
 
-		String tableName = "feature" + featureID;		
+		String tableName = "feature" + featureID;
 
 		try {
 			// add the table to metadata
 			ContentValues values = new ContentValues();
 			values.put("table_name", tableName);
 			values.put("sensor_desc", Constants.getSensorDescription(Constants.parseSensorId(featureID)));
-			values.put("feature_desc", Constants.getFeatureDescription(Constants.parseFeatureId(featureID)));	    
+			values.put("feature_desc", Constants.getFeatureDescription(Constants.parseFeatureId(featureID)));
 			db.insertOrThrow("feature_metadata", null, values);
 
-			// create the table 
-			String create = "CREATE TABLE " + tableName + 
+			// create the table
+			String create = "CREATE TABLE " + tableName +
 					" (_id INTEGER PRIMARY KEY, start_timestamp INTEGER, end_timestamp INTEGER, value DOUBLE);";
 
 			db.execSQL(create);
-			tableExistsCache.put(tableName, true);	    
+			tableExistsCache.put(tableName, true);
 		}
 		catch (SQLiteException e) {
 			Log.e(TAG, "Could not create feature table " + tableName + ": " + e.getMessage());
 		}
 
-		return null;		
+		return null;
 	}
 
 
 	/**
 	 * Reads data in the DB from the specified sensor-feature pair.  This enables context inferencing algorithms
-	 * to use older data no longer available in the feature/sensor/context buffers. 
+	 * to use older data no longer available in the feature/sensor/context buffers.
 	 * @param featureID The unique id of the sensor-feature pair (from Constants).
 	 * @param startTime, endTime The returned cursor will contain data in between (and including) startTime and endTime.
-	 */			
+	 */
 	public Cursor readFeatureData(int featureID, long startTime, long endTime) {
 		if (db == null)
 			return null;
@@ -575,14 +575,14 @@ public class DatabaseLogger extends AbstractLogger  {
 		String[] columns = {"start_timestamp", "end_timestamp", "value"};
 		String where = "start_timestamp BETWEEN '" + Long.toString(startTime) + "' AND '" + Long.toString(endTime) + "'";
 		where +=  " OR end_timestamp BETWEEN '" + Long.toString(startTime) + "' AND '" + Long.toString(endTime) + "'";
-		Cursor c = db.query(tableName, columns, where, null, null, null, null);		
+		Cursor c = db.query(tableName, columns, where, null, null, null, null);
 
-		return c;		
+		return c;
 	}
 
 	/* (non-Javadoc)
 	 * @see edu.cmu.ices.stress.phone.service.logger.ILogger#logFeatureData(int, long, double)
-	 */				
+	 */
 	public void logFeatureData(int featureID, long timeBegin, long timeEnd, double value){
 		if (Constants.DATALOG_FILTER.contains(featureID))
 			return;
@@ -590,7 +590,7 @@ public class DatabaseLogger extends AbstractLogger  {
 		if (db == null)
 			return;
 
-		String tableName = "feature" + featureID;				
+		String tableName = "feature" + featureID;
 
 		// check if the table for this data exists
 		if (!tableExists(tableName)) {
@@ -600,16 +600,16 @@ public class DatabaseLogger extends AbstractLogger  {
 
 		// write to DB
 		try{
-			ContentValues values = new ContentValues();				
+			ContentValues values = new ContentValues();
 			values.put("start_timestamp", timeBegin);
-			values.put("end_timestamp", timeEnd);			
+			values.put("end_timestamp", timeEnd);
 			values.put("value", value);
 
 			db.insertOrThrow(tableName, null, values);
 		}
 		catch (SQLiteException e) {
 			Log.e(TAG, "Could not write feature value to table " + tableName + ": " + e.getMessage());
-		}		
+		}
 
 		//		FeatureLogRunner featureLogRunner = new FeatureLogRunner(tableName, timestamp, value);
 		//		myhandel.post(featureLogRunner);
@@ -617,8 +617,8 @@ public class DatabaseLogger extends AbstractLogger  {
 
 
 	//	/**
-	//	 * A class that makes feature logging occur in a new thread 
-	//	 */				
+	//	 * A class that makes feature logging occur in a new thread
+	//	 */
 	//	class FeatureLogRunner implements Runnable {
 	//		private String tableName;
 	//		private long timestamp;
@@ -626,7 +626,7 @@ public class DatabaseLogger extends AbstractLogger  {
 	//
 	//		/**
 	//		 * Constructor
-	//		 */						
+	//		 */
 	//		public FeatureLogRunner(String tableName, long timestamp, double value) {
 	//			this.tableName = tableName;
 	//			this.timestamp = timestamp;
@@ -635,10 +635,10 @@ public class DatabaseLogger extends AbstractLogger  {
 	//
 	//		/**
 	//		 * Handles logging
-	//		 */						
+	//		 */
 	//		public void run() {
 	//			try{
-	//				ContentValues values = new ContentValues();				
+	//				ContentValues values = new ContentValues();
 	//				values.put("timestamp", timestamp);
 	//				values.put("value", value);
 	//
@@ -663,13 +663,13 @@ public class DatabaseLogger extends AbstractLogger  {
 		if (db == null)
 			return null;
 
-		String tableName = "model" + modelID;		
+		String tableName = "model" + modelID;
 
 		try {
 			// add the table to metadata
 			ContentValues values = new ContentValues();
 			values.put("table_name", tableName);
-			values.put("model_desc", Constants.getModelDescription(modelID));	    
+			values.put("model_desc", Constants.getModelDescription(modelID));
 
 			Log.mm("aa", tableName+" "+Constants.getModelDescription(modelID));
 
@@ -679,33 +679,33 @@ public class DatabaseLogger extends AbstractLogger  {
 			Iterator<Entry<Integer,String>> itr = model.getOutputDescription().entrySet().iterator();
 			String outputs = "";
 			while(itr.hasNext()) {
-				Entry<Integer,String> entry = itr.next(); 
+				Entry<Integer,String> entry = itr.next();
 				outputs += entry.getKey() + ":" + entry.getValue();
 				if (itr.hasNext()) {
 					outputs+="\n";
 				}
-			}	    		    
+			}
 			values.put("model_outputs", outputs);
 
 			db.insertOrThrow("model_metadata", null, values);
 
-			// create the table 
-			String create = "CREATE TABLE " + tableName + 
+			// create the table
+			String create = "CREATE TABLE " + tableName +
 					" (_id INTEGER PRIMARY KEY, start_timestamp INTEGER, end_timestamp INTEGER, label INTEGER);";
 
 			db.execSQL(create);
-			tableExistsCache.put(tableName, true);	    
+			tableExistsCache.put(tableName, true);
 		}
 		catch (SQLiteException e) {
 			Log.e(TAG, "Could not create model table " + tableName + ": " + e.getMessage());
 		}
-		return null;		
+		return null;
 	}
 
 
 	/**
 	 * Reads data in the DB from the specified model.  This enables context inferencing algorithms
-	 * to use older data no longer available in the feature/sensor/context buffers. 
+	 * to use older data no longer available in the feature/sensor/context buffers.
 	 * @param modelID The unique id of the model (from Constants).
 	 * @param startTime, endTime The returned cursor will contain data in between (and including) startTime and endTime.
 	 */
@@ -718,7 +718,7 @@ public class DatabaseLogger extends AbstractLogger  {
 		if (!tableExists(tableName))
 			logAnything("prog_stat", "first", System.currentTimeMillis());
 		String[] columns = {"_id", "timestamp", "entry"};
-		Cursor c = db.query(tableName, columns, null, null, null, null, null);		
+		Cursor c = db.query(tableName, columns, null, null, null, null, null);
 		if (c!=null) {
 			if (c.moveToFirst()) {
 				do {
@@ -727,16 +727,16 @@ public class DatabaseLogger extends AbstractLogger  {
 				} while (c.moveToNext());
 			}
 			c.close();
-		}		
-		return firstday;		
+		}
+		return firstday;
 	}
 	public long getdeadperiodtoday(String str) {
 		String s;
 		int ID=-1,id;
 		Calendar cal = Calendar.getInstance();
-		cal.set(Calendar.HOUR_OF_DAY,0);		cal.set(Calendar.MINUTE,0);		cal.set(Calendar.SECOND,0);		cal.set(Calendar.MILLISECOND,0);		
+		cal.set(Calendar.HOUR_OF_DAY,0);		cal.set(Calendar.MINUTE,0);		cal.set(Calendar.SECOND,0);		cal.set(Calendar.MILLISECOND,0);
 		long starttime=cal.getTimeInMillis();
-		cal.set(Calendar.HOUR_OF_DAY,23);		cal.set(Calendar.MINUTE,59);		cal.set(Calendar.SECOND,59);		cal.set(Calendar.MILLISECOND,0);		
+		cal.set(Calendar.HOUR_OF_DAY,23);		cal.set(Calendar.MINUTE,59);		cal.set(Calendar.SECOND,59);		cal.set(Calendar.MILLISECOND,0);
 		long endtime=cal.getTimeInMillis();
 
 		long time,TIME=-1;
@@ -747,7 +747,7 @@ public class DatabaseLogger extends AbstractLogger  {
 		if (!tableExists(tableName))
 			return -1;
 		String[] columns = {"_id", "timestamp", "entry1","entry2"};
-		Cursor c = db.query(tableName, columns, null, null, null, null, null);		
+		Cursor c = db.query(tableName, columns, null, null, null, null, null);
 		if (c!=null) {
 			if (c.moveToFirst()) {
 				do {
@@ -762,7 +762,7 @@ public class DatabaseLogger extends AbstractLogger  {
 			c.close();
 		}
 		if(ID==-1) return -1;
-		return TIME;		
+		return TIME;
 	}
 
 	public long getlastfromdeadperiod(String str) {
@@ -776,7 +776,7 @@ public class DatabaseLogger extends AbstractLogger  {
 		if (!tableExists(tableName))
 			return -1;
 		String[] columns = {"_id", "timestamp", "entry1","entry2"};
-		Cursor c = db.query(tableName, columns, null, null, null, null, null);		
+		Cursor c = db.query(tableName, columns, null, null, null, null, null);
 		if (c!=null) {
 			if (c.moveToFirst()) {
 				do {
@@ -790,7 +790,7 @@ public class DatabaseLogger extends AbstractLogger  {
 			c.close();
 		}
 		if(ID==-1) return -1;
-		return TIME;		
+		return TIME;
 	}
 	public int isdeadperiod(String str,long timestamp) {
 		String s;
@@ -802,7 +802,7 @@ public class DatabaseLogger extends AbstractLogger  {
 		if (!tableExists(tableName))
 			return 0;
 		String[] columns = {"_id", "timestamp", "entry1","entry2"};
-		Cursor c = db.query(tableName, columns, null, null, null, null, null);		
+		Cursor c = db.query(tableName, columns, null, null, null, null, null);
 		if (c!=null) {
 			if (c.moveToFirst()) {
 				do {
@@ -828,7 +828,7 @@ public class DatabaseLogger extends AbstractLogger  {
 		if (!tableExists(tableName))
 			return -1;
 		String[] columns = {"_id", "timestamp", "entry1","entry2"};
-		Cursor c = db.query(tableName, columns, null, null, null, null, null);		
+		Cursor c = db.query(tableName, columns, null, null, null, null, null);
 		if (c!=null) {
 			if (c.moveToFirst()) {
 				do {
@@ -842,7 +842,7 @@ public class DatabaseLogger extends AbstractLogger  {
 			c.close();
 		}
 		return TIME;
-	}	
+	}
 
 	public int getNumReportObserved(int modelID,long starttime,long endtime)
 	{
@@ -859,16 +859,16 @@ public class DatabaseLogger extends AbstractLogger  {
 		if (db == null)
 			return null;
 
-		String tableName = "model" + modelID;		
+		String tableName = "model" + modelID;
 		if (!tableExists(tableName))
 			return null;
 
 		String[] columns = {"start_timestamp", "end_timestamp", "label"};
 		String where = "start_timestamp BETWEEN '" + Long.toString(startTime) + "' AND '" + Long.toString(endTime) + "'";
 		where +=  " OR end_timestamp BETWEEN '" + Long.toString(startTime) + "' AND '" + Long.toString(endTime) + "'";
-		Cursor c = db.query(tableName, columns, where, null, null, null, null);		
+		Cursor c = db.query(tableName, columns, where, null, null, null, null);
 
-		return c;		
+		return c;
 	}
 
 	/* (non-Javadoc)
@@ -881,7 +881,7 @@ public class DatabaseLogger extends AbstractLogger  {
 		if (db == null)
 			return;
 
-		String tableName = "model" + modelID;		
+		String tableName = "model" + modelID;
 
 		// check if the table for this data exists
 		if (!tableExists(tableName)) {
@@ -892,16 +892,16 @@ public class DatabaseLogger extends AbstractLogger  {
 
 		// write to the db
 		try{
-			ContentValues values = new ContentValues();				
+			ContentValues values = new ContentValues();
 			values.put("start_timestamp", startTime);
-			values.put("end_timestamp", endTime);			
+			values.put("end_timestamp", endTime);
 			values.put("label", label);
 
 			db.insertOrThrow(tableName, null, values);
 		}
 		catch (SQLiteException e) {
 			Log.e(TAG, "Could not write model label to table " + tableName + ": " + e.getMessage());
-		}		
+		}
 
 		//		ModelLogRunner modelLogRunner = new ModelLogRunner(tableName, timestamp, label);
 		//		myhandel.post(modelLogRunner);
@@ -909,8 +909,8 @@ public class DatabaseLogger extends AbstractLogger  {
 
 
 	//	/**
-	//	 * A class that makes feature logging occur in a new thread 
-	//	 */				
+	//	 * A class that makes feature logging occur in a new thread
+	//	 */
 	//	class ModelLogRunner implements Runnable {
 	//		private String tableName;
 	//		private long timestamp;
@@ -918,7 +918,7 @@ public class DatabaseLogger extends AbstractLogger  {
 	//
 	//		/**
 	//		 * Constructor
-	//		 */						
+	//		 */
 	//		public ModelLogRunner(String tableName, long timestamp, int label) {
 	//			this.tableName = tableName;
 	//			this.timestamp = timestamp;
@@ -927,10 +927,10 @@ public class DatabaseLogger extends AbstractLogger  {
 	//
 	//		/**
 	//		 * Handles logging
-	//		 */						
+	//		 */
 	//		public void run() {
 	//			try{
-	//				ContentValues values = new ContentValues();				
+	//				ContentValues values = new ContentValues();
 	//				values.put("timestamp", timestamp);
 	//				values.put("label", Integer.toString(label));
 	//
@@ -947,17 +947,17 @@ public class DatabaseLogger extends AbstractLogger  {
 	// -----------
 
 	/**
-	 * Creates a table for logging EMA data  (labels, timing, etc.).  
+	 * Creates a table for logging EMA data  (labels, timing, etc.).
 	 * This should only get called if the table does not exist already.
 	 * This is tied very closely to the InterviewContent class.
-	 */		
+	 */
 	protected Boolean createEMATable() {
 		if (db == null)
 			return null;
 		String filename=Constants.EMA_QUESTION_FILENAME[Constants.INDEX_CURRENT_EMA_QUESTION_FILENAME];
 		filename=filename.substring(0, filename.length()-4);
 
-		String tableName = "ema_"+filename;				
+		String tableName = "ema_"+filename;
 		// add the table to metadata
 		ContentValues values = new ContentValues();
 		values.put("table_name", tableName);
@@ -966,19 +966,19 @@ public class DatabaseLogger extends AbstractLogger  {
 		Iterator<Entry<Integer,String>> itr = EMALogConstants.emaTriggerDescriptions.entrySet().iterator();
 		String triggerTypes = "";
 		while(itr.hasNext()) {
-			Entry<Integer,String> entry = itr.next(); 
+			Entry<Integer,String> entry = itr.next();
 			triggerTypes += entry.getKey() + ":" + entry.getValue();
 			if (itr.hasNext()) {
 				triggerTypes+="\n";
 			}
-		}	    
+		}
 		values.put("trigger_types", triggerTypes);
 
 		// status types
 		itr = EMALogConstants.emaStatusDescriptions.entrySet().iterator();
 		String statusTypes = "";
 		while(itr.hasNext()) {
-			Entry<Integer,String> entry = itr.next(); 
+			Entry<Integer,String> entry = itr.next();
 			statusTypes += entry.getKey() + ":" + entry.getValue();
 			if (itr.hasNext()) {
 				statusTypes+="\n";
@@ -996,7 +996,7 @@ public class DatabaseLogger extends AbstractLogger  {
 			if (i < len - 1) {
 				questions += "\n";
 			}
-		}	    
+		}
 		values.put("delay_questions_desc", questions);
 
 		// delay responses
@@ -1013,7 +1013,7 @@ public class DatabaseLogger extends AbstractLogger  {
 			}
 
 			responses += "]\n";
-		}   	    
+		}
 		values.put("delay_responses_desc", responses);
 
 		// questions
@@ -1024,7 +1024,7 @@ public class DatabaseLogger extends AbstractLogger  {
 			if (i < len - 1) {
 				questions += "\n";
 			}
-		}	    
+		}
 		values.put("questions_desc", questions);
 
 		// responses
@@ -1042,7 +1042,7 @@ public class DatabaseLogger extends AbstractLogger  {
 				}
 			}
 			responses += "]\n";
-		}   	    
+		}
 		values.put("responses_desc", responses);
 
 		try {
@@ -1051,9 +1051,9 @@ public class DatabaseLogger extends AbstractLogger  {
 
 			db.insertOrThrow("ema_metadata_"+ffilename, null, values);
 
-			// create the table 
-			String create = "CREATE TABLE " + tableName + 
-					" (_id INTEGER PRIMARY KEY, trigger_type INTEGER, context TEXT, status INTEGER, " + 
+			// create the table
+			String create = "CREATE TABLE " + tableName +
+					" (_id INTEGER PRIMARY KEY, trigger_type INTEGER, context TEXT, status INTEGER, " +
 					" prompt_timestamp INTEGER, delay_duration INTEGER, start_timestamp INTEGER";
 
 			len = content.getNumberDelayQuestions();
@@ -1069,26 +1069,26 @@ public class DatabaseLogger extends AbstractLogger  {
 			create += ");";
 
 			db.execSQL(create);
-			tableExistsCache.put(tableName, true);	    
+			tableExistsCache.put(tableName, true);
 		}
 		catch (SQLiteException e) {
 			Log.e(TAG, "Could not create EMA table " + tableName + ": " + e.getMessage());
-		}	    
-		return null;				
+		}
+		return null;
 	}
 	public synchronized void createEMACountTable(String tableName)
 	{
-		String create = "CREATE TABLE " + tableName + 
-				" (_id INTEGER PRIMARY KEY, trigger_type INTEGER, context TEXT, status INTEGER, " + 
+		String create = "CREATE TABLE " + tableName +
+				" (_id INTEGER PRIMARY KEY, trigger_type INTEGER, context TEXT, status INTEGER, " +
 				" prompt_timestamp INTEGER, completed_timestamp INTEGER";
 
 		create += ");";
 
 		db.execSQL(create);
-		tableExistsCache.put(tableName, true);	    
+		tableExistsCache.put(tableName, true);
 
 	}
-	
+
 	public synchronized void logEMAcount(int triggerType, String emaContext, int status, long prompt,
 			long completed){
 		if (db == null)
@@ -1101,7 +1101,7 @@ public class DatabaseLogger extends AbstractLogger  {
 			createEMACountTable(tableName);
 		}
 		try{
-			ContentValues values = new ContentValues();				
+			ContentValues values = new ContentValues();
 			values.put("trigger_type", triggerType);
 			values.put("context", emaContext);
 			values.put("status", status);
@@ -1124,7 +1124,7 @@ public class DatabaseLogger extends AbstractLogger  {
 		String filename=Constants.EMA_QUESTION_FILENAME[Constants.INDEX_CURRENT_EMA_QUESTION_FILENAME];
 		filename=filename.substring(0, filename.length()-4);
 
-		String tableName = "ema_"+filename;				
+		String tableName = "ema_"+filename;
 
 		// check if the table for this data exists
 		if (!tableExists(tableName)) {
@@ -1133,17 +1133,17 @@ public class DatabaseLogger extends AbstractLogger  {
 			createEMATable();
 		}
 
-		EMALogRunner emaLogRunner = new EMALogRunner(tableName, triggerType, emaContext, status, 
-				prompt, delayDuration, delayResponses, delayResponseTimes, 
+		EMALogRunner emaLogRunner = new EMALogRunner(tableName, triggerType, emaContext, status,
+				prompt, delayDuration, delayResponses, delayResponseTimes,
 				start, responses, responseTimes);
 		myhandel.post(emaLogRunner);
 
 		this.logEMAcount(triggerType, emaContext, status, prompt, System.currentTimeMillis());
-	}	
+	}
 
 	/**
-	 * A class that makes sensor logging occur in a new thread 
-	 */				
+	 * A class that makes sensor logging occur in a new thread
+	 */
 	class EMALogRunner implements Runnable {
 		String tableName;
 		int triggerType;
@@ -1179,13 +1179,13 @@ public class DatabaseLogger extends AbstractLogger  {
 
 		/**
 		 * Handles logging
-		 */						
+		 */
 		public void run() {
 			// write to the db
 			Thread.currentThread().setName("fs_EMALogRunner_"+System.currentTimeMillis());
 
 			try{
-				ContentValues values = new ContentValues();				
+				ContentValues values = new ContentValues();
 				values.put("trigger_type", triggerType);
 				values.put("context", emaContext);
 				values.put("status", status);
@@ -1223,17 +1223,17 @@ public class DatabaseLogger extends AbstractLogger  {
 		int value,count=0;
 
 		Log.ema_alarm("", "starttime="+Constants.millisecondToDateTime(startTime)+" endtime="+Constants.millisecondToDateTime(endTime)+" contextcolumn="+contextcolumn+" count="+c.getCount()+" column="+c.getColumnCount());
-		
+
 		if (c.moveToFirst()) {
 			do {
 				String str=c.getString(contextcolumn);
 				if(str==null || str.length()==0) {count++;continue;}
 				value =Integer.parseInt(str);
 				if(value!=Constants.MODEL_COLLECT_SALIVA) count++;
-				
+
 			} while (c.moveToNext());
 		}
-		
+
 		c.close();
 		return count;
 	}
@@ -1244,7 +1244,7 @@ public class DatabaseLogger extends AbstractLogger  {
 		int value,count=0;
 
 		Log.ema_alarm("", "starttime="+Constants.millisecondToDateTime(startTime)+" endtime="+Constants.millisecondToDateTime(endTime)+" contextcolumn="+contextcolumn+" count="+c.getCount()+" column="+c.getColumnCount());
-		
+
 		if (c.moveToFirst()) {
 			do {
 				String str=c.getString(contextcolumn);
@@ -1254,11 +1254,11 @@ public class DatabaseLogger extends AbstractLogger  {
 				count++;
 			} while (c.moveToNext());
 		}
-		
+
 		c.close();
 		return count;
 	}
-	
+
 	public int getNumEMAsWithin7Mins(long startTime,long endTime) {
 		Cursor c = readEMAcount(startTime,endTime);
 		if(c==null) return 0;
@@ -1266,7 +1266,7 @@ public class DatabaseLogger extends AbstractLogger  {
 		int value=0,count=0;
 
 		Log.ema_alarm("", "starttime="+Constants.millisecondToDateTime(startTime)+" endtime="+Constants.millisecondToDateTime(endTime)+" contextcolumn="+contextcolumn+" count="+c.getCount()+" column="+c.getColumnCount());
-		
+
 		if (c.moveToFirst()) {
 			do {
 				String str;
@@ -1286,7 +1286,7 @@ public class DatabaseLogger extends AbstractLogger  {
 					count++;
 			} while (c.moveToNext());
 		}
-		
+
 		c.close();
 		return count;
 	}
@@ -1294,14 +1294,14 @@ public class DatabaseLogger extends AbstractLogger  {
 		reportValueObject.emaPromptCount = 0;
 		reportValueObject.emaAnsweredCount = 0;
 		reportValueObject.emaAnswered7MinCount = 0;
-		
+
 		Cursor c = readEMAcount(startTime,endTime);
 		if(c==null) return false;
 		int contextcolumn = c.getColumnIndex("context");
 		int value=0;
 
 		Log.ema_alarm("", "starttime="+Constants.millisecondToDateTime(startTime)+" endtime="+Constants.millisecondToDateTime(endTime)+" contextcolumn="+contextcolumn+" count="+c.getCount()+" column="+c.getColumnCount());
-		
+
 		if (c.moveToFirst()) {
 			do {
 				String str;
@@ -1327,7 +1327,7 @@ public class DatabaseLogger extends AbstractLogger  {
 		c.close();
 		return true;
 	}
-	
+
 	public long getLastEMATime(String fieldname) {
 		Cursor c = readEMAcount(0,Long.MAX_VALUE);
 		long value=0,max=0;
@@ -1339,7 +1339,7 @@ public class DatabaseLogger extends AbstractLogger  {
 			value = c.getLong(contextcolumn);
 			max=value;
 			while (c.moveToNext()) {
-				value = c.getLong(contextcolumn);	
+				value = c.getLong(contextcolumn);
 				if (value>max) {
 					max=value;
 				}
@@ -1361,7 +1361,7 @@ public class DatabaseLogger extends AbstractLogger  {
 			value = c.getInt(contextcolumn);
 			if(value==modelID) count++;
 			while (c.moveToNext()) {
-				value = c.getInt(contextcolumn);	
+				value = c.getInt(contextcolumn);
 				if (value==modelID) {
 					count++;
 				}
@@ -1386,16 +1386,16 @@ public class DatabaseLogger extends AbstractLogger  {
 			return null;
 
 
-		String[] columns = new String[5]; 
-		columns[0] = "trigger_type"; 
+		String[] columns = new String[5];
+		columns[0] = "trigger_type";
 		columns[1] = "context";
-		columns[2] = "status"; 
-		columns[3] = "prompt_timestamp"; 
+		columns[2] = "status";
+		columns[3] = "prompt_timestamp";
 		columns[4] = "completed_timestamp";
 
 		Cursor c = db.query(tableName, columns, "prompt_timestamp BETWEEN'" + Long.toString(startTime) + "' AND '" + Long.toString(endTime) +"'", null, null, null, null);
 
-		return c;		
+		return c;
 	}
 
 
@@ -1410,7 +1410,7 @@ public class DatabaseLogger extends AbstractLogger  {
 
 	/**
 	 * Creates a table for logging earned incentives.  This should only get called if the table does not exist already.
-	 */		
+	 */
 	protected Boolean createIncentivesTable(int incentiveID) {
 		if (db == null) {
 			Log.d("db", "createIncentiveTable - db is null");
@@ -1421,27 +1421,27 @@ public class DatabaseLogger extends AbstractLogger  {
 
 		Log.d("db", "trying to create incentives table");
 
-		try {	    	
+		try {
 			// add the table to metadata
 			ContentValues values = new ContentValues();
 			values.put("table_name", tableName);
 
 			String incentiveDesc = AbstractIncentivesManager.getIncentiveDesc(incentiveID);
 
-			values.put("incentive_desc",incentiveDesc);   	    
+			values.put("incentive_desc",incentiveDesc);
 			values.put("total_earned", 0.00);
-			db.insertOrThrow("incentives_metadata", null, values);	    	
+			db.insertOrThrow("incentives_metadata", null, values);
 
-			// create the table 
-			String create = "CREATE TABLE " + tableName + 
-					" (_id INTEGER PRIMARY KEY, timestamp INTEGER, comment TEXT, amount DOUBLE);";		    		    
+			// create the table
+			String create = "CREATE TABLE " + tableName +
+					" (_id INTEGER PRIMARY KEY, timestamp INTEGER, comment TEXT, amount DOUBLE);";
 			db.execSQL(create);
-			tableExistsCache.put(tableName, true);	    
+			tableExistsCache.put(tableName, true);
 		}
 		catch (SQLiteException e) {
 			Log.e(TAG, "Could not create incentives table " + tableName + ": " + e.getMessage());
-		}	    
-		return null;			
+		}
+		return null;
 	}
 
 	public void logIncentiveEarned(int incentiveID, String comment, long timestamp, float amount, float total) {
@@ -1452,7 +1452,7 @@ public class DatabaseLogger extends AbstractLogger  {
 
 		Log.d("db", "trying to log incentives");
 
-		String tableName = "incentives" + incentiveID;				
+		String tableName = "incentives" + incentiveID;
 
 		// check if the table for this data exists
 		if (!tableExists(tableName)) {
@@ -1472,16 +1472,16 @@ public class DatabaseLogger extends AbstractLogger  {
 
 			values.clear();
 			values.put("total_earned", total);
-			db.update("incentives_metadata", values, "table_name='" + tableName + "'", null);			
+			db.update("incentives_metadata", values, "table_name='" + tableName + "'", null);
 		}
 		catch (SQLiteException e) {
 			Log.e(TAG, "Could not write incentive to table " + tableName + ": " + e.getMessage());
-		}				
+		}
 	}
 
 	/**
 	 * Reads incentives data in the DB.  This enables reloading incentives data.
-	 */			
+	 */
 	public Cursor readIncentivesData(int incentiveID) {
 		if (db == null) {
 			Log.d("db", "db is null");
@@ -1497,12 +1497,12 @@ public class DatabaseLogger extends AbstractLogger  {
 		String[] columns = {"amount", "timestamp", "comment"};
 		Cursor c = db.query(tableName, columns, null, null, null, null, null);
 
-		return c;		
+		return c;
 	}
 
 	//	/**
 	//	 * Reads incentives data in the DB.  This enables reloading incentives data.
-	//	 */			
+	//	 */
 	//	public long readIncentivesTimeWearingBand() {
 	//		if (db == null)
 	//			return 0;
@@ -1516,8 +1516,8 @@ public class DatabaseLogger extends AbstractLogger  {
 	//		if (c.moveToFirst()) {
 	//			return c.getLong(0);
 	//		}
-	//		
-	//		return 0;		
+	//
+	//		return 0;
 	//	}
 
 
@@ -1526,34 +1526,34 @@ public class DatabaseLogger extends AbstractLogger  {
 
 	/**
 	 * Creates a table for logging performance values.  This should only get called if the table does not exist already.
-	 */		
+	 */
 	protected Boolean createPerformanceTable() {
 		if (db == null)
 			return null;
 
-		String tableName = "performance";		
+		String tableName = "performance";
 
-		// create the table 
-		String create = "CREATE TABLE " + tableName + 
+		// create the table
+		String create = "CREATE TABLE " + tableName +
 				" (_id INTEGER PRIMARY KEY, timestamp INTEGER, location INTEGER, report TEXT);";
 
 		try {
 			db.execSQL(create);
-			tableExistsCache.put(tableName, true);	    
+			tableExistsCache.put(tableName, true);
 		}
 		catch (SQLiteException e) {
 			Log.e(TAG, "Could not create performance table " + tableName + ": " + e.getMessage());
-		}	    
-		return null;		
+		}
+		return null;
 	}
 
 
 	@Override
-	public void logPerformance(int location, long timestamp, String logString) {		
+	public void logPerformance(int location, long timestamp, String logString) {
 		if (db == null)
 			return;
 
-		String tableName = "performance";				
+		String tableName = "performance";
 
 		// check if the table for this data exists
 		if (!tableExists(tableName)) {
@@ -1572,7 +1572,7 @@ public class DatabaseLogger extends AbstractLogger  {
 		}
 		catch (SQLiteException e) {
 			Log.e(TAG, "Could not write performance string to table " + tableName + ": " + e.getMessage());
-		}		
+		}
 
 	}
 
@@ -1599,32 +1599,32 @@ public class DatabaseLogger extends AbstractLogger  {
 
 	/**
 	 * Creates a table for logging dead periods.  This should only get called if the table does not exist already.
-	 */		
+	 */
 	/*	protected Boolean createDeadPeriodTable() {
 		if (db == null)
 			return null;
 
-		String tableName = "deadperiod";		
+		String tableName = "deadperiod";
 
-		// create the table 
-		String create = "CREATE TABLE " + tableName + 
+		// create the table
+		String create = "CREATE TABLE " + tableName +
 				" (_id INTEGER PRIMARY KEY, start INTEGER, end INTEGER);";
 
 		try {
 			db.execSQL(create);
-			tableExistsCache.put(tableName, true);	    
+			tableExistsCache.put(tableName, true);
 		}
 		catch (SQLiteException e) {
 			Log.e(TAG, "Could not create dead period table " + tableName + ": " + e.getMessage());
-		}	    
-		return null;		
+		}
+		return null;
 	}
 
 
 	 */
 	@Override
 	public void close() {
-		if(Log.DEBUG_MONOWAR) Log.m("Monowar_ALL","OK\t: (DatabaseLogger)_close() db="+db.toString());		
+		if(Log.DEBUG_MONOWAR) Log.m("Monowar_ALL","OK\t: (DatabaseLogger)_close() db="+db.toString());
 		if (db != null && db.isOpen())
 			db.close();
 
@@ -1644,33 +1644,33 @@ public class DatabaseLogger extends AbstractLogger  {
 		if (db == null)
 			return null;
 
-		String tableName = "resume";		
+		String tableName = "resume";
 
-		// create the table 
-		String create = "CREATE TABLE " + tableName + 
+		// create the table
+		String create = "CREATE TABLE " + tableName +
 				" (_id INTEGER PRIMARY KEY, timestamp INTEGER);";
 
 		try {
 			db.execSQL(create);
-			tableExistsCache.put(tableName, true);	    
+			tableExistsCache.put(tableName, true);
 		}
 		catch (SQLiteException e) {
 			Log.e(TAG, "Could not create resume table " + tableName + ": " + e.getMessage());
-		}	    
-		return null;		
+		}
+		return null;
 	}
 
 	public void logResume(long timestamp) {
 		if (db == null)
 			return;
 
-		String tableName = "resume";				
+		String tableName = "resume";
 
 		// check if the table for this data exists
 		if (!tableExists(tableName)) {
 			// if not, create the table
 			createResumeTable();
-		}		
+		}
 
 		// write to the db
 		ContentValues values = new ContentValues();
@@ -1681,7 +1681,7 @@ public class DatabaseLogger extends AbstractLogger  {
 		}
 		catch (SQLiteException e) {
 			Log.e(TAG, "Could not write performance string to table " + tableName + ": " + e.getMessage());
-		}		
+		}
 
 	}
 	public long countwakeupsleep(String str,long starttimestamp,long endtimestamp) {
@@ -1707,7 +1707,7 @@ public class DatabaseLogger extends AbstractLogger  {
 			c.close();
 		}
 		return count;
-	}	
+	}
 	@Override
 	public void logAnything(String tableName, String entry, long timestamp) {
 		if (db == null)
@@ -1716,8 +1716,8 @@ public class DatabaseLogger extends AbstractLogger  {
 		// check if the table for this data exists
 		if (!tableExists(tableName)) {
 			// if not, create the table
-			createAnythingTable(tableName); 
-		}		
+			createAnythingTable(tableName);
+		}
 
 		// write to the db
 		ContentValues values = new ContentValues();
@@ -1729,7 +1729,7 @@ public class DatabaseLogger extends AbstractLogger  {
 		}
 		catch (SQLiteException e) {
 			Log.e(TAG, "Could not write generic entry to table " + tableName + ": " + e.getMessage());
-		}						
+		}
 	}
 	public boolean logAnything4(String tableName, long timestamp, String entry1, String entry2) {
 		Date date = new Date(Long.valueOf(entry2));		SimpleDateFormat formatter = new SimpleDateFormat("HH:mm:ss:SSS");
@@ -1740,12 +1740,12 @@ public class DatabaseLogger extends AbstractLogger  {
 		// check if the table for this data exists
 		if (!tableExists(tableName)) {
 			// if not, create the table
-			createAnythingTable4(tableName); 
-		}		
+			createAnythingTable4(tableName);
+		}
 
 		// write to the db
 		ContentValues values = new ContentValues();
-		values.put("timestamp", timestamp);		
+		values.put("timestamp", timestamp);
 		values.put("entry1", entry1);
 		values.put("entry2", entry2);
 
@@ -1755,7 +1755,7 @@ public class DatabaseLogger extends AbstractLogger  {
 		catch (SQLiteException e) {
 			Log.e(TAG, "Could not write generic entry to table " + tableName + ": " + e.getMessage());
 			return false;
-		}				
+		}
 		return true;
 	}
 
@@ -1763,43 +1763,43 @@ public class DatabaseLogger extends AbstractLogger  {
 		if (db == null)
 			return null;
 
-		// create the table 
-		String create = "CREATE TABLE " + tableName + 
+		// create the table
+		String create = "CREATE TABLE " + tableName +
 				" (_id INTEGER PRIMARY KEY, timestamp INTEGER, entry TEXT);";
 
 		try {
 			db.execSQL(create);
-			tableExistsCache.put(tableName, true);	    
+			tableExistsCache.put(tableName, true);
 		}
 		catch (SQLiteException e) {
 			Log.e(TAG, "Could not create anything table " + tableName + ": " + e.getMessage());
-		}	    
-		return null;		
-	}	
+		}
+		return null;
+	}
 	protected Boolean createAnythingTable4(String tableName) {
 		if (db == null)
 			return null;
 
-		// create the table 
-		String create = "CREATE TABLE " + tableName + 
+		// create the table
+		String create = "CREATE TABLE " + tableName +
 				" (_id INTEGER PRIMARY KEY, timestamp INTEGER, entry1 TEXT, entry2 TEXT);";
 
 		try {
 			db.execSQL(create);
-			tableExistsCache.put(tableName, true);	    
+			tableExistsCache.put(tableName, true);
 		}
 		catch (SQLiteException e) {
 			Log.e(TAG, "Could not create anything table " + tableName + ": " + e.getMessage());
-		}	    
-		return null;		
-	}	
+		}
+		return null;
+	}
 
 	// Lab Study LOGGING
 	// -------------------------
 
 	/**
 	 * Creates a table for logging lab study events.  This should only get called if the table does not exist already.
-	 */		
+	 */
 
 
 	public void logLabStudy_mark(String tableName, String sessionname, String eventname,long starttime,long endtime) {
@@ -1809,8 +1809,8 @@ public class DatabaseLogger extends AbstractLogger  {
 		// check if the table for this data exists
 		if (!tableExists(tableName)) {
 			// if not, create the table
-			createLabStudy_markTable(tableName); 
-		}		
+			createLabStudy_markTable(tableName);
+		}
 
 		// write to the db
 		ContentValues values = new ContentValues();
@@ -1869,47 +1869,47 @@ public class DatabaseLogger extends AbstractLogger  {
 		if (db == null)
 			return null;
 
-		// create the table 
-		String create = "CREATE TABLE " + tableName + 
+		// create the table
+		String create = "CREATE TABLE " + tableName +
 				" (_id INTEGER PRIMARY KEY, sessionname TEXT, eventname TEXT, starttime INTEGER, endtime INTEGER);";
 
 		try {
 			db.execSQL(create);
-			tableExistsCache.put(tableName, true);	    
+			tableExistsCache.put(tableName, true);
 		}
 		catch (SQLiteException e) {
 			Log.e(TAG, "Could not create anything table " + tableName + ": " + e.getMessage());
-		}	    
-		return null;		
+		}
+		return null;
 	}
 	protected Boolean createValidDataTable(int sensorID) {
 		if (db == null)
 			return null;
 
-		String tableName = "validdata"+sensorID;		
+		String tableName = "validdata"+sensorID;
 
 		try {
-			// create the table 
-			String create = "CREATE TABLE " + tableName + 
+			// create the table
+			String create = "CREATE TABLE " + tableName +
 					" (_id INTEGER PRIMARY KEY, timestamps INTEGER, total_minutes INTEGER, valid_minutes INTEGER);";
 
 			db.execSQL(create);
 
-			//		    tableExistsCache.put(tableName, true);	    
+			//		    tableExistsCache.put(tableName, true);
 		}
 		catch (SQLiteException e) {
 			Log.e(TAG, "Could not create ema table " + tableName + ": " + e.getMessage());
-		}	    
-		return null;		
+		}
+		return null;
 	}
 
 
 	/**
 	 * Reads data in the DB from the specified sensor.  This enables context inferencing algorithms
-	 * to use older data no longer available in the feature/sensor/context buffers. 
+	 * to use older data no longer available in the feature/sensor/context buffers.
 	 * @param sensorID The unique id of the sensor (from Constants).
 	 * @param startTime, endTime The returned cursor will contain data in between (and including) startTime and endTime.
-	 */			
+	 */
 	public Cursor readValidData(int sensorID, long timestamps) {
 		if (db == null)
 			return null;
@@ -1923,7 +1923,7 @@ public class DatabaseLogger extends AbstractLogger  {
 
 		//		String where = "timestamps BETWEEN '" + Long.toString(timestamps) + "' AND '" + Long.toString(timestamps) + "'";
 		Cursor c = db.query(tableName, columns, where, null, null, null, null);
-		return c;		
+		return c;
 	}
 	/*	public Cursor readEMAData(long timestamps) {
 		if (db == null)
@@ -1938,9 +1938,9 @@ public class DatabaseLogger extends AbstractLogger  {
 
 //		String where = "timestamps BETWEEN '" + Long.toString(startTime) + "' AND '" + Long.toString(endTime) + "'";
 		Cursor c = db.query(tableName, columns, where, null, null, null, null);
-		return c;		
+		return c;
 	}
-	 */	
+	 */
 	public synchronized void logValidData(int sensorID, long timestamps, int total_minutes, int valid_minutes){
 		Cursor c;
 		if (db == null)
@@ -1972,7 +1972,7 @@ public class DatabaseLogger extends AbstractLogger  {
 				values.put("total_minutes", curMinutes);
 				values.put("valid_minutes", validMinutes);
 
-				db.update(tableName, values, "timestamps='" + Long.toString(timestamps) + "'", null);			
+				db.update(tableName, values, "timestamps='" + Long.toString(timestamps) + "'", null);
 				if(Log.DEBUG_MONOWAR) Log.m("Monowar_ALL","OK\t: DB_P logValidData()"+db+" UPDATE");
 
 			}
@@ -2009,7 +2009,7 @@ public class DatabaseLogger extends AbstractLogger  {
 				values.put("timestamps",timestamps);
 				values.put("num_emas", numEMAs);
 				values.put("num_emas_answered", numEMAsAnswered);
-				db.update(tableName, values, "timestamps='" + Long.toString(timestamps) + "'", null);			
+				db.update(tableName, values, "timestamps='" + Long.toString(timestamps) + "'", null);
 			}
 			c.close();
 		}
@@ -2018,21 +2018,21 @@ public class DatabaseLogger extends AbstractLogger  {
 		 if (db == null)
 			 return null;
 
-		 String tableName = "emacount";		
+		 String tableName = "emacount";
 
 		 try {
-			 // create the table 
-			 String create = "CREATE TABLE " + tableName + 
+			 // create the table
+			 String create = "CREATE TABLE " + tableName +
 					 " (_id INTEGER PRIMARY KEY, timestamps INTEGER, num_emas INTEGER, num_emas_answered INTEGER);";
 
 			 db.execSQL(create);
 
-			 //		    tableExistsCache.put(tableName, true);	    
+			 //		    tableExistsCache.put(tableName, true);
 		 }
 		 catch (SQLiteException e) {
 			 Log.e(TAG, "Could not create ema table " + tableName + ": " + e.getMessage());
-		 }	    
-		 return null;		
+		 }
+		 return null;
 	 }
 	 public  int getSalivaConfirmation(long startTime, long endTime) {
 		 int count=0;
@@ -2053,33 +2053,33 @@ public class DatabaseLogger extends AbstractLogger  {
 						 count++;
 				 } while (c.moveToNext());
 			 }
-		 }		
-		 c.close();	
+		 }
+		 c.close();
 		 return count;
 	 }
 
 	private final String DATA_QUALITY_TABLE_NAME = "DataQualitySensors";
 	public synchronized void createDataQualityTable()
 	{
-		String create = "CREATE TABLE " + DATA_QUALITY_TABLE_NAME + 
+		String create = "CREATE TABLE " + DATA_QUALITY_TABLE_NAME +
 				" (_id INTEGER PRIMARY KEY, sensor_type INTEGER, timestamp_from INTEGER, timestamp_to INTEGER, quality INTEGER);";
 
 
 		db.execSQL(create);
-		tableExistsCache.put(DATA_QUALITY_TABLE_NAME, true);	    
+		tableExistsCache.put(DATA_QUALITY_TABLE_NAME, true);
 
 	}
-	
+
 	public synchronized void logDataQuality(int sensorType, long timestampFrom, long timestampTo, int quality){
 		if (db == null) {
 			return;
 		}
-		
+
 		if (!tableExists(this.DATA_QUALITY_TABLE_NAME)) {
 			// if not, create the table
 			createDataQualityTable();
 		}
-		
+
 		ContentValues values = new ContentValues();
 		values.put("sensor_type", sensorType);
 		values.put("timestamp_from", timestampFrom);
@@ -2087,7 +2087,7 @@ public class DatabaseLogger extends AbstractLogger  {
 		values.put("quality", quality);
 		db.insertOrThrow(this.DATA_QUALITY_TABLE_NAME, null, values);
 	}
-	
+
 	public long getQualityDuration(SensorTypeQualityEnum sensorType, long timestampFrom, long timestampTo, DataQualityColorEnum quality) {
 		if (db == null) {
 			return 0;
@@ -2127,5 +2127,5 @@ public class DatabaseLogger extends AbstractLogger  {
 		c.close();
 		return durationMilli;
 	}
-	
+
 };

@@ -1,24 +1,24 @@
 ﻿//Copyright (c) 2010, University of Memphis
 //All rights reserved.
 //
-//Redistribution and use in source and binary forms, with or without modification, are permitted provided 
+//Redistribution and use in source and binary forms, with or without modification, are permitted provided
 //that the following conditions are met:
 //
-//    * Redistributions of source code must retain the above copyright notice, this list of conditions and 
+//    * Redistributions of source code must retain the above copyright notice, this list of conditions and
 //      the following disclaimer.
-//    * Redistributions in binary form must reproduce the above copyright notice, this list of conditions 
-//      and the following disclaimer in the documentation and/or other materials provided with the 
+//    * Redistributions in binary form must reproduce the above copyright notice, this list of conditions
+//      and the following disclaimer in the documentation and/or other materials provided with the
 //      distribution.
-//    * Neither the name of the University of Memphis nor the names of its contributors may be used to 
+//    * Neither the name of the University of Memphis nor the names of its contributors may be used to
 //      endorse or promote products derived from this software without specific prior written permission.
 //
-//THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED 
-//WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A 
-//PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR 
-//ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED 
-//TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) 
-//HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING 
-//NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
+//THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED
+//WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+//PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR
+//ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
+//TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+//HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+//NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 //POSSIBILITY OF SUCH DAMAGE.
 //
 
@@ -48,7 +48,7 @@ public class StressDetectionModel extends ModelCalculation{
 	public final static int NOTSTRESS = 1;
 	public final static int STRESS = 2;
 	static double maxFValue[]={ 4.7368    ,4.3080    ,5.3359    ,5.4816    ,5.9184    ,5.1250    ,4.0462    ,3.9805    ,4.3502    ,2.2025    ,2.6288    ,5.0921,2.7805};
-	//static double maxFValue[]={0.857616870318324,	1,	0.773481233564947,	0.822607190334903,	
+	//static double maxFValue[]={0.857616870318324,	1,	0.773481233564947,	0.822607190334903,
 		//0.883397034082781,	0.966259721762748,	0.934228196085541,	0.849586209123200,
 		//1,	0.680225607450200,	0.699561339352478,	1,	0.726831871873207};
 	static double minFValue[]={-1.8694   ,-3.1003   ,-1.4935   ,-1.6805   ,-1.7398   ,-2.0703   ,-1.1872   ,-1.3573   ,-1.7656   ,-3.8432   ,-4.0433   ,-1.9772,  -4.1381};
@@ -64,10 +64,10 @@ public class StressDetectionModel extends ModelCalculation{
 	}
 
 	public int getID() {
-		
+
 		return Constants.MODEL_STRESS;
 	}
-	
+
 	public ArrayList<Integer> getUsedFeatures() {
 		//Log.d("getUsedFeature","getUsedFeature");
 		Log.d("Monowar","(M) getUsedFeatures -> start");
@@ -85,7 +85,7 @@ public class StressDetectionModel extends ModelCalculation{
 		RRMD=(f(11)-Min(11))/(Max(11)-Min(11));
 		RRQD=(f(12)-Min(12))/(Max(12)-Min(12));
 		RR80=(f(13)-Min(13))/(Max(13)-Min(13));
-*/		
+*/
 		// 0. Minute Ventilation
 		featureLabels.add(Constants.getId(Constants.FEATURE_MEAN, Constants.SENSOR_VIRTUAL_MINUTEVENTILATION));
 		// 1. Inspiration Duration (Mean)
@@ -97,27 +97,27 @@ public class StressDetectionModel extends ModelCalculation{
 		// 4. IE Ratio (Median)
 		featureLabels.add(Constants.getId(Constants.FEATURE_MEDIAN, Constants.SENSOR_VIRTUAL_IERATIO)); //5		 [6][4]	//1
 		// 5. Stretch (Median)
-		featureLabels.add(Constants.getId(Constants.FEATURE_MEDIAN,Constants.SENSOR_VIRTUAL_STRETCH));		
+		featureLabels.add(Constants.getId(Constants.FEATURE_MEDIAN,Constants.SENSOR_VIRTUAL_STRETCH));
 		// 6. Stretch (Quartile Deviation)
 		featureLabels.add(Constants.getId(Constants.FEATURE_QRDEV,Constants.SENSOR_VIRTUAL_STRETCH));
 		// 7. Stretch (80th Percentile)
 		featureLabels.add(Constants.getId(Constants.FEATURE_PERCENTILE80,Constants.SENSOR_VIRTUAL_STRETCH));
 		// 8. High Frequency Power1
-		featureLabels.add(Constants.getId(Constants.FEATURE_HR_POWER_12,Constants.SENSOR_VIRTUAL_RR));		
+		featureLabels.add(Constants.getId(Constants.FEATURE_HR_POWER_12,Constants.SENSOR_VIRTUAL_RR));
 		// 9. RR Interval (Mean)
 		featureLabels.add(Constants.getId(Constants.FEATURE_MEAN,Constants.SENSOR_VIRTUAL_RR));
 		// 10. RR Interval (Median)
 		featureLabels.add(Constants.getId(Constants.FEATURE_MEDIAN,Constants.SENSOR_VIRTUAL_RR));
-		
+
 		// 11. RR Interval (Quantile Deviation)
 		featureLabels.add(Constants.getId(Constants.FEATURE_QRDEV,Constants.SENSOR_VIRTUAL_RR));
-		
+
 		// 12. RR Interval (80th Percentile)
 		featureLabels.add(Constants.getId(Constants.FEATURE_PERCENTILE80,Constants.SENSOR_VIRTUAL_RR));
-		
+
 /*		featureLabels.add(Constants.getId(Constants.FEATURE_NINETIETH_PERCENTILE, Constants.SENSOR_VIRTUAL_INHALATION));		//is it from virtual sensor or what???//1
 		featureLabels.add(Constants.getId(Constants.FEATURE_SD, Constants.SENSOR_VIRTUAL_INHALATION));												  //1
-		
+
 		//featureLabels.add(Constants.getId(Constants.FEATURE_MEDIAN, Constants.SENSOR_VIRTUAL_INHALATION)); //11  [2][1]								//1
 		featureLabels.add(Constants.getId(Constants.FEATURE_MEAN, Constants.SENSOR_VIRTUAL_EXHALATION));//10     [3][2]	//1
 		//featureLabels.add(Constants.getId(Constants.FEATURE_SD, Constants.SENSOR_VIRTUAL_EXHALATION));					//1
@@ -130,59 +130,59 @@ public class StressDetectionModel extends ModelCalculation{
 		featureLabels.add(Constants.getId(Constants.FEATURE_MEAN,Constants.SENSOR_VIRTUAL_BDURATION)); //4	 [11][8]//1
 		featureLabels.add(Constants.getId(Constants.FEATURE_SECOND_BEST,Constants.SENSOR_VIRTUAL_BDURATION));
 		featureLabels.add(Constants.getId(Constants.FEATURE_SD,Constants.SENSOR_VIRTUAL_STRETCH));
-		
+
 //		featureLabels.add(Constants.getId(Constants.FEATURE_MEAN,Constants.SENSOR_VIRTUAL_FIRSTDIFF_EXHALATION_NEW));//7   [12][9]
 //		featureLabels.add(Constants.getId(Constants.FEATURE_SECOND_BEST,Constants.SENSOR_VIRTUAL_INHALATION)); //6	   [13][10]//1
 //		featureLabels.add(Constants.getId(Constants.FEATURE_MEDIAN,Constants.SENSOR_VIRTUAL_FIRSTDIFF_EXHALATION_NEW));//8 [14][11]
 //		featureLabels.add(Constants.getId(Constants.FEATURE_SECOND_BEST,Constants.SENSOR_VIRTUAL_EXHALATION));//9	   [15][12]//1
-		
+
 		//featureLabels.add(Constants.getId(Constants.FEATURE_NULL, Constants.SENSOR_RIP));
 		//featureLabels.add(Constants.getId(Constants.FEATURE_NULL, Constants.SENSOR_VIRTUAL_REALPEAKVALLEY));
-*/		
+*/
 		featureNum=featureLabels.size();																//actually it will be the count of total used features
-		
+
 		featureFlag = new int[featureNum];
 		features = new double[featureNum];
-		Log.d("Monowar","(M) getUsedFeatures -> end");		
+		Log.d("Monowar","(M) getUsedFeatures -> end");
 		return featureLabels;
 	}
 
-	
-	
+
+
 	@Override
 	public void computeContext(FeatureSet fs) {
-		
+
 		Log.d("Monowar","(M) compute context->start");
 
-		for (int featureID : featureLabels) {			
+		for (int featureID : featureLabels) {
 			double result = fs.getFeature(featureID);
 
 			//get values from the listener
 			int index = featureLabels.indexOf(featureID);
-			
+
 			// save features
 			features[index] = result;
 
 			Log.d("Monowar", "(M) Computer Features: Feature ID = "+featureID+" value= "+result+" Begin= "+fs.getBeginTime()+" End="+fs.getEndTime());
 		}
-		
+
 		//first remove the rounding effect of IEratio so that it will be again a floating point. divide by 10000 for mean, median and standard deviation
 		features[0]=features[0]/10000;
 		features[3]=features[3]/10000;
-		
+
 		features[4]=features[4]/10000;
 //		features[4]=features[4]/IEratioCalculation.roundingMultiplier;
 		//features[8]=features[8]/IEratioCalculation.roundingMultiplier;
-		
+
 		//push classification result to a higher layer
 		stressClassification = predictionFromSVM();
 		ContextBus.getInstance().pushNewContext(getID(),stressClassification, fs.getBeginTime(), fs.getEndTime());
 		if (Log.DEBUG) Log.d("ConersationClassification","New Classification: "+((Integer)stressClassification).toString());
 		//initialize all the flags to 0
 		Arrays.fill(featureFlag, 0);
-	
+
 	}
-	
+
 	public int predictionFromSVM()
 	{
 		//ConversationPrediction conv=new ConversationPrediction();
@@ -206,12 +206,12 @@ public class StressDetectionModel extends ModelCalculation{
 				meanFeature[i]=features[i];
 				stdFeature[i]=0;
 				features[i]=0;
-				
+
 			}
 			else {
 			meanFeature[i]=(meanFeature[i]*(normNo-1)+features[i])/normNo;
 			stdFeature[i]=stdFeature[i]+(meanFeature[i]-features[i])*(meanFeature[i]-features[i])*normNo/(normNo-1);
-			
+
 			features[i]=(features[i]-meanFeature[i])/Math.sqrt(stdFeature[i]/(normNo-1));
 			}
 			}
@@ -231,7 +231,7 @@ public class StressDetectionModel extends ModelCalculation{
 			return STRESS;
 		else return NOTSTRESS;
 	}
-	
+
 	private final static HashMap<Integer, String> outputDescription = new HashMap<Integer, String>() {
 		{
 			put(StressDetectionModel.NOTSTRESS,"Not Stress");
@@ -241,7 +241,7 @@ public class StressDetectionModel extends ModelCalculation{
 			//put(ConversationPrediction.SPEAKING, "Speaking");
 		}
 	};
-	
+
 	public HashMap<Integer, String> getOutputDescription() {
 		return outputDescription;
 	}
